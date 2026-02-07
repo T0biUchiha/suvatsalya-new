@@ -1,6 +1,5 @@
 import { ChevronDown } from "lucide-react";
 import { Button } from "../layout/Button";
-import { Link } from "react-router-dom"; 
 
 export default function HeroSection({ imageUrl }) {
   return (
@@ -24,10 +23,7 @@ export default function HeroSection({ imageUrl }) {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-38">
         <h1 
           className="text-4xl md:text-5xl lg:text-6xl font-normal mb-8 leading-tight text-gray-900"
-          style={{
-            fontFamily: "'Playfair Display', 'EB Garamond', serif",
-            letterSpacing: '0.02em'
-          }}
+          style={{ letterSpacing: '0.02em' }}
         >
           THE CHILD DEVELOPMENT CENTRE
         </h1>
@@ -44,9 +40,11 @@ export default function HeroSection({ imageUrl }) {
         </p>
         
         {/* 2. WRAP BUTTON IN LINK */}
-        <Link to="/therapies">
-          <Button text="OUR PROGRAMME" className="px-12 py-4 text-sm font-semibold tracking-widest uppercase transition-colors shadow-lg"></Button>
-        </Link>
+        <Button
+          to="/therapies"
+          text="OUR PROGRAMME"
+          className="px-12 py-4 text-sm font-semibold tracking-widest uppercase transition-colors shadow-lg"
+        />
 
         {/* Scroll down indicator */}
         <div className="mt-20">

@@ -1,7 +1,11 @@
 import hero2Img from '../../assets/home-page/hero2.jpg';
 import hero3Img from '../../assets/home-page/hero3.jpg';
 import hero1Img from '../../assets/home-page/hero1.jpg';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder for team
+import gaganImg from '../../assets/directors/Dr. Gagan Deep Chhabra.png';
+import swatiImg from '../../assets/directors/Dr. Swati Chhabra.png';
+import sharadImg from '../../assets/directors/Mr. SHARAD SHUKLA.png';
+import vinayImg from '../../assets/directors/Mr. Vinay Jain.jpeg';
+import tanushreeImg from '../../assets/directors/Ms. Tanushree Bhargava.png';
 
 // A reusable component for team members, based on your screenshot
 function TeamMemberCard({ image, name, title, bio, color = 'sky' }) {
@@ -91,30 +95,18 @@ export function AboutUs() {
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
                 Our Mission
               </h2>
-              <ul className="space-y-4 text-base text-gray-700 leading-relaxed">
-                <li className="flex items-start">
-                  <span className="mr-3 text-2xl">🌱</span>
-                  <span>
-                    <strong className="text-gray-800">To provide</strong> comprehensive, evidence-based care that supports the cognitive, emotional, physical, and social development of children.
-                  </span>
+              <ul className="list-disc list-inside space-y-4 text-base text-gray-700 leading-relaxed">
+                <li>
+                  <strong className="text-gray-800">To provide</strong> comprehensive, evidence-based care that supports the cognitive, emotional, physical, and social development of children.
                 </li>
-                <li className="flex items-start">
-                  <span className="mr-3 text-2xl">💬</span>
-                  <span>
-                    <strong className="text-gray-800">To offer</strong> personalized therapy and learning programs designed to meet each child’s unique needs and strengths.
-                  </span>
+                <li>
+                  <strong className="text-gray-800">To offer</strong> personalized therapy and learning programs designed to meet each child’s unique needs and strengths.
                 </li>
-                <li className="flex items-start">
-                  <span className="mr-3 text-2xl">🤝</span>
-                  <span>
-                    <strong className="text-gray-800">To empower</strong> families through counselling, education, and collaboration, fostering a supportive network around every child.
-                  </span>
+                <li>
+                  <strong className="text-gray-800">To empower</strong> families through counselling, education, and collaboration, fostering a supportive network around every child.
                 </li>
-                <li className="flex items-start">
-                  <span className="mr-3 text-2xl">💖</span>
-                  <span>
-                    <strong className="text-gray-800">To create</strong> a safe, inclusive, and child-friendly space where growth is celebrated and progress is nurtured with compassion.
-                  </span>
+                <li>
+                  <strong className="text-gray-800">To create</strong> a safe, inclusive, and child-friendly space where growth is celebrated and progress is nurtured with compassion.
                 </li>
               </ul>
             </div>
@@ -129,33 +121,81 @@ export function AboutUs() {
         </div>
       </section>
 
-      {/* --- "Our Team" Section --- */}
+      {/* --- "Our Founder" Section --- */}
       <section className="w-full bg-white py-16 md:py-24">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 1. ADDED ID="team" HERE */}
           <h2 id="team" className="text-4xl md:text-5xl font-light text-gray-900 mb-16 text-center">
-            Our Co-Founders
+            Our Founder
           </h2>
-          
+
           <div className="space-y-8">
             <TeamMemberCard
-              image={hero4Img} // Placeholder
-              name="Dr. Jane Doe - Co-founder"
-              title="Clinical Director"
-              bio="Jane is an entrepreneur and philanthropist, who joined to support children with special needs, aiming to make therapy accessible for every child. Beyond business, Jane is dedicated to uplifting underprivileged children through autism education and healthcare, driven by a vision of building a better, inclusive society."
+              image={sharadImg}
+              name="Mr. Sharad Shukla"
+              title="Director & Co-Founder"
+              bio="Mr. Sharad Shukla founded Suvatsalya to create a nurturing, inclusive space where children with diverse needs can grow at their own pace. With a background in Nautical Science and advanced training in Special Education and Clinical Psychology, he bridges discipline, empathy, and evidence-based care to support families through every step of the developmental journey."
               color="sky"
             />
-            
+          </div>
+        </div>
+      </section>
+
+      {/* --- "Founder’s Message" Section --- */}
+      <section className="w-full bg-gray-50 py-16 md:py-24">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-8">
+              A Message from the Founder
+            </h2>
+            <p className="text-base text-gray-700 leading-relaxed mb-6">
+              Families often arrive with questions, worry, and hope. Suvatsalya exists to remind them that they are not alone. We focus on seeing every child beyond labels, celebrating small victories, and building confidence step by step.
+            </p>
+            <p className="text-base text-gray-700 leading-relaxed">
+              Through early intervention, therapeutic support, and ongoing parent guidance, we partner with families to understand each child’s unique strengths and needs. Our responsibility is not to rush or reshape a child, but to listen, support, and gently guide them toward independence in a safe, respectful, and nurturing environment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --- "Board of Advisors" Section --- */}
+      <section className="w-full bg-white py-16 md:py-24">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 id="board" className="text-4xl md:text-5xl font-light text-gray-900 mb-16 text-center">
+            Board of Advisors
+          </h2>
+
+          <div className="space-y-8">
             <TeamMemberCard
-              image={hero4Img} // Placeholder
-              name="Dr. John Smith - Pediatric Neurologist"
-              title="Lead Therapist"
-              bio="Dr. Smith is the best pediatric neurologist in London. He has a career spanning 25 years in pediatric neurology. Dr. Smith made a name for himself with a focus on diagnosis and managing of various challenging child issues including but not limited to autism and cognitive disabilities. He has treated over 20k cases."
+              image={swatiImg}
+              name="Dr. Swati Chhabra"
+              title="Advisor, Developmental Paediatrics"
+              bio="Dr. Swati Chhabra is a Developmental Paediatrician with over 10 years of experience in early intervention and child development. She leads the Developmental Paediatrics Department at Yatharth Hospital and advises early intervention services at AIIMS Jodhpur."
+              color="sky"
+            />
+
+            <TeamMemberCard
+              image={gaganImg}
+              name="Dr. Gagan Deep Chhabra"
+              title="Advisor, Nephrology"
+              bio="Dr. Gagan Deep Chhabra is a distinguished nephrologist with extensive clinical and academic experience, including over 2500 renal transplants. His advisory role supports clinical governance, quality, and evidence-based practice."
               color="pink"
             />
-            
-            {/* You can add more team members here */}
-            
+
+            <TeamMemberCard
+              image={tanushreeImg}
+              name="Ms. Tanushree Bhargava"
+              title="Advisor, Clinical Psychology (RCI)"
+              bio="Ms. Tanushree Bhargava is an RCI-licensed Clinical Psychologist with over 10 years of experience across academic and clinical settings. She specializes in neurodevelopmental disorders, psychological assessments, and child-centered interventions."
+              color="sky"
+            />
+
+            <TeamMemberCard
+              image={vinayImg}
+              name="Mr. Vinay Jain"
+              title="Advisor, Technology & Operations"
+              bio="Mr. Vinay Jain brings over 10 years of experience in product development and technology leadership. He supports the centre’s digital systems, process efficiency, and operational scalability."
+              color="pink"
+            />
           </div>
         </div>
       </section>

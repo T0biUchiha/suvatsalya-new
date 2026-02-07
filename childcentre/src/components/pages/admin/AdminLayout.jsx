@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
-import logo from '../../../assets/logo/suvatsalya-logo.png';
+import logo from '/src/assets/logo/suvatsalya-logo.png';
 import { Home, Mail, FileText, LogOut, Briefcase, BookText } from 'lucide-react'; 
 
 export function AdminLayout() {

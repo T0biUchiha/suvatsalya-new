@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import doctorImg from '../../assets/images/doctor.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function AdhdPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={doctorImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function AdhdPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌟 Understanding ADHD (Attention-Deficit/Hyperactivity Disorder) in Children
+                   Understanding ADHD (Attention-Deficit/Hyperactivity Disorder) in Children
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function AdhdPage() {
               {/* What is ADHD? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is ADHD?
+                   What is ADHD?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Attention-Deficit/Hyperactivity Disorder (ADHD) is a neurodevelopmental condition that impacts a child’s ability to focus, control impulses, and regulate energy levels. It is not caused by bad parenting or laziness — it is a result of differences in the way the brain develops and functions.
@@ -80,7 +80,7 @@ export function AdhdPage() {
               {/* Types of ADHD */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ⚙️ Types of ADHD
+                  ️ Types of ADHD
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   According to the DSM-5 (Diagnostic and Statistical Manual of Mental Disorders), ADHD is classified into three main types:
@@ -102,7 +102,7 @@ export function AdhdPage() {
               {/* Common Signs */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Common Signs and Symptoms
+                   Common Signs and Symptoms
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">In Early Childhood (3–5 years)</h4>
                 <ul className="list-disc list-inside space-y-2">
@@ -130,7 +130,7 @@ export function AdhdPage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌿 Causes and Risk Factors
+                   Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ADHD develops from a combination of genetic, biological, and environmental factors:
@@ -150,7 +150,7 @@ export function AdhdPage() {
               {/* Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 How is ADHD Diagnosed?
+                   How is ADHD Diagnosed?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, our diagnostic process is comprehensive and child-friendly, involving multiple steps to ensure accuracy and sensitivity:
@@ -178,7 +178,7 @@ export function AdhdPage() {
               {/* Treatment */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💡 Treatment and Management at Suvatsalya
+                   Treatment and Management at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ADHD cannot be “cured,” but with the right approach, it can be effectively managed. Our treatment philosophy focuses on empowering children and families through a combination of therapies and strategies.
@@ -216,7 +216,7 @@ export function AdhdPage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ❤️ Prognosis and Outlook
+                  ️ Prognosis and Outlook
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   With early identification and the right support, children with ADHD can grow into focused, confident, and successful individuals. Many develop exceptional creativity, innovation, and problem-solving abilities once their strengths are nurtured.
@@ -229,7 +229,7 @@ export function AdhdPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Our Services for ADHD Include
+                   Our Services for ADHD Include
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Comprehensive ADHD assessment and diagnosis</ContentListItem>
@@ -241,11 +241,6 @@ export function AdhdPage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “True growth begins when compassion meets understanding — and every child deserves a space where both coexist.”
-                </p>
-              </div>
 
             </div>
           </div>

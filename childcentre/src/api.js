@@ -3,7 +3,7 @@ import axios from 'axios';
 // 1. Create the custom axios instance
 const api = axios.create({
   // 2. Define the Base URL for all API requests
-  baseURL: 'http://localhost:5000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050',
 });
 
 // 3. (Optional but recommended) Add a request interceptor

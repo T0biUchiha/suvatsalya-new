@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import speechImg from '../../assets/images/speech.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function SpeechTherapyPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={speechImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,10 +51,10 @@ export function SpeechTherapyPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🗣️ Speech and Language Therapy: Helping Every Child Find Their Voice
+                  ️ Speech and Language Therapy: Helping Every Child Find Their Voice
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  🌼 Introduction
+                   Introduction
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Speech and Language Therapy (SLT) is a specialized field focused on assessing, diagnosing, and treating communication, speech, language, and swallowing disorders in children and adults.
@@ -67,7 +67,7 @@ export function SpeechTherapyPage() {
               {/* What is SLT? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💬 What is Speech and Language Therapy?
+                   What is Speech and Language Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Speech and Language Therapy helps individuals who have difficulties in:
@@ -87,7 +87,7 @@ export function SpeechTherapyPage() {
               {/* Who Needs SLT? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Who Needs Speech and Language Therapy?
+                   Who Needs Speech and Language Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children may benefit from speech therapy if they have any of the following:
@@ -109,7 +109,7 @@ export function SpeechTherapyPage() {
               {/* Common Areas */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Common Areas of Intervention
+                   Common Areas of Intervention
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">1. Speech Disorders:</h4>
                 <p className="text-lg text-gray-700 leading-relaxed">
@@ -132,7 +132,7 @@ export function SpeechTherapyPage() {
               {/* How it Works */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 How Speech Therapy Works
+                   How Speech Therapy Works
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Speech therapy sessions are designed according to the child’s developmental level and individual needs. Therapists use engaging, play-based, and goal-oriented techniques such as:
@@ -150,23 +150,23 @@ export function SpeechTherapyPage() {
               {/* Benefits */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Benefits of Speech and Language Therapy
+                   Benefits of Speech and Language Therapy
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <ContentListItem>✅ Improves clarity of speech and pronunciation</ContentListItem>
-                  <ContentListItem>✅ Builds expressive and receptive language</ContentListItem>
-                  <ContentListItem>✅ Boosts confidence and self-expression</ContentListItem>
-                  <ContentListItem>✅ Enhances social and peer communication skills</ContentListItem>
-                  <ContentListItem>✅ Strengthens oral-motor control for speech and feeding</ContentListItem>
-                  <ContentListItem>✅ Supports academic readiness and classroom learning</ContentListItem>
-                  <ContentListItem>✅ Promotes overall emotional and social development</ContentListItem>
+                  <ContentListItem>Improves clarity of speech and pronunciation</ContentListItem>
+                  <ContentListItem>Builds expressive and receptive language</ContentListItem>
+                  <ContentListItem>Boosts confidence and self-expression</ContentListItem>
+                  <ContentListItem>Enhances social and peer communication skills</ContentListItem>
+                  <ContentListItem>Strengthens oral-motor control for speech and feeding</ContentListItem>
+                  <ContentListItem>Supports academic readiness and classroom learning</ContentListItem>
+                  <ContentListItem>Promotes overall emotional and social development</ContentListItem>
                 </ul>
               </div>
 
               {/* Role of Parents */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👩‍⚕️ Role of Parents and Caregivers
+                  Role of Parents and Caregivers
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents play a central role in speech therapy success. Speech therapists guide parents to:
@@ -182,7 +182,7 @@ export function SpeechTherapyPage() {
               {/* SLT at Suvatsalya */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Speech Therapy at Suvatsalya Child Growth and Development Centre
+                   Speech Therapy at Suvatsalya Child Growth and Development Centre
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, our Speech and Language Therapy program focuses on:
@@ -202,40 +202,13 @@ export function SpeechTherapyPage() {
               {/* Conclusion */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Conclusion
+                   Conclusion
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Communication is the bridge between thoughts and the world — and every child deserves the chance to cross it with confidence.
                 </p>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Through early intervention, structured therapy, and family support, Speech and Language Therapy can transform a child’s life — helping them express, understand, and connect more fully.
-                </p>
-              </div>
-
-              {/* Get in Touch */}
-              <div className="border-t border-gray-200 pt-8 mt-8">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  📞 Get in Touch
-                </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                  If you notice speech or language delays in your child, early support can make a lasting difference.
-                </p>
-                <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                  📍 Visit Suvatsalya Child Growth and Development Centre for an expert evaluation and personalized therapy plan.
-                </p>
-                {/* --- 3. ADDED BUTTON HERE --- */}
-                <div className="mt-8">
-                  <Link to="/contact">
-                    <Button text="Book an Appointment" variant="secondary" />
-                  </Link>
-                </div>
-                
-              </div>
-
-            {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-               <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                  Let’s help your child find their voice — one word, one smile, one connection at a time.
                 </p>
               </div>
 

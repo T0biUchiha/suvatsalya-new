@@ -1,19 +1,19 @@
 import HeroSection from '../page-components/HeroSection';
 import { Button } from '../layout/Button';
-import { Link } from 'react-router-dom'; // 1. Import Link
-import hero1Img from '../../assets/home-page/hero1.jpg';
-import hero2Img from '../../assets/home-page/hero2.jpg';
-import hero3Img from '../../assets/home-page/hero3.jpg';
-import hero4Img from '../../assets/home-page/hero4.jpg';
-import hero5Img from '../../assets/home-page/hero5.jpg';
-import hero6Img from '../../assets/home-page/hero6.jpg';
+import { Link } from 'react-router-dom';
+import bannerImg from '../../assets/images/banner.png';
+import doctorImg from '../../assets/images/doctor.png';
+import specialImg from '../../assets/images/special.png';
+import speechImg from '../../assets/images/speech.png';
+import occupationalImg from '../../assets/images/occupational therapy.png';
+import abaImg from '../../assets/images/ABA Therapy.png';
 import { ArrowRight } from 'lucide-react';
 
 export function Homepage() {
   return (
     <>
       {/* Hero Section */}
-      <HeroSection imageUrl={hero1Img} />
+      <HeroSection imageUrl={bannerImg} />
 
       {/* Welcome Section */}
       <section className="w-full py-20 bg-white">
@@ -32,9 +32,7 @@ export function Homepage() {
             </p>
 
             {/* 2. WRAPPED BUTTON IN LINK */}
-            <Link to="/contact">
-              <Button text="BOOK A CONSULTATION" />
-            </Link>
+            <Button to="/contact" text="BOOK A CONSULTATION" />
           </div>
         </div>
       </section>
@@ -76,8 +74,8 @@ export function Homepage() {
           {/* Right side - Image */}
           <div className="h-full min-h-[500px] md:min-h-[600px]">
             <img 
-              src={hero2Img}
-              alt="Child studying" 
+              src={doctorImg}
+              alt="Child development support" 
               className="w-full h-full object-cover"
             />
           </div>
@@ -89,8 +87,8 @@ export function Homepage() {
         {/* Hero Image with Overlay Text */}
         <div className="relative h-80 md:h-96">
           <img 
-            src={hero3Img} 
-            alt="Child playing outdoors" 
+            src={specialImg} 
+            alt="Child development activities" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -109,8 +107,8 @@ export function Homepage() {
               {/* About Us Card */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <img 
-                  src={hero4Img}
-                  alt="Student reading" 
+                  src={speechImg}
+                  alt="Speech and language therapy" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6 flex-grow flex flex-col">
@@ -121,17 +119,15 @@ export function Homepage() {
                     Find out about the diverse neuro-developmental difficulties that we treat.
                   </p>
                   {/* 4. WRAPPED BUTTON IN LINK */}
-                  <Link to="/about">
-                    <Button text="LEARN MORE" />
-                  </Link>
+                  <Button to="/about" text="LEARN MORE" />
                 </div>
               </div>
 
               {/* The Practioners Card */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <img 
-                  src={hero5Img} 
-                  alt="The Child Development Centre building" 
+                  src={occupationalImg} 
+                  alt="Occupational therapy" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6 flex-grow flex flex-col">
@@ -142,17 +138,15 @@ export function Homepage() {
                     Meet the Practitioners at the Child Development Centre.
                   </p>
                   {/* 5. WRAPPED BUTTON IN LINK */}
-                  <Link to="/about#team">
-                    <Button text="MEET THE TEAM" />
-                  </Link>
+                  <Button to="/about#team" text="MEET THE TEAM" />
                 </div>
               </div>
 
               {/* Contact Us Card */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <img 
-                  src={hero6Img}
-                  alt="Contact form" 
+                  src={abaImg}
+                  alt="Applied behavior analysis therapy" 
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6 flex-grow flex flex-col">
@@ -163,9 +157,7 @@ export function Homepage() {
                     If you have any questions, or would like to book an Initial Consultation.
                   </p>
                   {/* 6. WRAPPED BUTTON IN LINK */}
-                  <Link to="/contact">
-                    <Button text="GET IN TOUCH" />
-                  </Link>
+                  <Button to="/contact" text="GET IN TOUCH" />
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import abaImg from '../../assets/images/ABA Therapy.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function AbaTherapyPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={abaImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function AbaTherapyPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌼 Introduction
+                   Introduction
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function AbaTherapyPage() {
               {/* What is ABA? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is ABA Therapy?
+                   What is ABA Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Applied Behavior Analysis (ABA) is a therapy based on the science of learning and behavior. It uses structured teaching strategies, positive reinforcement, and data-driven interventions to help children:
@@ -86,7 +86,7 @@ export function AbaTherapyPage() {
               {/* Who Can Benefit? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Who Can Benefit from ABA Therapy?
+                   Who Can Benefit from ABA Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ABA Therapy is particularly beneficial for children with:
@@ -106,7 +106,7 @@ export function AbaTherapyPage() {
               {/* Core Principles */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Core Principles of ABA Therapy
+                   Core Principles of ABA Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ABA is based on scientific principles of behavior, which include:
@@ -136,7 +136,7 @@ export function AbaTherapyPage() {
               {/* Key Areas */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Key Areas Addressed in ABA Therapy
+                   Key Areas Addressed in ABA Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ABA Therapy can help children develop:
@@ -173,7 +173,7 @@ export function AbaTherapyPage() {
               {/* How it Works */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏫 How ABA Therapy Works at Suvatsalya
+                   How ABA Therapy Works at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, ABA Therapy is individualized and child-focused:
@@ -190,22 +190,22 @@ export function AbaTherapyPage() {
               {/* Benefits */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Benefits of ABA Therapy
+                   Benefits of ABA Therapy
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <ContentListItem>✅ Improved communication and social interaction</ContentListItem>
-                  <ContentListItem>✅ Enhanced daily living and self-help skills</ContentListItem>
-                  <ContentListItem>✅ Reduction of challenging or disruptive behaviors</ContentListItem>
-                  <ContentListItem>✅ Increased attention, focus, and learning readiness</ContentListItem>
-                  <ContentListItem>✅ Strengthened parent-child interaction</ContentListItem>
-                  <ContentListItem>✅ Better integration into school and community activities</ContentListItem>
+                  <ContentListItem>Improved communication and social interaction</ContentListItem>
+                  <ContentListItem>Enhanced daily living and self-help skills</ContentListItem>
+                  <ContentListItem>Reduction of challenging or disruptive behaviors</ContentListItem>
+                  <ContentListItem>Increased attention, focus, and learning readiness</ContentListItem>
+                  <ContentListItem>Strengthened parent-child interaction</ContentListItem>
+                  <ContentListItem>Better integration into school and community activities</ContentListItem>
                 </ul>
               </div>
 
               {/* Role of Parents */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Role of Parents in ABA Therapy
+                   Role of Parents in ABA Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are active participants in ABA therapy. At Suvatsalya, we guide parents to:
@@ -222,7 +222,7 @@ export function AbaTherapyPage() {
               {/* Why Choose Suvatsalya */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ✨ Why Choose Suvatsalya for ABA Therapy?
+                   Why Choose Suvatsalya for ABA Therapy?
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Certified and experienced ABA therapists</ContentListItem>
@@ -233,26 +233,6 @@ export function AbaTherapyPage() {
                 </ul>
                 <p className="text-lg text-gray-700 leading-relaxed mt-4">
                   At Suvatsalya, our goal is to help every child unlock their potential, communicate effectively, and participate confidently in daily life.
-                </p>
-              </div>
-
-              {/* Get in Touch */}
-              <div className="border-t border-gray-200 pt-8 mt-10">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  📞 Get in Touch
-                </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  To learn more about our ABA Therapy programs, please contact us to schedule an evaluation.
-                </p>
-                <Link to="/contact">
-                  <Button text="Book an Appointment" variant="secondary" />
-                </Link>
-              </div>
-
-                {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “ABA Therapy is about shaping possibilities, celebrating progress, and empowering children to learn, connect, and thrive.”
                 </p>
               </div>
 

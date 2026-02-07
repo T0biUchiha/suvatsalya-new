@@ -1,5 +1,6 @@
 :root {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, Verdana, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

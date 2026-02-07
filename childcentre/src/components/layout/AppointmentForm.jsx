@@ -101,20 +101,19 @@ export function AppointmentForm() {
           <input 
             type="checkbox" 
             id="terms" 
-            className="h-4 w-4 rounded text-sky-600"
+            className="h-4 w-4 rounded text-sky-600 accent-sky-600"
             checked={terms}
             onChange={(e) => setTerms(e.target.checked)}
           />
           <label htmlFor="terms" className="text-sm text-gray-600">
-            I have read and hereby agree to the{' '}
-            {/* --- UPDATED LINK --- */}
-            <a 
-              href="/terms" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            I agree to the{' '}
+            <a
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline text-sky-700"
             >
-              Terms And Conditions
+              Terms and Conditions
             </a>
           </label>
         </div>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import assessmentImg from '../../assets/images/Psychological Assessment.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function PsychologicalTestPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={assessmentImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function PsychologicalTestPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌼 Introduction
+                   Introduction
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function PsychologicalTestPage() {
               {/* What are Psychological Tests? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 What are Psychological Tests?
+                   What are Psychological Tests?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Psychological tests are standardized tools used to evaluate a child’s mental and emotional functioning. They measure areas such as:
@@ -87,7 +87,7 @@ export function PsychologicalTestPage() {
               {/* Who Can Benefit? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Who Can Benefit from Psychological Testing?
+                   Who Can Benefit from Psychological Testing?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Psychological tests are useful for children who:
@@ -105,7 +105,7 @@ export function PsychologicalTestPage() {
               {/* Types of Tests */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Types of Psychological Tests for Children
+                   Types of Psychological Tests for Children
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, we use a variety of age-appropriate, evidence-based tests, including:
@@ -151,7 +151,7 @@ export function PsychologicalTestPage() {
               {/* How it Works */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 How Psychological Testing Works
+                   How Psychological Testing Works
                 </h3>
                 <ul className="list-decimal list-inside space-y-2 text-lg text-gray-700">
                   <li><strong>Referral and Initial Consultation:</strong> Psychologist gathers developmental history, medical records, school reports, and parental observations.</li>
@@ -165,7 +165,7 @@ export function PsychologicalTestPage() {
               {/* Benefits */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Benefits of Psychological Testing
+                   Benefits of Psychological Testing
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Provides a comprehensive understanding of the child’s abilities and challenges</ContentListItem>
@@ -180,7 +180,7 @@ export function PsychologicalTestPage() {
               {/* Testing at Suvatsalya */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏫 Psychological Testing at Suvatsalya
+                   Psychological Testing at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, our approach to psychological testing is:
@@ -196,7 +196,7 @@ export function PsychologicalTestPage() {
               {/* Role of Parents */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Role of Parents
+                   Role of Parents
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are essential partners in the assessment process. At Suvatsalya, we help parents:
@@ -212,30 +212,10 @@ export function PsychologicalTestPage() {
               {/* Conclusion */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ✨ Conclusion
+                   Conclusion
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Psychological testing is a powerful tool for understanding children holistically. It helps identify developmental gaps, strengths, and potential, allowing for personalized interventions that support growth, learning, and emotional well-being.
-                </p>
-              </div>
-
-              {/* Get in Touch */}
-              <div className="border-t border-gray-200 pt-8 mt-10">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  📞 Get in Touch
-                </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  If you have concerns about your child's development, please contact us to schedule an evaluation.
-                </p>
-                <Link to="/contact">
-                  <Button text="Book an Appointment" variant="secondary" />
-                </Link>
-              </div>
-
-              {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every child has a unique mind and potential — psychological assessment helps us understand, support, and celebrate it.”
                 </p>
               </div>
 

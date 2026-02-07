@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'; // 1. Import Link
 import { Button } from '../layout/Button'; // 2. Import Button
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import specialImg from '../../assets/images/special.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function AutismPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={specialImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -34,7 +34,7 @@ export function AutismPage() {
               {/* --- 3. ADDED BUTTON HERE --- */}
               <div className="mt-8">
                 <Link to="/contact">
-                  <Button text="Book" variant="secondary" />
+                  <Button text="Book an Appointment" variant="secondary" />
                 </Link>
               </div>
             </div>
@@ -54,7 +54,7 @@ export function AutismPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌈 Understanding Autism Spectrum Disorder (ASD)
+                   Understanding Autism Spectrum Disorder (ASD)
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -70,7 +70,7 @@ export function AutismPage() {
               {/* What is ASD? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is Autism Spectrum Disorder (ASD)?
+                   What is Autism Spectrum Disorder (ASD)?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Autism Spectrum Disorder (ASD) is a lifelong neurodevelopmental disorder that affects: Social interaction and communication, and Behavioral patterns, interests, and sensory responses.
@@ -83,7 +83,7 @@ export function AutismPage() {
               {/* Core Features */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Core Features of Autism
+                   Core Features of Autism
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   ASD primarily involves three core areas:
@@ -113,7 +113,7 @@ export function AutismPage() {
               {/* Early Signs */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Early Signs of Autism (by Age)
+                   Early Signs of Autism (by Age)
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">Before 1 Year</h4>
                 <ul className="list-disc list-inside space-y-2">
@@ -141,7 +141,7 @@ export function AutismPage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Causes and Risk Factors
+                   Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   ASD does not have a single known cause. It is believed to arise from a combination of genetic and environmental factors that affect early brain development.
@@ -155,7 +155,7 @@ export function AutismPage() {
                   <ContentListItem>Low birth weight or premature birth</ContentListItem>
                 </ul>
                 <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                  <h4 className="font-bold text-yellow-800 text-lg">⚠️ Important Note:</h4>
+                  <h4 className="font-bold text-yellow-800 text-lg">️ Important Note:</h4>
                   <p className="text-yellow-700 text-lg">Autism is not caused by vaccines, poor parenting, or emotional deprivation. These are outdated myths.</p>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export function AutismPage() {
               {/* Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Diagnosis and Assessment at Suvatsalya
+                   Diagnosis and Assessment at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, we follow a comprehensive, multidisciplinary assessment model to understand the child’s developmental profile.
@@ -191,7 +191,7 @@ export function AutismPage() {
               {/* Associated Difficulties */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Associated Difficulties
+                   Associated Difficulties
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children with ASD may also experience:
@@ -212,7 +212,7 @@ export function AutismPage() {
               {/* Therapies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💬 Therapies and Interventions
+                   Therapies and Interventions
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, we focus on developing the child’s potential rather than “fixing” them. Our multidisciplinary team designs individualized therapy programs suited to each child’s unique needs.
@@ -251,7 +251,7 @@ export function AutismPage() {
               {/* Home Strategies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌿 Home Strategies for Parents
+                   Home Strategies for Parents
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents play the most crucial role in supporting their child’s development. Here are some tips that make a big difference:
@@ -269,7 +269,7 @@ export function AutismPage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Prognosis and Hope
+                   Prognosis and Hope
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   With early intervention, children with autism can make significant progress in communication, behavior, and independence. Many children go on to attend mainstream schools, form friendships, and develop fulfilling lives.
@@ -285,7 +285,7 @@ export function AutismPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Our Autism Services at Suvatsalya Include
+                   Our Autism Services at Suvatsalya Include
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Comprehensive developmental assessment (DP4, ISAA, CARS)</ContentListItem>
@@ -299,17 +299,6 @@ export function AutismPage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every child has a rhythm of their own — our job is to listen, understand, and help them dance to it.”
-                </p>
-                <p className="text-xl text-gray-900 font-semibold mt-4">
-                  — Mr. Sharad Shukla
-                </p>
-                <p className="text-lg text-gray-800">
-                  Founder & Director, Suvatsalya Child Growth and Development Centre
-                </p>
-              </div>
 
             </div>
           </div>

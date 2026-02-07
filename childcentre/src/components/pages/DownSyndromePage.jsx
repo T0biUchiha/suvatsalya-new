@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import speechImg from '../../assets/images/speech.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function DownSyndromePage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={speechImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function DownSyndromePage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌼 Understanding Down Syndrome (Trisomy 21)
+                   Understanding Down Syndrome (Trisomy 21)
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function DownSyndromePage() {
               {/* What is Down Syndrome? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧬 What is Down Syndrome?
+                   What is Down Syndrome?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Down Syndrome (also known as Trisomy 21) is a genetic condition that occurs when a child is born with an extra copy of chromosome 21. Typically, humans have 46 chromosomes (23 pairs), but in Down Syndrome, there are 47 chromosomes — the additional chromosome changes the way the brain and body develop.
@@ -80,7 +80,7 @@ export function DownSyndromePage() {
               {/* Types */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌸 Types of Down Syndrome
+                   Types of Down Syndrome
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   There are three main types of Down Syndrome:
@@ -107,7 +107,7 @@ export function DownSyndromePage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Causes and Risk Factors
+                   Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Down Syndrome is not caused by anything parents did or didn’t do. It occurs due to random chromosomal changes during early cell division.
@@ -126,7 +126,7 @@ export function DownSyndromePage() {
               {/* Physical Features */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Common Physical Features
+                   Common Physical Features
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Not all children have the same features, but some common characteristics include:
@@ -148,7 +148,7 @@ export function DownSyndromePage() {
               {/* Profile */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Developmental and Cognitive Profile
+                   Developmental and Cognitive Profile
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children with Down Syndrome usually have mild to moderate intellectual disability, with strengths in:
@@ -175,7 +175,7 @@ export function DownSyndromePage() {
               {/* Associated Conditions */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ❤️ Associated Medical and Developmental Conditions
+                  ️ Associated Medical and Developmental Conditions
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children with Down Syndrome may experience certain medical challenges, though not every child is affected.
@@ -200,7 +200,7 @@ export function DownSyndromePage() {
               {/* Early Signs & Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Early Signs and Diagnosis
+                   Early Signs and Diagnosis
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">During Pregnancy (Prenatal Screening):</h4>
                 <ul className="list-disc list-inside space-y-2">
@@ -216,7 +216,7 @@ export function DownSyndromePage() {
               {/* Assessment */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Assessment and Early Intervention at Suvatsalya
+                   Assessment and Early Intervention at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, we focus on early developmental stimulation and family-centred care. Our evaluation process includes:
@@ -236,7 +236,7 @@ export function DownSyndromePage() {
               {/* Management */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌱 Therapeutic Management
+                   Therapeutic Management
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   While Down Syndrome cannot be cured, early and continuous intervention helps children achieve developmental milestones and independence.
@@ -277,7 +277,7 @@ export function DownSyndromePage() {
               {/* Home Strategies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏠 Parenting and Home Strategies
+                   Parenting and Home Strategies
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents play the most vital role in a child’s growth. At Suvatsalya, we guide parents with simple, daily-life activities to promote progress:
@@ -298,7 +298,7 @@ export function DownSyndromePage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌻 Prognosis and Life Expectancy
+                   Prognosis and Life Expectancy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Children with Down Syndrome today live longer, healthier lives than ever before — often into their 60s or 70s, thanks to better medical care and early education.
@@ -311,7 +311,7 @@ export function DownSyndromePage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Services for Down Syndrome at Suvatsalya
+                   Services for Down Syndrome at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, our multidisciplinary team provides:
@@ -330,7 +330,7 @@ export function DownSyndromePage() {
               {/* Philosophy */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Our Philosophy
+                   Our Philosophy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   At Suvatsalya, we see ability in every child. We believe that with compassion, patience, and professional care — every child can learn, communicate, and blossom.
@@ -338,11 +338,6 @@ export function DownSyndromePage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every chromosome carries not just genetic information — but the infinite potential of a human being.”
-                </p>
-              </div>
 
             </div>
           </div>

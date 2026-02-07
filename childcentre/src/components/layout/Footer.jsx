@@ -9,9 +9,10 @@ export function Footer() {
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-6">Contact</h3>
               <div className="space-y-3 text-gray-600">
-                <p className="font-medium text-gray-800">Suvatsalya Child Development Centre</p>
-                <p>31 Webb's Rd</p>
-                <p>London, SW11 6RU</p>
+                <p className="font-medium text-gray-800">Suvatsalya</p>
+                <p>A-111, Sector-70</p>
+                <p>Gautam Buddha Nagar, Noida</p>
+                <p>Pincode -201301</p>
                 
                 <p className="mt-4">+91-8400015666</p>
 

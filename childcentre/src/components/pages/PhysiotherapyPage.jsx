@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import doctorImg from '../../assets/images/doctor.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function PhysiotherapyPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={doctorImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,10 +51,10 @@ export function PhysiotherapyPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🏃‍♂️ Physiotherapy for Children: Building Strength, Movement, and Confidence
+                  ‍️ Physiotherapy for Children: Building Strength, Movement, and Confidence
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  🌼 Introduction
+                   Introduction
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   At Suvatsalya Child Growth and Development Centre, we understand that movement is a vital part of a child’s growth and independence. Some children face challenges in muscle strength, coordination, balance, or mobility due to developmental delays, neurological conditions, or injuries.
@@ -67,7 +67,7 @@ export function PhysiotherapyPage() {
               {/* What is Physiotherapy? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is Physiotherapy?
+                   What is Physiotherapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Physiotherapy (also called physical therapy) is a science-based intervention aimed at improving a child’s movement, posture, muscle strength, and functional abilities. In children, physiotherapy helps:
@@ -86,7 +86,7 @@ export function PhysiotherapyPage() {
               {/* Who Needs Physiotherapy? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Who Needs Physiotherapy?
+                   Who Needs Physiotherapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children who may benefit from physiotherapy include those with:
@@ -108,7 +108,7 @@ export function PhysiotherapyPage() {
               {/* Assessment */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Assessment in Physiotherapy
+                   Assessment in Physiotherapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, physiotherapy begins with a comprehensive evaluation to understand the child’s strengths, challenges, and goals:
@@ -128,7 +128,7 @@ export function PhysiotherapyPage() {
               {/* Core Areas */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Core Areas of Pediatric Physiotherapy
+                   Core Areas of Pediatric Physiotherapy
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">1. Gross Motor Development</h4>
                 <p className="text-lg text-gray-700 leading-relaxed">
@@ -159,7 +159,7 @@ export function PhysiotherapyPage() {
               {/* Techniques */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Techniques Used in Pediatric Physiotherapy
+                   Techniques Used in Pediatric Physiotherapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Physiotherapy is child-focused, engaging, and evidence-based. Techniques may include:
@@ -177,7 +177,7 @@ export function PhysiotherapyPage() {
               {/* Benefits */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🎯 Benefits of Physiotherapy
+                   Benefits of Physiotherapy
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Improves muscle strength, flexibility, and joint function</ContentListItem>
@@ -192,7 +192,7 @@ export function PhysiotherapyPage() {
               {/* Physiotherapy at Suvatsalya */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏫 Physiotherapy at Suvatsalya Child Growth and Development Centre
+                   Physiotherapy at Suvatsalya Child Growth and Development Centre
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, our pediatric physiotherapy program is:
@@ -212,7 +212,7 @@ export function PhysiotherapyPage() {
               {/* Role of Parents */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Role of Parents
+                   Role of Parents
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are integral to therapy success. At Suvatsalya, we train parents to:
@@ -228,30 +228,10 @@ export function PhysiotherapyPage() {
               {/* Conclusion */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ✨ Conclusion
+                   Conclusion
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed">
                   Physiotherapy empowers children to move, explore, and participate fully in life. With early intervention, structured therapy, and parental involvement, children can reach their physical potential, improve independence, and enjoy active, confident lives.
-                </p>
-              </div>
-
-              {/* Get in Touch */}
-              <div className="border-t border-gray-200 pt-8 mt-10">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  📞 Get in Touch
-                </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  If you feel your child could benefit from Physiotherapy, please contact us for an evaluation.
-                </p>
-                <Link to="/contact">
-                  <Button text="Book an Appointment" variant="secondary" />
-                </Link>
-              </div>
-
-              {/* Quote - Placed AFTER Get in Touch as requested */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every step a child takes is a step towards independence — and physiotherapy is the bridge that helps them walk confidently into life.”
                 </p>
               </div>
 

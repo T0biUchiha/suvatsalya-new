@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import bannerImg from '../../assets/images/banner.png';
 
 // This is a new sub-component to cleanly list each item
 function TreatItem({ title, href, children }) {
@@ -37,7 +37,7 @@ export function WhatWeTreat() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Using hero4 as a placeholder
+                src={bannerImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />

@@ -55,9 +55,9 @@ export function Contact() {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-start">
           
           {/* Left: Map */}
-          <div className="h-96 md:h-full w-full rounded-lg overflow-hidden shadow-lg">
+          <div className="h-72 md:h-full w-full rounded-lg overflow-hidden shadow-lg">
             <iframe
-              src="https.www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.431270258074!2d77.06213131507747!3d28.40625398250811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d23a4115bfe8b%3A0x8f789ab9f833c94!2sSushant%20Lok%20Phase%20I%2C%20Sector%2043%2C%20Gurugram%2C%20Haryana%20122022!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin"
+              src="https://www.google.com/maps?q=A-111%2C%20Sector-70%2C%20Gautam%20Buddha%20Nagar%2C%20Noida%2C%20Pincode%20201301&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -72,7 +72,7 @@ export function Contact() {
             <h2 className="text-3xl font-bold text-gray-900">Noida Office</h2>
             <ContactInfoCard
               icon={Phone}
-              title="+91-8400015666"
+              title="8400015666"
               line1="Mon - Sat 10:00 AM - 06:00 PM"
             />
             <ContactInfoCard
@@ -82,8 +82,8 @@ export function Contact() {
             />
             <ContactInfoCard
               icon={MapPin}
-              title="31 Webb's Rd"
-              line1="London, SW11 6RU"
+              title="A-111, Sector-70"
+              line1="Gautam Buddha Nagar, Noida, Pincode -201301"
             />
           </div>
 

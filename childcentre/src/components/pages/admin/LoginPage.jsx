@@ -3,7 +3,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../../api';
 import { Button } from '../../layout/Button';
-import logo from '../../../assets/logo/suvatsalya-logo.png';
+import logo from '/src/assets/logo/suvatsalya-logo.png';
 
 export function LoginPage() {
   const [username, setUsername] = useState('Admin');

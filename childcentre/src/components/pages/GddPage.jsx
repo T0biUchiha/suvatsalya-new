@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import abaImg from '../../assets/images/ABA Therapy.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function GddPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={abaImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function GddPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🌱 Understanding Global Developmental Delay (GDD)
+                   Understanding Global Developmental Delay (GDD)
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function GddPage() {
               {/* What is GDD? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is Global Developmental Delay?
+                   What is Global Developmental Delay?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Global Developmental Delay (GDD) is a diagnosis given to children under 5 years of age who show significant delays in two or more areas of development, such as:
@@ -87,7 +87,7 @@ export function GddPage() {
               {/* GDD vs ID */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌼 Difference Between GDD and Intellectual Disability (ID)
+                   Difference Between GDD and Intellectual Disability (ID)
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   GDD is diagnosed in children under 5 years, as it’s too early to assess full intellectual functioning.
@@ -100,7 +100,7 @@ export function GddPage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ⚙️ Causes and Risk Factors
+                  ️ Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Global Developmental Delay can result from various biological, genetic, or environmental factors affecting the developing brain. In many cases, the exact cause may remain unknown.
@@ -126,7 +126,7 @@ export function GddPage() {
               {/* Early Signs */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Early Signs of Global Developmental Delay
+                   Early Signs of Global Developmental Delay
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are often the first to notice when something feels “different.” Some common early signs include:
@@ -172,7 +172,7 @@ export function GddPage() {
               {/* Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Diagnosis at Suvatsalya
+                   Diagnosis at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, diagnosis is a collaborative and child-friendly process, focused on understanding the child’s strengths and challenges.
@@ -201,7 +201,7 @@ export function GddPage() {
               {/* Management */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Management and Early Intervention
+                   Management and Early Intervention
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   While GDD cannot be “cured,” timely and consistent intervention can help a child reach their developmental potential. At Suvatsalya, we offer a multidisciplinary intervention model, combining therapies tailored to each child’s developmental profile.
@@ -246,7 +246,7 @@ export function GddPage() {
               {/* Home Strategies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏠 Role of Parents and Home Environment
+                   Role of Parents and Home Environment
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are the child’s first and most consistent teachers. At Suvatsalya, we emphasize parental involvement and guide families with practical home-based strategies.
@@ -266,7 +266,7 @@ export function GddPage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Prognosis and Hope
+                   Prognosis and Hope
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   The outlook for children with GDD depends on its cause and severity. With early diagnosis and continuous therapy, many children show tremendous improvement — some even catch up with peers over time.
@@ -279,7 +279,7 @@ export function GddPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Our GDD Services at Suvatsalya Include:
+                   Our GDD Services at Suvatsalya Include:
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Comprehensive developmental evaluation</ContentListItem>
@@ -295,7 +295,7 @@ export function GddPage() {
               {/* Commitment */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌸 Our Commitment
+                   Our Commitment
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   At Suvatsalya Child Growth and Development Centre, we walk hand-in-hand with families — helping each child unlock their potential through care, compassion, and consistency. Our team of specialists, therapists, and educators work collaboratively to ensure holistic development in every child.
@@ -303,11 +303,6 @@ export function GddPage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every child develops at their own pace — our role is to provide the right guidance, patience, and opportunity for growth.”
-                </p>
-              </div>
 
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 export function TermsPage() {
-  const title = "Terms & Conditions";
+  const title = "Terms of Use";
 
   return (
     <div className="w-full bg-white min-h-screen">
@@ -23,79 +23,75 @@ export function TermsPage() {
             <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
               
               <h2 className="text-3xl font-bold text-gray-900 border-b pb-4">
-                Terms & Conditions — Suvatsalya Child Growth and Development Centre
+                Terms of Use — Suvatsalya Child Growth and Development Centre
               </h2>
               <p>
-                Before giving your consent, please read the information below carefully.
-                If you have any questions, our team will be happy to explain or provide a copy of this document.
+                These Terms of Use govern your access to and use of this website. By using the site,
+                you agree to the terms below. If you do not agree, please do not use the website.
               </p>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Understanding and Communication</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Use of the Website</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>Please inform our staff if you need <em>language interpretation</em> to fully understand the written or spoken information during your visits.</li>
-                  <li>We will do our best to arrange interpretive support, though it may not always be immediately available.</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Training and Supervision</h3>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Suvatsalya Child Growth and Development Centre is a <em>learning-based institution</em>.</li>
-                  <li>This means that <em>trainees or professionals under supervision</em> may participate in certain parts of your or your child’s care, always under the direct guidance of senior clinicians.</li>
+                  <li>The website is intended to provide general information about our services and programs.</li>
+                  <li>You agree not to misuse the site, including attempting to disrupt, harm, or access it without authorization.</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Accuracy of Information</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Medical Disclaimer</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>I confirm that the <em>information I provide</em> to the team is <em>true, accurate, and complete</em>.</li>
-                  <li>I understand that the <em>quality of care and decisions</em> made will depend on the accuracy of the details I share.</li>
+                  <li>Information on this site does not replace professional medical advice, diagnosis, or treatment.</li>
+                  <li>Always consult a qualified healthcare professional for personalized guidance.</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Information About Services</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Appointments and Communication</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>I will receive <em>clear information</em> about all proposed <em>assessments, therapies, or procedures</em>, including their <strong>benefits, possible risks, alternatives</strong>, and expected outcomes.</li>
-                  <li>I understand that I am encouraged to <em>ask questions</em> about anything I do not understand, and a qualified clinician will be available to answer them.</li>
+                  <li>Submitting a form does not guarantee an appointment. Our team will contact you to confirm availability.</li>
+                  <li>Accurate contact details help us respond promptly and appropriately.</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Choice and Consent</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Intellectual Property</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>I understand that <em>no results or outcomes are guaranteed</em> for any service provided.</li>
-                  <li>I have the <em>right to accept or decline</em> services at any time.</li>
-                  <li>I may <em>withdraw my consent</em> or change my decision about continuing therapy or assessment whenever I wish.</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Referrals and Further Care</h3>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>If additional evaluation or treatment is required, the centre may provide <em>referrals</em> to other specialists or facilities.</li>
-                  <li>I understand that I am <em>responsible for arranging and paying</em> for any referred services outside the centre.</li>
-                  <li>I will be informed about how to <em>seek emergency support</em> if needed.</li>
+                  <li>All content on this site, including text, images, logos, and design, is the property of Suvatsalya.</li>
+                  <li>You may not copy, reproduce, or distribute content without written permission.</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Confidentiality</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Third-Party Links</h3>
                 <ul className="list-disc list-inside space-y-2">
-                  <li>All <em>personal and clinical information</em> shared will be kept <em>confidential</em> according to the <Link to="/policies" className="text-sky-700 underline">privacy policy</Link> of Suvatsalya Child Growth and Development Centre.</li>
-                  <li>Information may only be shared with other professionals <em>with my permission</em> or as required by law.</li>
+                  <li>The site may include links to third-party websites for convenience.</li>
+                  <li>We do not control or endorse third-party content and are not responsible for their practices.</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Acknowledgment</h3>
-                <p>By signing or submitting this form, I confirm that:</p>
-                <ul className="list-disc list-inside space-y-2 mt-2">
-                  <li>I have <em>read and understood</em> the above terms.</li>
-                  <li>I have had an opportunity to <em>ask questions</em> and receive explanations.</li>
-                  <li>I <em>voluntarily consent</em> to receive care and services from Suvatsalya Child Growth and Development Centre.</li>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Limitation of Liability</h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>We strive to keep information accurate and up to date, but we do not guarantee completeness or accuracy.</li>
+                  <li>Suvatsalya is not liable for any direct or indirect damages arising from the use of this website.</li>
                 </ul>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Changes to These Terms</h3>
+                <ul className="list-disc list-inside space-y-2">
+                  <li>We may update these terms from time to time.</li>
+                  <li>Continued use of the website after updates indicates acceptance of the revised terms.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Contact</h3>
+                <p>
+                  For questions about these terms, please reach out via our contact page.
+                  You can also review our <Link to="/policies" className="text-sky-700 underline">privacy policy</Link>.
+                </p>
               </div>
 
             </div>

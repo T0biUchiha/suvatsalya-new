@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'; // 1. Import Link
 import { Button } from '../layout/Button'; // 2. Import Button
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import specialImg from '../../assets/images/special.png';
 
 export function GenericPage() {
   const { slug, subSlug } = useParams();
@@ -16,7 +16,7 @@ export function GenericPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Using hero4 as a placeholder
+                src={specialImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -29,7 +29,7 @@ export function GenericPage() {
               {/* --- 3. ADDED BUTTON HERE --- */}
               <div className="mt-8">
                 <Link to="/contact">
-                  <Button text="Book" variant="secondary" />
+                  <Button text="Book an Appointment" variant="secondary" />
                 </Link>
               </div>
             </div>

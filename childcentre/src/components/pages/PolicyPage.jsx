@@ -20,27 +20,63 @@ export function PolicyPage() {
           {/* This div centers the article content */}
           <div className="max-w-4xl mx-auto">
             <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-              <h2 className="text-3xl font-semibold text-gray-900">Privacy Policy</h2>
+              <h2 className="text-3xl font-semibold text-gray-900">Website Policies</h2>
               <p>
-                Suvatsalya Child Growth and Development Centre ("us", "we", or "our") operates this website (the "Service"). This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+                This page explains how Suvatsalya Child Growth and Development Centre handles information collected
+                through our website and outlines the policies that guide your use of our online services.
               </p>
               
-              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Information Collection and Use</h2>
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Privacy and Data We Collect</h2>
               <p>
-                We may collect several different types of information for various purposes to provide and improve our Service to you. This may include, but is not limited to, data submitted through our contact forms (such as name, phone number, and query).
+                We may collect personal information you provide through forms, such as your name, phone number,
+                and message. We only collect information that is necessary to respond to your enquiry or provide
+                requested services.
               </p>
               
-              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Data Use</h2>
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">How We Use Your Information</h2>
               <p>
-                We use the collected data to contact you regarding your query, provide support, and improve our services. We will not share your personal information with any third parties without your explicit consent, unless required by law.
+                Your information is used to contact you, confirm appointments, and provide relevant support.
+                We do not sell or rent personal information to third parties.
               </p>
 
-              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Security of Data</h2>
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Information Sharing</h2>
               <p>
-                The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.
+                We may share information only when required to deliver services, comply with legal obligations,
+                or protect the rights and safety of families and staff. We do not share data for marketing by
+                third parties.
+              </p>
+
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Cookies and Analytics</h2>
+              <p>
+                Our website may use basic cookies or analytics tools to improve functionality and user experience.
+                You can manage cookie settings in your browser.
+              </p>
+
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Data Retention</h2>
+              <p>
+                We retain website enquiry data only as long as needed to respond and provide services, unless a
+                longer retention period is required by law.
+              </p>
+
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Security</h2>
+              <p>
+                We take reasonable steps to protect your information, but no online transmission is completely
+                secure. Please avoid sharing sensitive medical information through website forms.
+              </p>
+
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Your Choices</h2>
+              <p>
+                You may request access, correction, or deletion of your submitted information by contacting us
+                through the contact page.
+              </p>
+
+              <h2 className="text-3xl font-semibold text-gray-900 pt-4">Updates</h2>
+              <p>
+                We may update these policies from time to time. The latest version will always be available on
+                this page.
               </p>
               
-              <p className="pt-8 text-sm text-gray-500">This policy was last updated on November 4, 2025.</p>
+              <p className="pt-8 text-sm text-gray-500">This policy was last updated on February 7, 2026.</p>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ export function Header() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1280);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -40,7 +40,7 @@ export function Header() {
     }));
   };
 
-  const shouldShowWhiteBg = isMobile || isWhiteBg;
+  const shouldShowWhiteBg = isMobile || isWhiteBg || mobileMenuOpen;
 
   // --- MENU ITEMS WITH URLs ---
   const menuItems = [
@@ -206,14 +206,6 @@ export function Header() {
           
           {isOpen && (
             <div className="bg-gray-50">
-              <Link
-                to={item.href}
-                onClick={handleLinkClick}
-                className="block text-base py-3 px-2 font-medium text-gray-700 hover:text-teal-600 hover:bg-teal-50 rounded transition-colors"
-                style={{ paddingLeft: `${(depth + 2) * 0.5}rem` }}
-              >
-                {`All ${item.label}`}
-              </Link>
               {renderMobileMenu(item.dropdownItems, depth + 1)}
             </div>
           )}
@@ -238,10 +230,10 @@ export function Header() {
               src={logo}
               alt="Suvatsalya Logo"
               className={`w-auto transition-all duration-700 ${
-                shouldShowWhiteBg ? "h-10 sm:h-12" : "h-12 sm:h-16"
+                shouldShowWhiteBg ? "h-12 sm:h-14" : "h-14 sm:h-18"
               }`}
             />
-            <div className="flex flex-col" style={{ fontFamily: "EB Garamond" }}>
+            <div className="flex flex-col">
               <span
                 className={`font-light tracking-[0.2em] uppercase transition-all duration-700 ${
                   shouldShowWhiteBg
@@ -249,31 +241,13 @@ export function Header() {
                     : "text-sm sm:text-base text-white"
                 }`}
               >
-                THE CHILD
-              </span>
-              <span
-                className={`font-light tracking-[0.2em] uppercase transition-all duration-700 ${
-                  shouldShowWhiteBg
-                    ? "text-xs sm:text-sm text-gray-800"
-                    : "text-sm sm:text-base text-white"
-                }`}
-              >
-                DEVELOPMENT
-              </span>
-              <span
-                className={`font-light tracking-[0.2em] uppercase transition-all duration-700 ${
-                  shouldShowWhiteBg
-                    ? "text-xs sm:text-sm text-gray-800"
-                    : "text-sm sm:text-base text-white"
-                }`}
-              >
-                CENTRE
+                SUVATSALYA
               </span>
             </div>
           </Link>
 
           {/* --- Desktop Navigation --- */}
-          <nav className="hidden md:flex items-center space-x-6 font-medium text-sm">
+          <nav className="hidden xl:flex items-center space-x-4 2xl:space-x-6 font-medium text-sm">
             {menuItems.map((item) => (
               <div
                 key={item.label}
@@ -303,7 +277,7 @@ export function Header() {
           {/* --- Mobile Menu Button --- */}
           <button
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className={`md:hidden ${shouldShowWhiteBg ? "text-gray-800" : "text-white"}`}
+            className={`xl:hidden ${shouldShowWhiteBg ? "text-gray-800" : "text-white"}`}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -312,7 +286,7 @@ export function Header() {
 
         {/* --- Mobile Menu --- */}
         {mobileMenuOpen && (
-          <nav className="md:hidden flex flex-col space-y-1 pb-4 pt-2 border-t border-gray-200">
+          <nav className="xl:hidden max-h-[70vh] overflow-y-auto flex flex-col space-y-1 pb-4 pt-2 border-t border-gray-200 bg-white">
             {renderMobileMenu(menuItems)}
           </nav>
         )}

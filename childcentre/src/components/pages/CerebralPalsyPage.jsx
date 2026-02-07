@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import occupationalImg from '../../assets/images/occupational therapy.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function CerebralPalsyPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={occupationalImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function CerebralPalsyPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  🕊️ Understanding Cerebral Palsy (CP)
+                  ️ Understanding Cerebral Palsy (CP)
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function CerebralPalsyPage() {
               {/* What is CP? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is Cerebral Palsy?
+                   What is Cerebral Palsy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Cerebral Palsy (CP) is a group of permanent movement and posture disorders caused by damage to the developing brain, either during pregnancy, birth, or early infancy.
@@ -83,7 +83,7 @@ export function CerebralPalsyPage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ⚙️ Causes and Risk Factors
+                  ️ Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Cerebral Palsy occurs when the developing brain is injured or doesn’t develop normally. This can happen before, during, or shortly after birth.
@@ -115,7 +115,7 @@ export function CerebralPalsyPage() {
               {/* Types of CP */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Types of Cerebral Palsy
+                   Types of Cerebral Palsy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Cerebral Palsy is classified based on the type of movement disorder and which part of the brain is affected:
@@ -150,7 +150,7 @@ export function CerebralPalsyPage() {
               {/* Associated Challenges */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Associated Challenges
+                   Associated Challenges
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Children with CP may also experience:
@@ -173,7 +173,7 @@ export function CerebralPalsyPage() {
               {/* Early Signs */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  👶 Early Signs of Cerebral Palsy
+                   Early Signs of Cerebral Palsy
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">In Infants (0–12 months)</h4>
                 <ul className="list-disc list-inside space-y-2">
@@ -199,7 +199,7 @@ export function CerebralPalsyPage() {
               {/* Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Diagnosis at Suvatsalya
+                   Diagnosis at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, diagnosis involves a multidisciplinary approach — combining medical, developmental, and neurological evaluations.
@@ -228,7 +228,7 @@ export function CerebralPalsyPage() {
               {/* Management */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💪 Management and Intervention
+                   Management and Intervention
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   While the brain injury cannot be reversed, early and holistic therapy can greatly improve muscle control, balance, communication, and independence. At Suvatsalya, we design individualized intervention plans based on the child’s specific needs.
@@ -278,7 +278,7 @@ export function CerebralPalsyPage() {
               {/* Home Strategies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏠 Home Strategies for Parents
+                   Home Strategies for Parents
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents are central to the child’s progress. At Suvatsalya, we empower parents with practical, daily-life strategies:
@@ -295,7 +295,7 @@ export function CerebralPalsyPage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌱 Prognosis and Hope
+                   Prognosis and Hope
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Cerebral Palsy is a lifelong condition, but it does not define the child’s future. With early, consistent therapy and an enabling environment, most children can walk, communicate, learn, and live meaningful lives.
@@ -308,7 +308,7 @@ export function CerebralPalsyPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Our Cerebral Palsy Services Include
+                   Our Cerebral Palsy Services Include
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Developmental and neurological assessment</ContentListItem>
@@ -322,11 +322,6 @@ export function CerebralPalsyPage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Progress begins when we stop measuring perfection — and start celebrating potential.”
-                </p>
-              </div>
 
             </div>
           </div>

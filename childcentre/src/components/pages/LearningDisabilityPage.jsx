@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import bannerImg from '../../assets/images/banner.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function LearningDisabilityPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={bannerImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function LearningDisabilityPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  📘 Understanding Learning Disabilities (LD) in Children
+                   Understanding Learning Disabilities (LD) in Children
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function LearningDisabilityPage() {
               {/* What is LD? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 What is a Learning Disability?
+                   What is a Learning Disability?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   A Learning Disability (LD) — also known as a Specific Learning Disorder (SLD) — is a neurodevelopmental condition that affects the brain’s ability to receive, process, store, and respond to information efficiently.
@@ -83,7 +83,7 @@ export function LearningDisabilityPage() {
               {/* Types of LD */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4" id="dyspraxia"> {/* ID for Dyspraxia link */}
-                  📚 Types of Learning Disabilities
+                   Types of Learning Disabilities
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Learning disabilities can affect one or more areas of academic functioning. The most common types include:
@@ -136,7 +136,7 @@ export function LearningDisabilityPage() {
               {/* Common Signs */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🔍 Common Signs and Symptoms
+                   Common Signs and Symptoms
                 </h3>
                 <h4 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">In Preschool Years</h4>
                 <ul className="list-disc list-inside space-y-2">
@@ -165,7 +165,7 @@ export function LearningDisabilityPage() {
               {/* Causes */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Causes and Risk Factors
+                   Causes and Risk Factors
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Learning disabilities are linked to neurobiological differences in the brain regions that control language and processing.
@@ -186,7 +186,7 @@ export function LearningDisabilityPage() {
               {/* Diagnosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧪 Diagnosis and Assessment at Suvatsalya
+                   Diagnosis and Assessment at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, we use a comprehensive, multidisciplinary approach for assessment. Our evaluations aim to identify the child’s specific areas of difficulty while highlighting their strengths.
@@ -213,7 +213,7 @@ export function LearningDisabilityPage() {
               {/* Co-Occurring Conditions */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧭 Co-Occurring Conditions
+                   Co-Occurring Conditions
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Many children with LD also experience:
@@ -232,7 +232,7 @@ export function LearningDisabilityPage() {
               {/* Management */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💡 Management and Intervention at Suvatsalya
+                   Management and Intervention at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   There is no “cure” for learning disabilities — but with early identification, structured support, and consistent therapy, children can learn effectively and succeed academically. Our interventions focus on building skills, confidence, and motivation.
@@ -279,7 +279,7 @@ export function LearningDisabilityPage() {
               {/* Home Strategies */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌼 Home Strategies for Parents
+                   Home Strategies for Parents
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Encourage your child’s strengths (art, music, sports, creativity)</ContentListItem>
@@ -295,7 +295,7 @@ export function LearningDisabilityPage() {
               {/* Prognosis */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌟 Prognosis and Hope
+                   Prognosis and Hope
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   With early diagnosis and consistent support, children with learning disabilities can do exceptionally well in academics and life. Many famous personalities — from Albert Einstein to Agatha Christie — had learning difficulties but thrived because someone believed in them.
@@ -308,7 +308,7 @@ export function LearningDisabilityPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Our Services for Learning Disabilities
+                   Our Services for Learning Disabilities
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Comprehensive diagnostic assessment for SLD</ContentListItem>
@@ -321,17 +321,6 @@ export function LearningDisabilityPage() {
               </div>
 
               {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Every mind learns differently — our mission is to find how each child learns best.”
-                </p>
-                <p className="text-xl text-gray-900 font-semibold mt-4">
-                  — Mr. Sharad Shukla
-                </p>
-                <p className="text-lg text-gray-800">
-                  Founder & Director, Suvatsalya Child Growth and Development Centre
-                </p>
-              </div>
 
             </div>
           </div>

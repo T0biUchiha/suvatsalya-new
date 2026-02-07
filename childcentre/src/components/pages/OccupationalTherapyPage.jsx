@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hero4Img from '../../assets/home-page/hero4.jpg'; // Placeholder image
+import occupationalImg from '../../assets/images/occupational therapy.png';
 
 // Reusable list item for content
 function ContentListItem({ children }) {
@@ -21,7 +21,7 @@ export function OccupationalTherapyPage() {
             {/* Left: Image */}
             <div>
               <img
-                src={hero4Img} // Placeholder
+                src={occupationalImg}
                 alt={title}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -51,7 +51,7 @@ export function OccupationalTherapyPage() {
               {/* Intro */}
               <div>
                 <h2 className="text-3xl font-light text-gray-900 mb-4">
-                  👐 Occupational Therapy (OT) for Children
+                   Occupational Therapy (OT) for Children
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   At Suvatsalya Child Growth and Development Centre
@@ -67,7 +67,7 @@ export function OccupationalTherapyPage() {
               {/* What is OT? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌱 What is Occupational Therapy?
+                   What is Occupational Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   Occupational Therapy (OT) is a child-centered, evidence-based therapeutic approach that focuses on helping children gain independence in daily life activities through play, exercises, and skill-building tasks.
@@ -83,7 +83,7 @@ export function OccupationalTherapyPage() {
               {/* Who Needs OT? */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧠 Who Needs Occupational Therapy?
+                   Who Needs Occupational Therapy?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Occupational Therapy benefits children with a wide range of developmental, neurological, physical, or behavioral challenges, such as:
@@ -123,7 +123,7 @@ export function OccupationalTherapyPage() {
               {/* Core Areas */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ⚙️ Core Areas of Occupational Therapy
+                  ️ Core Areas of Occupational Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Occupational Therapy at Suvatsalya focuses on five core areas of development:
@@ -153,7 +153,7 @@ export function OccupationalTherapyPage() {
               {/* Signs You May Need OT */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧩 Signs Your Child May Need Occupational Therapy
+                   Signs Your Child May Need Occupational Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Parents often notice subtle signs that their child struggles with day-to-day tasks. You may consider an OT evaluation if your child:
@@ -176,7 +176,7 @@ export function OccupationalTherapyPage() {
               {/* OT at Suvatsalya */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏥 Occupational Therapy at Suvatsalya
+                   Occupational Therapy at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya Child Growth and Development Centre, our Occupational Therapy program is led by qualified therapists trained in pediatric developmental care. We offer a play-based, individualized approach that turns therapy into fun and learning.
@@ -198,7 +198,7 @@ export function OccupationalTherapyPage() {
               {/* Goals of OT */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🎯 Goals of Occupational Therapy
+                   Goals of Occupational Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Our therapy plans are personalized for each child, with clear developmental goals:
@@ -216,7 +216,7 @@ export function OccupationalTherapyPage() {
               {/* OT Session */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🧸 What Happens During an OT Session?
+                   What Happens During an OT Session?
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Each session at Suvatsalya is designed to be engaging, interactive, and goal-oriented. A typical session may include:
@@ -238,7 +238,7 @@ export function OccupationalTherapyPage() {
               {/* Parent Involvement */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🏠 Parent Involvement and Home Programs
+                   Parent Involvement and Home Programs
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   At Suvatsalya, we believe parents are co-therapists. We train parents to continue therapy activities at home for better consistency and faster improvement.
@@ -256,7 +256,7 @@ export function OccupationalTherapyPage() {
               {/* Benefits */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  🌈 Benefits of Occupational Therapy
+                   Benefits of Occupational Therapy
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">
                   Occupational Therapy can make a lifelong impact on a child’s development. Some key benefits include:
@@ -275,7 +275,7 @@ export function OccupationalTherapyPage() {
               {/* Our Approach */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  💖 Our Approach at Suvatsalya
+                   Our Approach at Suvatsalya
                 </h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
                   At Suvatsalya Child Growth and Development Centre, we combine scientific therapy with compassionate care. Our OT rooms are equipped with child-friendly sensory tools, swings, tactile boards, therapy balls, and adaptive aids designed to stimulate curiosity and comfort.
@@ -288,7 +288,7 @@ export function OccupationalTherapyPage() {
               {/* Services */}
               <div>
                 <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  ✨ Our Occupational Therapy Services Include:
+                   Our Occupational Therapy Services Include:
                 </h3>
                 <ul className="list-disc list-inside space-y-2">
                   <ContentListItem>Pediatric Occupational Therapy</ContentListItem>
@@ -300,26 +300,6 @@ export function OccupationalTherapyPage() {
                   <ContentListItem>Parental Guidance Sessions</ContentListItem>
                   <ContentListItem>Progress Evaluation and Reporting</ContentListItem>
                 </ul>
-              </div>
-
-              {/* Quote */}
-              <div className="border-l-4 border-teal-500 pl-6 italic mt-10">
-                <p className="text-2xl text-gray-700 leading-relaxed">
-                  “Occupational Therapy is not about fixing a child — it’s about helping them find their strength, purpose, and independence.”
-                </p>
-              </div>
-
-              {/* --- 3. NEW GET IN TOUCH SECTION --- */}
-              <div className="border-t border-gray-200 pt-8 mt-10">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-4">
-                  📞 Get in Touch
-                </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  If you feel your child could benefit from Occupational Therapy, early support can make a lasting difference.
-                </p>
-                <Link to="/contact">
-                  <Button text="Book an Appointment" variant="secondary" />
-                </Link>
               </div>
 
             </div>
