@@ -1,1 +1,3 @@
+http://suvatsalya.in/*       https://suvatsalya.in/:splat  301!
+http://www.suvatsalya.in/*  https://suvatsalya.in/:splat  301!
 /*    /index.html   200
