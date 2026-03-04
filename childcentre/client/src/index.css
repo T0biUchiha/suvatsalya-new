@@ -1,0 +1,13 @@
+:root {
+  font-family: "futura-pt", "Jost", sans-serif;
+  line-height: 1.7;
+  font-weight: 400;
+
+  color: #2d2d2d;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -9,10 +9,13 @@ const storySchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add the story/testimonial'],
   },
-  // This will store the name of the image, e.g., 'hero1.jpg'
   imageName: {
     type: String,
-    required: [true, 'Please select an image'],
+    default: '',
+  },
+  imageUrl: {
+    type: String,
+    default: '',
   },
 }, { timestamps: true });
 

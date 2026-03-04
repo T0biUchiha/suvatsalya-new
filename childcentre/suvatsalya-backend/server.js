@@ -9,7 +9,8 @@ import contactRoutes from './routes/contact.js';
 import articleRoutes from './routes/articles.js';
 import careerRoutes from './routes/career.js';
 import storyRoutes from './routes/stories.js';
-import statsRoutes from './routes/stats.js'; // 1. IMPORT THE NEW ROUTE
+import statsRoutes from './routes/stats.js';
+import benefitRoutes from './routes/benefits.js';
 
 // Load env vars
 dotenv.config();
@@ -21,8 +22,13 @@ const app = express();
 
 // --- Middlewares ---
 // Enable CORS for your frontend
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : [];
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN
+  origin: allowedOrigins,
+  credentials: true,
 }));
 
 // Body parser
@@ -35,7 +41,8 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/career', careerRoutes);
 app.use('/api/stories', storyRoutes);
-app.use('/api/stats', statsRoutes); // 2. ADD THE NEW ROUTE
+app.use('/api/stats', statsRoutes);
+app.use('/api/benefits', benefitRoutes);
 
 // --- Start Server ---
 const PORT = process.env.PORT || 5000;

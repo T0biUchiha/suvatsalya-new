@@ -19,4 +19,31 @@ const articleStorage = new CloudinaryStorage({
   },
 });
 
-export { cloudinary, articleStorage }; // REMOVED 'bannerStorage'
+// Configure storage for benefit images
+const benefitImageStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'suvatsalya/benefits/images',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+  },
+});
+
+// Configure storage for benefit PDFs
+const benefitPdfStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'suvatsalya/benefits/pdfs',
+    allowed_formats: ['pdf'],
+    resource_type: 'raw',
+  },
+});
+
+const storyImageStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'suvatsalya/stories',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+  },
+});
+
+export { cloudinary, articleStorage, benefitImageStorage, benefitPdfStorage, storyImageStorage };

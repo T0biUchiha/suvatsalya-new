@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* ===== Custom Theme (Logo-based palette) ===== */
+@theme {
+  --color-brand-teal: #3EA383;
+  --color-brand-teal-dark: #2E8B6A;
+  --color-brand-blue: #262F6D;
+  --color-brand-blue-light: #3075BB;
+  --color-brand-orange: #E86728;
+  --color-brand-orange-light: #F09A5A;
+  --color-brand-yellow: #F4CA3B;
+  --color-brand-green: #7DB746;
+  --color-brand-purple: #763783;
+  --color-brand-cream: #FFF9F5;
+  --color-brand-cream-dark: #FFF3EB;
+
+  --font-heading: "futura-pt", "Jost", sans-serif;
+  --font-body: "futura-pt", "Jost", sans-serif;
+
+  --text-6xl: 3.5rem;
+  --text-6xl--line-height: 1;
+  --text-5xl: 2.75rem;
+  --text-5xl--line-height: 1.1;
+  --text-4xl: 2.1rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: 2.15rem;
+  --text-2xl: 1.4rem;
+  --text-2xl--line-height: 1.9rem;
+  --text-xl: 1.2rem;
+  --text-xl--line-height: 1.7rem;
+  --text-lg: 1.075rem;
+  --text-lg--line-height: 1.6rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.55rem;
+}
+
+/* ===== Global Typography ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+/* Heading colors: black for main headings, dark grey for sub-headings */
+h1.text-brand-blue, h2.text-brand-blue {
+  color: #111827;
+}
+h3.text-brand-blue, h4.text-brand-blue, h5.text-brand-blue, h6.text-brand-blue {
+  color: #374151;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+@layer base {
+  p {
+    text-align: justify;
+  }
+}
+
+/* Uniform paragraph spacing in content areas */
+.content-area p + p {
+  margin-top: 1rem;
+}
