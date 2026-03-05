@@ -6,7 +6,7 @@ import ldImg from '../../assets/relogoimages/Learning_Disability_1536x1024.png';
 import cpImg from '../../assets/relogoimages/cerebral_palsy_1536x1024.png';
 import dsImg from '../../assets/relogoimages/ChatGPT Image Mar 1, 2026, 10_01_34 PM.png';
 import gddImg from '../../assets/relogoimages/global_development_delay_1536x1024.png';
-import hrnImg from '../../assets/images/Our Friends.png';
+import hrnImg from '../../assets/images/High Risk.jpeg';
 
 function TreatCard({ title, href, image, children }) {
   return (

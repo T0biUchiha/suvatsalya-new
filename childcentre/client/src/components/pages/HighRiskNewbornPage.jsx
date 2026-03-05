@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../layout/Button';
-import hrnImg from '../../assets/images/Our Friends.png';
+import hrnImg from '../../assets/images/High Risk.jpeg';
 
 function ContentListItem({ children }) {
   return (
