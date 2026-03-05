@@ -1,0 +1,368 @@
+================================================================================
+  SUVATSALYA - FULL STACK DEPLOYMENT GUIDE
+  For DevOps / Server Administrator
+================================================================================
+
+Project: Suvatsalya Child Growth and Development Centre
+Stack  : React (Vite) Frontend + Node.js (Express) Backend + MongoDB Atlas
+Repo   : https://github.com/T0biUchiha/suvatsalya-new
+
+Repository Structure:
+  suvatsalya-new/
+  └── childcentre/
+      ├── client/               <-- React Frontend (Vite)
+      └── suvatsalya-backend/   <-- Node.js Backend (Express)
+
+================================================================================
+  SECTION 1 — PREREQUISITES
+================================================================================
+
+Make sure the following are installed on the server or available as services:
+
+  - Node.js v18+ (LTS recommended)
+  - npm v9+
+  - Git
+  - A MongoDB Atlas account (cloud DB — no local MongoDB needed)
+  - A Cloudinary account (for image/file uploads)
+  - A hosting platform for backend (Render / Railway / VPS)
+  - A hosting platform for frontend (Netlify — already configured)
+
+================================================================================
+  SECTION 2 — CLONE THE REPOSITORY
+================================================================================
+
+  git clone https://github.com/T0biUchiha/suvatsalya-new.git
+  cd suvatsalya-new/childcentre
+
+
+================================================================================
+  SECTION 3 — BACKEND SETUP (Node.js / Express)
+================================================================================
+
+  Folder: childcentre/suvatsalya-backend/
+
+  ── Step 1: Navigate to backend folder
+  ──────────────────────────────────────
+    cd suvatsalya-backend
+
+  ── Step 2: Install dependencies
+  ──────────────────────────────────────
+    npm install
+
+  ── Step 3: Create the .env file
+  ──────────────────────────────────────
+    Create a file named exactly: .env
+    Inside suvatsalya-backend/ (NOT committed to git)
+
+    Contents of .env (fill in values — keys are listed below):
+
+    ┌─────────────────────────────────────────────────────────────┐
+    │  # --- Database (MongoDB Atlas) ---                          │
+    │  MONGO_URI=<share separately>                               │
+    │                                                             │
+    │  # --- Authentication ---                                   │
+    │  JWT_SECRET=<share separately>                              │
+    │                                                             │
+    │  # --- Cloudinary (Image/File Storage) ---                  │
+    │  CLOUDINARY_CLOUD_NAME=<share separately>                   │
+    │  CLOUDINARY_API_KEY=<share separately>                      │
+    │  CLOUDINARY_API_SECRET=<share separately>                   │
+    │                                                             │
+    │  # --- Server Config ---                                    │
+    │  PORT=5001                                                  │
+    │                                                             │
+    │  # --- CORS: comma-separated list of allowed frontend URLs  │
+    │  CORS_ORIGIN=https://suvatsalya.in,https://www.suvatsalya.in│
+    └─────────────────────────────────────────────────────────────┘
+
+    IMPORTANT NOTES:
+    - MONGO_URI: Get from MongoDB Atlas → Your Cluster → Connect →
+      "Connect your application". Use the Node.js driver string.
+    - JWT_SECRET: Use a long random string (min 32 chars).
+      Generate with: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+    - Cloudinary keys: Get from https://cloudinary.com/console
+    - CORS_ORIGIN: Must include every domain the frontend runs on.
+      For production: https://suvatsalya.in,https://www.suvatsalya.in
+      For local dev:  http://localhost:5173
+
+  ── Step 4: Start the backend server
+  ──────────────────────────────────────
+    Production:
+      node server.js
+
+    Development (with auto-restart on file changes):
+      npm run dev      (uses nodemon)
+
+    The server will start on the port defined in .env (default: 5001).
+    You should see:
+      "Server running on port 5001"
+      "MongoDB Connected: <your-cluster>.mongodb.net"
+
+  ── Step 5: Deploy Backend on Render (Recommended)
+  ──────────────────────────────────────
+    1. Go to https://render.com and log in.
+    2. Click "New" → "Web Service".
+    3. Connect your GitHub repo (T0biUchiha/suvatsalya-new).
+    4. Configure the service:
+         Name        : suvatsalya-backend
+         Branch      : main
+         Root Dir    : childcentre/suvatsalya-backend
+         Runtime     : Node
+         Build Cmd   : npm install
+         Start Cmd   : node server.js
+    5. Under "Environment Variables", add each key from the .env file above
+       (do NOT commit the .env file — enter values manually in the Render dashboard).
+    6. Click "Create Web Service".
+    7. Render will assign a public URL like:
+         https://backend-api-yor1.onrender.com
+       This URL goes into the frontend's VITE_API_BASE_URL.
+
+    NOTE: Free-tier Render services sleep after 15 minutes of inactivity.
+    The frontend homepage makes a ping call to the backend on load to wake it up.
+    For production, upgrade to a paid plan or use UptimeRobot to ping every 10 min.
+
+
+================================================================================
+  SECTION 4 — FRONTEND SETUP (React / Vite)
+================================================================================
+
+  Folder: childcentre/client/
+
+  ── Step 1: Navigate to frontend folder
+  ──────────────────────────────────────
+    cd client
+
+  ── Step 2: Install dependencies
+  ──────────────────────────────────────
+    npm install
+
+  ── Step 3: Environment variable (optional but recommended)
+  ──────────────────────────────────────
+    Create a file named: .env
+    Inside client/ folder (this is optional — a fallback is already in api.js)
+
+    Contents:
+    ┌────────────────────────────────────────────────────────────────┐
+    │  # URL of your deployed backend                               │
+    │  VITE_API_BASE_URL=<your-render-backend-url>                  │
+    │  Example: VITE_API_BASE_URL=https://backend-api-yor1.onrender.com │
+    └────────────────────────────────────────────────────────────────┘
+
+    NOTE: All Vite env vars MUST start with VITE_ to be accessible in the app.
+    If this file is not created, the fallback in src/api.js is used.
+
+  ── Step 4: Build for production
+  ──────────────────────────────────────
+    npm run build
+
+    This creates a dist/ folder with compiled static files.
+
+  ── Step 5: Deploy Frontend on Netlify (Already configured)
+  ──────────────────────────────────────
+    The project is already deployed at: https://suvatsalya.in
+    Netlify auto-deploys on every push to the main branch.
+
+    Manual setup (if starting fresh):
+    1. Go to https://app.netlify.com and log in.
+    2. Click "Add new site" → "Import an existing project".
+    3. Connect GitHub → select repo: T0biUchiha/suvatsalya-new
+    4. Configure build settings:
+         Base directory  : childcentre/client
+         Build command   : npm run build
+         Publish dir     : childcentre/client/dist
+    5. Under "Environment Variables", add:
+         VITE_API_BASE_URL = <your-render-backend-url>
+    6. Click "Deploy site".
+    7. Add custom domain: suvatsalya.in
+       In Netlify: Site settings → Domain management → Add custom domain.
+       Then point your domain registrar's nameservers to Netlify's nameservers.
+
+    Redirects:
+    - The file client/public/_redirects handles SPA routing and HTTP→HTTPS redirect.
+    - This file is already committed and works automatically on Netlify.
+
+    Force HTTPS:
+    - Netlify settings → Domain management → HTTPS → Enable "Force HTTPS".
+
+
+================================================================================
+  SECTION 5 — MONGODB ATLAS SETUP
+================================================================================
+
+  1. Go to https://cloud.mongodb.com and log in.
+  2. Create a free cluster (M0 tier is sufficient for start).
+  3. Under "Database Access", create a database user:
+       Username: suvatsalya_user (or any name)
+       Password: <strong random password>
+       Role: Atlas Admin (or readWrite on the specific DB)
+  4. Under "Network Access", allow access:
+       For Render: Click "Allow access from anywhere" (0.0.0.0/0)
+       Or whitelist Render's specific IP ranges for better security.
+  5. Under "Clusters" → Connect → "Connect your application":
+       Driver: Node.js
+       Copy the connection string → paste as MONGO_URI in backend .env
+       Replace <password> with your DB user's password.
+
+  Collections created automatically when server first runs:
+    - users (admin accounts)
+    - contactforms
+    - articles
+    - careers
+    - stories
+    - benefits
+
+
+================================================================================
+  SECTION 6 — CLOUDINARY SETUP
+================================================================================
+
+  Used for: article images, parent story images, benefit images and PDFs.
+
+  1. Go to https://cloudinary.com and create a free account.
+  2. From the dashboard, copy:
+       Cloud Name  → CLOUDINARY_CLOUD_NAME
+       API Key     → CLOUDINARY_API_KEY
+       API Secret  → CLOUDINARY_API_SECRET
+  3. These go into the backend .env file.
+
+  Cloudinary folders created automatically:
+    - suvatsalya/articles
+    - suvatsalya/stories
+    - suvatsalya/benefits/images
+    - suvatsalya/benefits/pdfs
+
+
+================================================================================
+  SECTION 7 — CREATING THE FIRST ADMIN USER
+================================================================================
+
+  The admin panel is at: https://suvatsalya.in/admin/login
+
+  To create the first admin account, run this one-time script in the backend:
+
+    node -e "
+      import('./config/db.js').then(m => m.default()).then(async () => {
+        const bcrypt = (await import('bcryptjs')).default;
+        const User = (await import('./models/User.js')).default;
+        const hash = await bcrypt.hash('YOUR_PASSWORD_HERE', 10);
+        await User.create({ username: 'admin', password: hash });
+        console.log('Admin created');
+        process.exit(0);
+      });
+    "
+
+  Or use the Render shell (Dashboard → your service → Shell tab) to run it.
+
+  After creation, log in at /admin/login with:
+    Username: admin
+    Password: YOUR_PASSWORD_HERE
+
+
+================================================================================
+  SECTION 8 — API ENDPOINTS REFERENCE
+================================================================================
+
+  Base URL (production): https://backend-api-yor1.onrender.com
+
+  Public Endpoints (no auth required):
+    GET  /api/articles          — List all published articles
+    GET  /api/articles/:slug    — Get single article
+    GET  /api/stories           — List parent stories
+    GET  /api/benefits          — List government benefits
+    POST /api/contact           — Submit contact form
+    POST /api/career            — Submit career/internship application
+
+  Protected Endpoints (admin JWT required):
+    POST /api/auth/login        — Admin login → returns JWT token
+    GET  /api/stats             — Dashboard stats (contact count, etc.)
+    POST /api/articles          — Create article (with image upload)
+    PUT  /api/articles/:id      — Update article
+    DELETE /api/articles/:id    — Delete article
+    GET  /api/contact           — List contact queries
+    POST /api/stories           — Create parent story
+    POST /api/benefits          — Create benefit entry
+
+
+================================================================================
+  SECTION 9 — LOCAL DEVELOPMENT (Running Both Servers)
+================================================================================
+
+  Terminal 1 — Backend:
+    cd childcentre/suvatsalya-backend
+    npm install
+    npm run dev
+    → Runs on http://localhost:5001
+
+  Terminal 2 — Frontend:
+    cd childcentre/client
+    npm install
+    npm run dev
+    → Runs on http://localhost:5173
+
+  Make sure CORS_ORIGIN in backend .env includes http://localhost:5173
+  and VITE_API_BASE_URL in client .env (or api.js fallback) points to
+  http://localhost:5001
+
+
+================================================================================
+  SECTION 10 — ENVIRONMENT VARIABLES SUMMARY
+================================================================================
+
+  BACKEND (.env inside suvatsalya-backend/):
+  ┌─────────────────────────┬──────────────────────────────────────────────┐
+  │ Key                     │ Description                                  │
+  ├─────────────────────────┼──────────────────────────────────────────────┤
+  │ MONGO_URI               │ MongoDB Atlas connection string              │
+  │ JWT_SECRET              │ Secret key for signing admin JWT tokens      │
+  │ CLOUDINARY_CLOUD_NAME   │ Cloudinary account cloud name                │
+  │ CLOUDINARY_API_KEY      │ Cloudinary API key                           │
+  │ CLOUDINARY_API_SECRET   │ Cloudinary API secret                        │
+  │ PORT                    │ Port the server listens on (default: 5001)   │
+  │ CORS_ORIGIN             │ Comma-separated list of allowed frontend URLs│
+  └─────────────────────────┴──────────────────────────────────────────────┘
+
+  FRONTEND (.env inside client/ — optional):
+  ┌─────────────────────────┬──────────────────────────────────────────────┐
+  │ Key                     │ Description                                  │
+  ├─────────────────────────┼──────────────────────────────────────────────┤
+  │ VITE_API_BASE_URL       │ Full URL of the deployed backend API         │
+  │                         │ Example: https://backend-api-yor1.onrender.com│
+  └─────────────────────────┴──────────────────────────────────────────────┘
+
+
+================================================================================
+  SECTION 11 — TROUBLESHOOTING
+================================================================================
+
+  Problem: "MongoDB connection failed"
+  Fix    : Check MONGO_URI is correct. Ensure your IP is whitelisted in
+           MongoDB Atlas Network Access. Try 0.0.0.0/0 to allow all IPs.
+
+  Problem: "CORS error" in browser console
+  Fix    : Ensure CORS_ORIGIN in backend .env exactly matches the frontend
+           domain (including https:// and no trailing slash).
+
+  Problem: Images not uploading
+  Fix    : Check CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+           are correct. Verify the Cloudinary account is active.
+
+  Problem: "JWT malformed" or admin login fails
+  Fix    : Check JWT_SECRET is set and not empty. Clear browser localStorage
+           and try logging in again.
+
+  Problem: Frontend shows blank page after deploy
+  Fix    : Check that the publish directory is set to client/dist (not client/).
+           Ensure the _redirects file exists in client/public/.
+
+  Problem: Backend sleeps on Render (free tier)
+  Fix    : The homepage already pings /api/articles on load to wake it up.
+           For zero cold starts, upgrade to Render's paid plan ($7/mo)
+           or use UptimeRobot (free) to ping the backend URL every 10 minutes.
+
+  Problem: "Permission denied" on SSH to server
+  Fix    : Ensure the correct .pem key file is used:
+           ssh -i Ajmal.pem ubuntu@<server-ip>
+
+================================================================================
+  END OF GUIDE
+================================================================================
