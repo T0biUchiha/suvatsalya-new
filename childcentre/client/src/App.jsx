@@ -22,6 +22,7 @@ import { LearningDisabilityPage } from './components/pages/LearningDisabilityPag
 import { CerebralPalsyPage } from './components/pages/CerebralPalsyPage';
 import { DownSyndromePage } from './components/pages/DownSyndromePage';
 import { GddPage } from './components/pages/GddPage';
+import { HighRiskNewbornPage } from './components/pages/HighRiskNewbornPage';
 import { OccupationalTherapyPage } from './components/pages/OccupationalTherapyPage';
 import { SpeechTherapyPage } from './components/pages/SpeechTherapyPage';
 import { AbaTherapyPage } from './components/pages/AbaTherapyPage';
@@ -90,6 +91,7 @@ function App() {
         <Route path="what-we-treat/cerebral-palsy" element={<CerebralPalsyPage />} />
         <Route path="what-we-treat/down-syndrome" element={<DownSyndromePage />} />
         <Route path="what-we-treat/gdd" element={<GddPage />} />
+        <Route path="what-we-treat/high-risk-newborn" element={<HighRiskNewbornPage />} />
         <Route path="what-we-treat/:slug" element={<GenericPage />} />
         <Route path="what-we-treat/:slug/:subSlug" element={<GenericPage />} />
         

@@ -6,6 +6,7 @@ import ldImg from '../../assets/relogoimages/Learning_Disability_1536x1024.png';
 import cpImg from '../../assets/relogoimages/cerebral_palsy_1536x1024.png';
 import dsImg from '../../assets/relogoimages/ChatGPT Image Mar 1, 2026, 10_01_34 PM.png';
 import gddImg from '../../assets/relogoimages/global_development_delay_1536x1024.png';
+import hrnImg from '../../assets/images/Our Friends.png';
 
 function TreatCard({ title, href, image, children }) {
   return (
@@ -93,12 +94,20 @@ export function WhatWeTreat() {
               Down Syndrome is not a disease — it is a genetic condition that affects how a child grows and learns. With the right guidance, therapies, and inclusive support, children with Down Syndrome can live healthy, happy, and independent lives.
             </TreatCard>
 
-            <TreatCard 
+            <TreatCard
               title="Global Development Delay"
               href="/what-we-treat/gdd"
               image={gddImg}
             >
               Some children may take a little longer to reach milestones like walking, talking, or learning — and that may be due to a condition known as Global Developmental Delay (GDD).
+            </TreatCard>
+
+            <TreatCard
+              title="High-Risk Newborns & Developmental Concerns"
+              href="/what-we-treat/high-risk-newborn"
+              image={hrnImg}
+            >
+              A high-risk newborn is an infant born prematurely or with a condition that increases the risk of developmental problems. Early identification and intervention significantly improve long-term cognitive, motor, speech, and social outcomes.
             </TreatCard>
 
           </div>

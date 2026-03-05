@@ -73,6 +73,7 @@ export function Header() {
         { label: "Cerebral Palsy", href: "/what-we-treat/cerebral-palsy" },
         { label: "Down Syndrome", href: "/what-we-treat/down-syndrome" },
         { label: "Global Development Delay", href: "/what-we-treat/gdd" },
+        { label: "High-Risk Newborns", href: "/what-we-treat/high-risk-newborn" },
       ]
     },
     {

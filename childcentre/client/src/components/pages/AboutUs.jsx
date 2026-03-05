@@ -5,7 +5,7 @@ import gaganImg from '../../assets/directors/Dr. Gagan Deep Chhabra.png';
 import swatiImg from '../../assets/directors/Dr. Swati Chhabra.png';
 import sharadImg from '../../assets/directors/Mr. SHARAD SHUKLA.png';
 import vinayImg from '../../assets/directors/Mr. Vinay Jain.jpeg';
-import tanushreeImg from '../../assets/directors/Ms. Tanushree Bhargava.png';
+import tanushreeImg from '../../assets/directors/Tanushree Bhargava.jpeg';
 
 function TeamMemberCard({ image, name, title, degrees, bio, color = 'teal', imagePosition = 'top' }) {
   const bgColors = {

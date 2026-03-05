@@ -49,6 +49,7 @@ export function Footer() {
                 <a href="/blog" className="block text-gray-600 hover:text-brand-teal">Our Blog and Articles</a>
                 <a href="/what-we-treat/autism" className="block text-gray-600 hover:text-brand-teal">Understanding Autism</a>
                 <a href="/what-we-treat/adhd" className="block text-gray-600 hover:text-brand-teal">Understanding ADHD</a>
+                <a href="/what-we-treat/high-risk-newborn" className="block text-gray-600 hover:text-brand-teal">High-Risk Newborns</a>
               </div>
             </div>
           </div>
