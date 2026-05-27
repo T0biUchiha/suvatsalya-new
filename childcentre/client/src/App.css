@@ -14,8 +14,8 @@
   --color-brand-cream: #FFF9F5;
   --color-brand-cream-dark: #FFF3EB;
 
-  --font-heading: "futura-pt", "Jost", sans-serif;
-  --font-body: "futura-pt", "Jost", sans-serif;
+  --font-heading: "Jost", sans-serif;
+  --font-body: "Jost", sans-serif;
 
   --text-6xl: 3.5rem;
   --text-6xl--line-height: 1;
@@ -62,4 +62,14 @@ body {
 /* Uniform paragraph spacing in content areas */
 .content-area p + p {
   margin-top: 1rem;
+}
+
+/* CMS body text (articles, testimonials, benefits) — always site font */
+.cms-content,
+.cms-content * {
+  font-family: var(--font-body) !important;
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  color: #374151;
+  text-align: justify;
 }

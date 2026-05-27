@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useAuth } from '../../../context/AuthContext';
 import { Search, ArrowUpDown, Trash2 } from 'lucide-react';
 import api from '../../../api';
 
@@ -9,7 +8,6 @@ export function ContactQueries() {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
-  const { token } = useAuth();
 
   const fetchQueries = async () => {
     setLoading(true);

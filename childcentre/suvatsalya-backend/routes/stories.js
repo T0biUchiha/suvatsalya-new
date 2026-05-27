@@ -2,6 +2,8 @@ import express from 'express';
 import Story from '../models/Story.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { uploadStoryImage } from '../middleware/uploadMiddleware.js';
+import { sanitizeCmsText } from '../utils/sanitizeText.js';
+import { getPublicIdFromMulterFile, destroyByIdOrUrl } from '../utils/cloudinaryAsset.js';
 
 const router = express.Router();
 
@@ -15,8 +17,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ADMIN: GET A SINGLE STORY
-router.get('/:id', protect, async (req, res) => {
+// PUBLIC: GET A SINGLE STORY (detail page)
+router.get('/:id', async (req, res) => {
   try {
     const story = await Story.findById(req.params.id);
     if (!story) {
@@ -43,9 +45,10 @@ router.post('/', protect, (req, res) => {
     try {
       const newStory = new Story({
         title,
-        story,
+        story: sanitizeCmsText(story),
         imageUrl: req.file ? req.file.path : '',
         imageName: req.file ? req.file.originalname : '',
+        cloudinaryImageId: req.file ? getPublicIdFromMulterFile(req.file) : '',
       });
       const savedStory = await newStory.save();
       res.status(201).json(savedStory);
@@ -63,22 +66,27 @@ router.put('/:id', protect, (req, res) => {
     }
 
     const { title, story } = req.body;
-    const updateData = { title, story };
-
-    if (req.file) {
-      updateData.imageUrl = req.file.path;
-      updateData.imageName = req.file.originalname;
-    }
 
     try {
+      const existing = await Story.findById(req.params.id);
+      if (!existing) {
+        return res.status(404).json({ message: 'Story not found' });
+      }
+
+      const updateData = { title, story: sanitizeCmsText(story) };
+
+      if (req.file) {
+        await destroyByIdOrUrl(existing.cloudinaryImageId, existing.imageUrl, 'image');
+        updateData.imageUrl = req.file.path;
+        updateData.imageName = req.file.originalname;
+        updateData.cloudinaryImageId = getPublicIdFromMulterFile(req.file);
+      }
+
       const updatedStory = await Story.findByIdAndUpdate(
         req.params.id,
         updateData,
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
-      if (!updatedStory) {
-        return res.status(404).json({ message: 'Story not found' });
-      }
       res.status(200).json(updatedStory);
     } catch (error) {
       res.status(500).json({ message: `Server error: ${error.message}` });
@@ -89,10 +97,13 @@ router.put('/:id', protect, (req, res) => {
 // ADMIN: DELETE A STORY
 router.delete('/:id', protect, async (req, res) => {
   try {
-    const deletedStory = await Story.findByIdAndDelete(req.params.id);
-    if (!deletedStory) {
+    const story = await Story.findById(req.params.id);
+    if (!story) {
       return res.status(404).json({ message: 'Story not found' });
     }
+
+    await destroyByIdOrUrl(story.cloudinaryImageId, story.imageUrl, 'image');
+    await story.deleteOne();
     res.status(200).json({ message: 'Story deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });

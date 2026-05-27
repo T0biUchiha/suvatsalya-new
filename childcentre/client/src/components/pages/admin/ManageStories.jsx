@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import api from '../../../api';
 import { Button } from '../../layout/Button';
+import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
+import { IMAGE_ACCEPT, pickImageFile, validateImageFile } from '../../../utils/fileValidation';
+import { handlePastePlainText } from '../../../utils/pastePlainText';
+
+function getStorySubmitLabel(isSubmitting, editingId) {
+  if (isSubmitting) return 'Saving…';
+  if (editingId) return 'Update Story';
+  return 'Create Story';
+}
 
 export function ManageStories() {
   const [stories, setStories] = useState([]);
@@ -13,6 +22,8 @@ export function ManageStories() {
   const [image, setImage] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [formError, setFormError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const fetchStories = async () => {
     try {
@@ -22,6 +33,7 @@ export function ManageStories() {
       setLoading(false);
     } catch (err) {
       setError('Failed to fetch stories.');
+      console.error(err);
       setLoading(false);
     }
   };
@@ -35,11 +47,22 @@ export function ManageStories() {
     setStory('');
     setImage(null);
     setEditingId(null);
+    setFormError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    if (isSubmitting) return;
+
+    setFormError('');
+
+    if (image) {
+      const check = validateImageFile(image);
+      if (!check.valid) {
+        setFormError(check.message);
+        return;
+      }
+    }
 
     const formData = new FormData();
     formData.append('title', title);
@@ -48,6 +71,7 @@ export function ManageStories() {
       formData.append('image', image);
     }
 
+    setIsSubmitting(true);
     try {
       if (editingId) {
         await api.put(`/api/stories/${editingId}`, formData, {
@@ -62,7 +86,10 @@ export function ManageStories() {
       e.target.reset();
       fetchStories();
     } catch (err) {
-      setError('Failed to save story.');
+      setFormError('Failed to save story.');
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -74,12 +101,13 @@ export function ManageStories() {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this story?')) {
+    if (globalThis.confirm('Are you sure you want to delete this story?')) {
       try {
         await api.delete(`/api/stories/${id}`);
         fetchStories();
       } catch (err) {
         setError('Failed to delete story.');
+        console.error(err);
       }
     }
   };
@@ -95,13 +123,15 @@ export function ManageStories() {
           onSubmit={handleSubmit}
           className="rounded-lg border bg-white p-6 shadow-sm"
         >
-          {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
+          <FormSubmitOverlay busy={isSubmitting}>
+          {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Title (e.g., "Parent of Aarav")
+              <label htmlFor="story-title" className="block text-sm font-medium text-gray-700">
+                Title (e.g., &quot;Parent of Aarav&quot;)
               </label>
               <input
+                id="story-title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -111,35 +141,40 @@ export function ManageStories() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="story-content" className="block text-sm font-medium text-gray-700">
                 Story / Testimonial
               </label>
               <textarea
+                id="story-content"
                 rows="10"
                 value={story}
                 onChange={(e) => setStory(e.target.value)}
+                onPaste={handlePastePlainText}
                 required
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="story-image" className="block text-sm font-medium text-gray-700">
                 Image {editingId ? '(Leave empty to keep current)' : '(Optional)'}
               </label>
+              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
               <input
+                id="story-image"
                 type="file"
-                accept="image/*"
-                onChange={(e) => setImage(e.target.files[0])}
+                accept={IMAGE_ACCEPT}
+                onChange={(e) => pickImageFile(e, setImage, setFormError)}
                 className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
               />
             </div>
             
             <Button
-              text={editingId ? 'Update Story' : 'Create Story'}
+              text={getStorySubmitLabel(isSubmitting, editingId)}
               type="submit"
               variant="secondary"
               className="w-full"
+              disabled={isSubmitting}
             />
             {editingId && (
               <Button
@@ -148,9 +183,11 @@ export function ManageStories() {
                 variant="outline"
                 className="w-full"
                 onClick={resetForm}
+                disabled={isSubmitting}
               />
             )}
           </div>
+          </FormSubmitOverlay>
         </form>
       </div>
 
@@ -170,6 +207,7 @@ export function ManageStories() {
           />
         </div>
         {loading && <p className="text-gray-900">Loading...</p>}
+        {error && <p className="mb-4 text-red-600">{error}</p>}
         <div className="space-y-4">
           {stories
             .filter((s) => s.title?.toLowerCase().includes(searchTerm.toLowerCase()))

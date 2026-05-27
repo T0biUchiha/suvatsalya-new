@@ -1,4 +1,27 @@
+import { useState, useEffect } from 'react';
+import api from '../../api';
+import { SOCIAL_ICON_MAP } from '../icons/socialIconMap';
+
+const SOCIAL_LABELS = {
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  youtube: 'YouTube',
+  twitter: 'X',
+  facebook: 'Facebook',
+};
+
 export function Footer() {
+  const [socialLinks, setSocialLinks] = useState({});
+
+  useEffect(() => {
+    api
+      .get('/api/social-links')
+      .then((res) => setSocialLinks(res.data))
+      .catch(() => setSocialLinks({}));
+  }, []);
+
+  const activePlatforms = Object.entries(socialLinks).filter(([, url]) => url);
+
   return (
     <>
       {/* Main Footer Section */}
@@ -20,6 +43,28 @@ export function Footer() {
                 <a href="mailto:info@suvatsalya.in" className="block text-brand-teal hover:text-brand-teal-dark">
                   info@suvatsalya.in
                 </a>
+
+                {activePlatforms.length > 0 && (
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    {activePlatforms.map(([platform, url]) => {
+                      const Icon = SOCIAL_ICON_MAP[platform];
+                      if (!Icon) return null;
+                      return (
+                        <a
+                          key={platform}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={SOCIAL_LABELS[platform] || platform}
+                          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-teal shadow-sm transition-colors hover:bg-brand-teal hover:text-white"
+                        >
+                          <Icon className="h-5 w-5" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+
                 <div className="mt-6 space-y-2">
                   <a href="/policies" className="block text-gray-600 hover:text-brand-teal">Website Policies</a>
                   <a href="/terms" className="block text-gray-600 hover:text-brand-teal">Terms of Use</a>

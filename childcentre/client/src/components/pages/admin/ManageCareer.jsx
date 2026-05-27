@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../../../api';
 import { Button } from '../../layout/Button';
+import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
 
 export function ManageCareer() {
   const [url, setUrl] = useState('');
@@ -8,6 +9,7 @@ export function ManageCareer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Fetch both fields
   useEffect(() => {
@@ -20,6 +22,7 @@ export function ManageCareer() {
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch settings.');
+        console.error(err);
         setLoading(false);
       }
     };
@@ -29,17 +32,22 @@ export function ManageCareer() {
   // 2. Handle the update
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setError('');
     setSuccess('');
+    setIsSubmitting(true);
     try {
-      await api.put('/api/career', { 
-        googleFormUrl: url, 
-        isAccepting: isAccepting // 3. Send both fields
+      await api.put('/api/career', {
+        googleFormUrl: url,
+        isAccepting: isAccepting,
       });
       setSuccess('Settings updated successfully!');
     } catch (err) {
       setError('Failed to update settings. Please try again.');
       console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -57,15 +65,17 @@ export function ManageCareer() {
         onSubmit={handleSubmit}
         className="rounded-lg border bg-white p-6 shadow-sm"
       >
+        <FormSubmitOverlay busy={isSubmitting}>
         {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
         {success && <p className="mb-4 text-sm text-green-600">{success}</p>}
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label htmlFor="career-form-url" className="block text-sm font-medium text-gray-700">
               Google Form URL
             </label>
             <input
+              id="career-form-url"
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
@@ -90,12 +100,14 @@ export function ManageCareer() {
           {/* --- END NEW CHECKBOX --- */}
           
           <Button
-            text="Save Settings"
+            text={isSubmitting ? 'Saving…' : 'Save Settings'}
             type="submit"
             variant="secondary"
             className="w-full"
+            disabled={isSubmitting}
           />
         </div>
+        </FormSubmitOverlay>
       </form>
     </div>
   );

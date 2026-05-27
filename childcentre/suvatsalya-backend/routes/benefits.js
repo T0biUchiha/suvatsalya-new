@@ -2,28 +2,32 @@ import express from 'express';
 import Benefit from '../models/Benefit.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { cloudinary } from '../config/cloudinary.js';
-import { uploadBenefitImage, uploadBenefitPdf } from '../middleware/uploadMiddleware.js';
 import multer from 'multer';
-import { benefitImageStorage, benefitPdfStorage } from '../config/cloudinary.js';
+import { sanitizeCmsText } from '../utils/sanitizeText.js';
+import { resolvePdfFileName } from '../utils/pdfDownload.js';
+import { destroyByIdOrUrl } from '../utils/cloudinaryAsset.js';
 
 const router = express.Router();
 
 // Helper: upload with multer fields (image + pdf)
 const upload = multer({
-  storage: multer.diskStorage({}), // temp disk storage
+  storage: multer.diskStorage({}),
   fileFilter: (req, file, cb) => {
     if (file.fieldname === 'image') {
-      const allowed = /jpeg|jpg|png|webp/;
-      if (allowed.test(file.mimetype) && allowed.test(file.originalname.toLowerCase())) {
+      const extOk = /\.(jpe?g|png|webp)$/i.test(file.originalname);
+      const mimeOk = /^image\/(jpeg|jpg|png|webp)$/i.test(file.mimetype);
+      if (mimeOk && extOk) {
         return cb(null, true);
       }
-      return cb('Error: Images only!');
+      return cb(new Error('Only JPG, PNG, or WEBP images are allowed.'));
     }
     if (file.fieldname === 'pdf') {
-      if (/pdf/.test(file.mimetype)) {
+      const extOk = /\.pdf$/i.test(file.originalname);
+      const mimeOk = file.mimetype === 'application/pdf';
+      if (mimeOk && extOk) {
         return cb(null, true);
       }
-      return cb('Error: PDF files only!');
+      return cb(new Error('Only PDF documents are allowed.'));
     }
     cb(null, false);
   },
@@ -32,6 +36,21 @@ const upload = multer({
   { name: 'image', maxCount: 1 },
   { name: 'pdf', maxCount: 1 },
 ]);
+
+async function uploadBenefitPdf(file, title) {
+  const pdfFileName = resolvePdfFileName(file.originalname, title);
+  const pdfResult = await cloudinary.uploader.upload(file.path, {
+    folder: 'suvatsalya/benefits/pdfs',
+    resource_type: 'raw',
+    use_filename: true,
+    unique_filename: true,
+  });
+  return {
+    pdfUrl: pdfResult.secure_url,
+    cloudinaryPdfId: pdfResult.public_id,
+    pdfFileName,
+  };
+}
 
 // ---
 // PUBLIC: GET ALL BENEFITS
@@ -70,14 +89,16 @@ router.post('/', protect, upload, async (req, res) => {
   try {
     const { title, description, websiteLink } = req.body;
 
-    const benefitData = { title, description };
+    const benefitData = {
+      title,
+      description: sanitizeCmsText(description),
+    };
 
     if (websiteLink) {
       benefitData.websiteLink = websiteLink;
     }
 
-    // Upload image to Cloudinary if provided
-    if (req.files && req.files.image && req.files.image[0]) {
+    if (req.files?.image?.[0]) {
       const imageResult = await cloudinary.uploader.upload(req.files.image[0].path, {
         folder: 'suvatsalya/benefits/images',
       });
@@ -85,14 +106,8 @@ router.post('/', protect, upload, async (req, res) => {
       benefitData.cloudinaryImageId = imageResult.public_id;
     }
 
-    // Upload PDF to Cloudinary if provided
-    if (req.files && req.files.pdf && req.files.pdf[0]) {
-      const pdfResult = await cloudinary.uploader.upload(req.files.pdf[0].path, {
-        folder: 'suvatsalya/benefits/pdfs',
-        resource_type: 'raw',
-      });
-      benefitData.pdfUrl = pdfResult.secure_url;
-      benefitData.cloudinaryPdfId = pdfResult.public_id;
+    if (req.files?.pdf?.[0]) {
+      Object.assign(benefitData, await uploadBenefitPdf(req.files.pdf[0], title));
     }
 
     const newBenefit = new Benefit(benefitData);
@@ -117,12 +132,10 @@ router.put('/:id', protect, upload, async (req, res) => {
     const { title, description, websiteLink, removeImage, removePdf } = req.body;
 
     if (title) benefit.title = title;
-    if (description) benefit.description = description;
+    if (description !== undefined) benefit.description = sanitizeCmsText(description);
     benefit.websiteLink = websiteLink || '';
 
-    // Handle image update
-    if (req.files && req.files.image && req.files.image[0]) {
-      // Delete old image from Cloudinary
+    if (req.files?.image?.[0]) {
       if (benefit.cloudinaryImageId) {
         await cloudinary.uploader.destroy(benefit.cloudinaryImageId);
       }
@@ -139,24 +152,21 @@ router.put('/:id', protect, upload, async (req, res) => {
       benefit.cloudinaryImageId = '';
     }
 
-    // Handle PDF update
-    if (req.files && req.files.pdf && req.files.pdf[0]) {
-      // Delete old PDF from Cloudinary
+    if (req.files?.pdf?.[0]) {
       if (benefit.cloudinaryPdfId) {
         await cloudinary.uploader.destroy(benefit.cloudinaryPdfId, { resource_type: 'raw' });
       }
-      const pdfResult = await cloudinary.uploader.upload(req.files.pdf[0].path, {
-        folder: 'suvatsalya/benefits/pdfs',
-        resource_type: 'raw',
-      });
-      benefit.pdfUrl = pdfResult.secure_url;
-      benefit.cloudinaryPdfId = pdfResult.public_id;
+      const pdfData = await uploadBenefitPdf(req.files.pdf[0], benefit.title);
+      benefit.pdfUrl = pdfData.pdfUrl;
+      benefit.cloudinaryPdfId = pdfData.cloudinaryPdfId;
+      benefit.pdfFileName = pdfData.pdfFileName;
     } else if (removePdf === 'true') {
       if (benefit.cloudinaryPdfId) {
         await cloudinary.uploader.destroy(benefit.cloudinaryPdfId, { resource_type: 'raw' });
       }
       benefit.pdfUrl = '';
       benefit.cloudinaryPdfId = '';
+      benefit.pdfFileName = '';
     }
 
     const updatedBenefit = await benefit.save();
@@ -177,14 +187,8 @@ router.delete('/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Benefit not found' });
     }
 
-    // Delete image from Cloudinary
-    if (benefit.cloudinaryImageId) {
-      await cloudinary.uploader.destroy(benefit.cloudinaryImageId);
-    }
-    // Delete PDF from Cloudinary
-    if (benefit.cloudinaryPdfId) {
-      await cloudinary.uploader.destroy(benefit.cloudinaryPdfId, { resource_type: 'raw' });
-    }
+    await destroyByIdOrUrl(benefit.cloudinaryImageId, benefit.imageUrl, 'image');
+    await destroyByIdOrUrl(benefit.cloudinaryPdfId, benefit.pdfUrl, 'raw');
 
     await benefit.deleteOne();
     res.status(200).json({ message: 'Benefit deleted' });

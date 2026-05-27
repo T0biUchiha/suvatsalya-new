@@ -11,6 +11,7 @@ import careerRoutes from './routes/career.js';
 import storyRoutes from './routes/stories.js';
 import statsRoutes from './routes/stats.js';
 import benefitRoutes from './routes/benefits.js';
+import socialLinksRoutes from './routes/socialLinks.js';
 
 // Load env vars
 dotenv.config();
@@ -43,6 +44,7 @@ app.use('/api/career', careerRoutes);
 app.use('/api/stories', storyRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/benefits', benefitRoutes);
+app.use('/api/social-links', socialLinksRoutes);
 
 // --- Start Server ---
 const PORT = process.env.PORT || 5000;

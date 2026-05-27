@@ -17,6 +17,10 @@ const storySchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  cloudinaryImageId: {
+    type: String,
+    default: '',
+  },
 }, { timestamps: true });
 
 const Story = mongoose.model('Story', storySchema);

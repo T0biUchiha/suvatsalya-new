@@ -2,7 +2,9 @@ import express from 'express';
 import Article from '../models/Article.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { uploadArticleImage } from '../middleware/uploadMiddleware.js';
-import { cloudinary } from '../config/cloudinary.js';
+import { generateUniqueSlug, ensureArticleSlug } from '../utils/slugify.js';
+import { sanitizeCmsText } from '../utils/sanitizeText.js';
+import { getPublicIdFromMulterFile, destroyByIdOrUrl } from '../utils/cloudinaryAsset.js';
 
 const router = express.Router();
 
@@ -13,6 +15,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const articles = await Article.find().populate('author', 'username').sort({ createdAt: -1 });
+    await Promise.all(articles.map((article) => ensureArticleSlug(article)));
     res.status(200).json(articles);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
@@ -25,10 +28,11 @@ router.get('/', async (req, res) => {
 // ---
 router.get('/:slug', async (req, res) => {
   try {
-    const article = await Article.findOne({ slug: req.params.slug }).populate('author', 'username');
+    let article = await Article.findOne({ slug: req.params.slug }).populate('author', 'username');
     if (!article) {
       return res.status(404).json({ message: 'Article not found' });
     }
+    article = await ensureArticleSlug(article);
     res.status(200).json(article);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
@@ -40,15 +44,17 @@ router.get('/:slug', async (req, res) => {
 // POST /api/articles
 // ---
 router.post('/', protect, uploadArticleImage, async (req, res) => {
-  const { title, content, slug } = req.body;
+  const { title, content } = req.body;
   try {
+    const slug = await generateUniqueSlug(title);
+    const imagePublicId = req.file ? getPublicIdFromMulterFile(req.file) : undefined;
     const newArticle = new Article({
       title,
-      content,
+      content: sanitizeCmsText(content),
       slug,
       author: req.user._id,
       imageUrl: req.file ? req.file.path : undefined,
-      cloudinaryId: req.file ? req.file.filename : undefined,
+      cloudinaryId: imagePublicId,
     });
     const savedArticle = await newArticle.save();
     res.status(201).json(savedArticle);
@@ -67,10 +73,7 @@ router.delete('/:id', protect, async (req, res) => {
     if (!article) {
       return res.status(404).json({ message: 'Article not found' });
     }
-    // Delete image from Cloudinary if it exists
-    if (article.cloudinaryId) {
-      await cloudinary.uploader.destroy(article.cloudinaryId);
-    }
+    await destroyByIdOrUrl(article.cloudinaryId, article.imageUrl, 'image');
     await article.deleteOne();
     res.status(200).json({ message: 'Article deleted' });
   } catch (error) {

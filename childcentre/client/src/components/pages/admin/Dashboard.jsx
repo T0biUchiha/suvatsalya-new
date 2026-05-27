@@ -33,6 +33,7 @@ export function Dashboard() {
         setLoading(false);
       } catch (err) {
         setError('Failed to load dashboard stats.');
+        console.error(err);
         setLoading(false);
       }
     };

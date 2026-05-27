@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo/suvatsalya-logo.png";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileOpenMenus, setMobileOpenMenus] = useState({});
   const [leaveTimeout, setLeaveTimeout] = useState(null);
@@ -17,17 +16,6 @@ export function Header() {
     if (href.includes('#')) return currentPath === href;
     return location.pathname === href || location.pathname.startsWith(href + '/');
   };
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1280);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false);

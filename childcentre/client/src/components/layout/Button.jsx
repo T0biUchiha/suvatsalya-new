@@ -9,7 +9,8 @@ export function Button({
   type = "button",
   ...rest
 }) {
-  const baseStyles = "px-8 py-3 text-sm font-semibold tracking-wide transition-colors rounded-md";
+  const baseStyles =
+    "px-8 py-3 text-sm font-semibold tracking-wide transition-colors rounded-md disabled:cursor-not-allowed disabled:opacity-50";
   
   const variants = {
     primary: "bg-brand-blue hover:bg-brand-blue/90 text-white",

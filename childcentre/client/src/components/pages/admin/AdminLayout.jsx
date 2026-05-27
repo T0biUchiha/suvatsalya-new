@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../../context/useAuth';
 import logo from '/src/assets/logo/suvatsalya-logo.png';
-import { Home, Mail, FileText, LogOut, Briefcase, BookText, Gift } from 'lucide-react'; 
+import { Home, Mail, FileText, LogOut, Briefcase, BookText, Gift, Share2 } from 'lucide-react'; 
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: Home, exact: true },
@@ -10,6 +10,7 @@ const navItems = [
   { to: '/admin/career', label: 'Manage Career Link', icon: Briefcase },
   { to: '/admin/stories', label: 'Manage Stories', icon: BookText },
   { to: '/admin/benefits', label: 'Manage Benefits', icon: Gift },
+  { to: '/admin/social', label: 'Social Links', icon: Share2 },
 ];
 
 export function AdminLayout() {

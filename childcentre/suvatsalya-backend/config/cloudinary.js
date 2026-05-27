@@ -19,25 +19,6 @@ const articleStorage = new CloudinaryStorage({
   },
 });
 
-// Configure storage for benefit images
-const benefitImageStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'suvatsalya/benefits/images',
-    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
-  },
-});
-
-// Configure storage for benefit PDFs
-const benefitPdfStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'suvatsalya/benefits/pdfs',
-    allowed_formats: ['pdf'],
-    resource_type: 'raw',
-  },
-});
-
 const storyImageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -46,4 +27,4 @@ const storyImageStorage = new CloudinaryStorage({
   },
 });
 
-export { cloudinary, articleStorage, benefitImageStorage, benefitPdfStorage, storyImageStorage };
+export { cloudinary, articleStorage, storyImageStorage };

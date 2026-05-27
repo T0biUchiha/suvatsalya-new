@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { Button } from '../layout/Button';
+import { ContentImage } from '../layout/ContentImage';
 import hero4Img from '../../assets/home-page/hero4.jpg'; // Default placeholder image
 
 export function SingleArticlePage() {
@@ -14,7 +15,7 @@ export function SingleArticlePage() {
       try {
         setLoading(true);
         // Fetches the single article using its slug
-        const response = await api.get(`/api/articles/${slug}`);
+        const response = await api.get(`/api/articles/${encodeURIComponent(slug)}`);
         setArticle(response.data);
         setLoading(false);
       } catch (err) {
@@ -41,10 +42,9 @@ export function SingleArticlePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left: Image */}
             <div>
-              <img
-                src={article.imageUrl || hero4Img} // Use article image or placeholder
+              <ContentImage
+                src={article.imageUrl || hero4Img}
                 alt={article.title}
-                className="w-full h-auto rounded-lg shadow-lg"
               />
             </div>
             {/* Right: Title */}
@@ -66,11 +66,7 @@ export function SingleArticlePage() {
       <section className="w-full py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            {/* This `prose` class from Tailwind's typography plugin 
-              will automatically style your article content.
-              'whitespace-pre-wrap' ensures your line breaks are respected.
-            */}
-            <div className="prose prose-lg text-gray-700 max-w-none whitespace-pre-wrap">
+            <div className="cms-content whitespace-pre-wrap">
               {article.content}
             </div>
 

@@ -2,6 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { protect } from '../middleware/authMiddleware.js';
+import { generateSecurePassword } from '../utils/password.js';
 
 const router = express.Router();
 
@@ -67,6 +68,47 @@ router.post('/login', async (req, res) => {
 router.get('/me', protect, async (req, res) => {
   // req.user is attached by the 'protect' middleware
   res.status(200).json(req.user);
+});
+
+// ---
+// EMERGENCY ADMIN PASSWORD RESET (not linked in UI)
+// POST /api/auth/reset-password
+// Body: { resetSecret, username?, newPassword? }
+// If newPassword is omitted, a secure password is generated and returned once.
+// ---
+router.post('/reset-password', async (req, res) => {
+  const { resetSecret, username = 'Admin', newPassword } = req.body;
+
+  if (!process.env.ADMIN_RESET_SECRET) {
+    return res.status(503).json({ message: 'Password reset is not configured on this server' });
+  }
+
+  if (!resetSecret || resetSecret !== process.env.ADMIN_RESET_SECRET) {
+    return res.status(401).json({ message: 'Invalid reset secret' });
+  }
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'Admin user not found' });
+    }
+
+    const passwordToSet = newPassword?.trim() || generateSecurePassword(16);
+    if (passwordToSet.length < 8) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters' });
+    }
+
+    user.password = passwordToSet;
+    await user.save();
+
+    res.status(200).json({
+      message: 'Password updated successfully',
+      username: user.username,
+      newPassword: passwordToSet,
+    });
+  } catch (error) {
+    res.status(500).json({ message: `Server error: ${error.message}` });
+  }
 });
 
 export default router;

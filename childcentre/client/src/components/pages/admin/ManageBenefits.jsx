@@ -1,7 +1,22 @@
 import { useState, useEffect } from 'react';
 import api from '../../../api';
 import { Button } from '../../layout/Button';
+import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
 import { Pencil, Trash2, X, ExternalLink, FileText, Image, Search } from 'lucide-react';
+import {
+  IMAGE_ACCEPT,
+  PDF_ACCEPT,
+  pickImageFile,
+  pickPdfFile,
+  validateBenefitFiles,
+} from '../../../utils/fileValidation';
+import { handlePastePlainText } from '../../../utils/pastePlainText';
+
+function getBenefitSubmitLabel(formLoading, editingId) {
+  if (formLoading) return 'Saving…';
+  if (editingId) return 'Update Benefit';
+  return 'Add Benefit';
+}
 
 export function ManageBenefits() {
   const [benefits, setBenefits] = useState([]);
@@ -53,8 +68,17 @@ export function ManageBenefits() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formLoading) return;
+
     setFormError('');
     setFormLoading(true);
+
+    const fileCheck = validateBenefitFiles(image, pdf);
+    if (!fileCheck.valid) {
+      setFormError(fileCheck.message);
+      setFormLoading(false);
+      return;
+    }
 
     const formData = new FormData();
     formData.append('title', title);
@@ -83,8 +107,9 @@ export function ManageBenefits() {
     } catch (err) {
       setFormError(editingId ? 'Failed to update benefit.' : 'Failed to create benefit.');
       console.error(err);
+    } finally {
+      setFormLoading(false);
     }
-    setFormLoading(false);
   };
 
   const handleEdit = (benefit) => {
@@ -97,11 +122,11 @@ export function ManageBenefits() {
     setRemoveImage(false);
     setRemovePdf(false);
     setFormError('');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    globalThis.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this benefit?')) return;
+    if (!globalThis.confirm('Are you sure you want to delete this benefit?')) return;
     try {
       await api.delete(`/api/benefits/${id}`);
       fetchBenefits();
@@ -127,14 +152,16 @@ export function ManageBenefits() {
         </div>
 
         <form onSubmit={handleSubmit} className="rounded-lg border bg-white p-6 shadow-sm">
+          <FormSubmitOverlay busy={formLoading}>
           {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
           <div className="space-y-4">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="benefit-title" className="block text-sm font-medium text-gray-700">
                 Title <span className="text-red-500">*</span>
               </label>
               <input
+                id="benefit-title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -146,13 +173,15 @@ export function ManageBenefits() {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="benefit-description" className="block text-sm font-medium text-gray-700">
                 Description <span className="text-red-500">*</span>
               </label>
               <textarea
+                id="benefit-description"
                 rows="6"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                onPaste={handlePastePlainText}
                 required
                 placeholder="Describe the government benefit, eligibility, and how to apply..."
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
@@ -161,7 +190,7 @@ export function ManageBenefits() {
 
             {/* Image (Optional) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="benefit-image" className="block text-sm font-medium text-gray-700">
                 Image <span className="text-xs text-gray-400 ml-1">(optional)</span>
               </label>
               {editingId && !removeImage && (
@@ -179,17 +208,22 @@ export function ManageBenefits() {
               {removeImage && (
                 <p className="mt-1 text-xs text-red-500">Image will be removed on save. <button type="button" onClick={() => setRemoveImage(false)} className="underline">Undo</button></p>
               )}
+              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
               <input
+                id="benefit-image"
                 type="file"
-                accept="image/*"
-                onChange={(e) => { setImage(e.target.files[0]); setRemoveImage(false); }}
+                accept={IMAGE_ACCEPT}
+                onChange={(e) => {
+                  pickImageFile(e, setImage, setFormError);
+                  if (e.target.files?.[0]) setRemoveImage(false);
+                }}
                 className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
               />
             </div>
 
             {/* PDF (Optional) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="benefit-pdf" className="block text-sm font-medium text-gray-700">
                 PDF Document <span className="text-xs text-gray-400 ml-1">(optional)</span>
               </label>
               {editingId && !removePdf && (
@@ -207,20 +241,26 @@ export function ManageBenefits() {
               {removePdf && (
                 <p className="mt-1 text-xs text-red-500">PDF will be removed on save. <button type="button" onClick={() => setRemovePdf(false)} className="underline">Undo</button></p>
               )}
+              <p className="mt-0.5 text-xs text-gray-500">PDF only</p>
               <input
+                id="benefit-pdf"
                 type="file"
-                accept=".pdf"
-                onChange={(e) => { setPdf(e.target.files[0]); setRemovePdf(false); }}
+                accept={PDF_ACCEPT}
+                onChange={(e) => {
+                  pickPdfFile(e, setPdf, setFormError);
+                  if (e.target.files?.[0]) setRemovePdf(false);
+                }}
                 className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
               />
             </div>
 
             {/* Website Link (Optional) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="benefit-website" className="block text-sm font-medium text-gray-700">
                 Government Website Link <span className="text-xs text-gray-400 ml-1">(optional)</span>
               </label>
               <input
+                id="benefit-website"
                 type="url"
                 value={websiteLink}
                 onChange={(e) => setWebsiteLink(e.target.value)}
@@ -230,13 +270,14 @@ export function ManageBenefits() {
             </div>
 
             <Button
-              text={formLoading ? 'Saving...' : (editingId ? 'Update Benefit' : 'Add Benefit')}
+              text={getBenefitSubmitLabel(formLoading, editingId)}
               type="submit"
               variant="secondary"
               className="w-full"
               disabled={formLoading}
             />
           </div>
+          </FormSubmitOverlay>
         </form>
       </div>
 
@@ -287,7 +328,12 @@ export function ManageBenefits() {
                       </span>
                     )}
                     {benefit.pdfUrl && (
-                      <a href={benefit.pdfUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded hover:bg-blue-100">
+                      <a
+                        href={benefit.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded hover:bg-blue-100"
+                      >
                         <FileText size={12} /> PDF
                       </a>
                     )}

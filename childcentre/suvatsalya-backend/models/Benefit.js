@@ -22,6 +22,11 @@ const benefitSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  pdfFileName: {
+    type: String,
+    required: false,
+    trim: true,
+  },
   cloudinaryPdfId: {
     type: String,
     required: false,

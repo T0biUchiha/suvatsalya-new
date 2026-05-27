@@ -28,7 +28,9 @@ import { SpeechTherapyPage } from './components/pages/SpeechTherapyPage';
 import { AbaTherapyPage } from './components/pages/AbaTherapyPage';
 import { PhysiotherapyPage } from './components/pages/PhysiotherapyPage';
 import { PsychologicalTestPage } from './components/pages/PsychologicalTestPage';
-import { SingleArticlePage } from './components/pages/SingleArticlePage'; 
+import { SingleArticlePage } from './components/pages/SingleArticlePage';
+import { SingleBenefitPage } from './components/pages/SingleBenefitPage';
+import { SingleTestimonialPage } from './components/pages/SingleTestimonialPage';
 import { TermsPage } from './components/pages/TermsPage';
 import { PolicyPage } from './components/pages/PolicyPage';
 
@@ -42,6 +44,7 @@ import { ManageCareer } from './components/pages/admin/ManageCareer';
 import { ManageStories } from './components/pages/admin/ManageStories';
 import { Dashboard } from './components/pages/admin/Dashboard';
 import { ManageBenefits } from './components/pages/admin/ManageBenefits';
+import { ManageSocialLinks } from './components/pages/admin/ManageSocialLinks';
 
 // This component wraps public pages in the Header and Footer
 function PublicLayout() {
@@ -83,6 +86,8 @@ function App() {
         {/* --- Single Article Routes --- */}
         <Route path="blog/:slug" element={<SingleArticlePage />} />
         <Route path="articles/:slug" element={<SingleArticlePage />} />
+        <Route path="benefits/:id" element={<SingleBenefitPage />} />
+        <Route path="testimonials/:id" element={<SingleTestimonialPage />} />
 
         {/* --- "What We Treat" Sub-Pages --- */}
         <Route path="what-we-treat/autism" element={<AutismPage />} />
@@ -125,6 +130,7 @@ function App() {
         <Route path="career" element={<ManageCareer />} />
         <Route path="stories" element={<ManageStories />} />
         <Route path="benefits" element={<ManageBenefits />} />
+        <Route path="social" element={<ManageSocialLinks />} />
       </Route>
     </Routes>
     </>

@@ -1,21 +1,22 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useAuth } from '../../../context/AuthContext';
+import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import api from '../../../api';
 import { Button } from '../../layout/Button';
+import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
+import { IMAGE_ACCEPT, pickImageFile, validateImageFile } from '../../../utils/fileValidation';
+import { handlePastePlainText } from '../../../utils/pastePlainText';
 
 export function ManageArticles() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { token } = useAuth();
 
   // State for the new article form
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [slug, setSlug] = useState('');
   const [image, setImage] = useState(null);
   const [formError, setFormError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   // 1. Fetch all articles
@@ -38,40 +39,49 @@ export function ManageArticles() {
   // 2. Handle form submission to create a new article
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setFormError('');
 
-    // Use FormData for file uploads
+    if (image) {
+      const check = validateImageFile(image);
+      if (!check.valid) {
+        setFormError(check.message);
+        return;
+      }
+    }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('slug', slug);
     if (image) {
       formData.append('image', image);
     }
 
+    setIsSubmitting(true);
     try {
       await api.post('/api/articles', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      
-      // Reset form and refresh list
+
       setTitle('');
       setContent('');
-      setSlug('');
       setImage(null);
-      e.target.reset(); // Resets the file input
-      fetchArticles(); // Refresh the article list
+      e.target.reset();
+      fetchArticles();
     } catch (err) {
       setFormError('Failed to create article. Check console for details.');
       console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   // 3. Handle article deletion
   const handleDelete = async (articleId) => {
-    if (!window.confirm('Are you sure you want to delete this article?')) {
+    if (!globalThis.confirm('Are you sure you want to delete this article?')) {
       return;
     }
 
@@ -95,66 +105,60 @@ export function ManageArticles() {
           onSubmit={handleSubmit}
           className="rounded-lg border bg-white p-6 shadow-sm"
         >
+          <FormSubmitOverlay busy={isSubmitting}>
           {formError && (
             <p className="mb-4 text-sm text-red-600">{formError}</p>
           )}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="article-title" className="block text-sm font-medium text-gray-700">
                 Title
               </label>
               <input
+                id="article-title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                // --- ADDED TEXT CLASSES HERE ---
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Slug (e.g., "what-is-dyslexia")
-              </label>
-              <input
-                type="text"
-                value={slug}
-                onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))}
-                required
-                // --- ADDED TEXT CLASSES HERE ---
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="article-content" className="block text-sm font-medium text-gray-700">
                 Content
               </label>
               <textarea
+                id="article-content"
                 rows="10"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                onPaste={handlePastePlainText}
                 required
-                // --- ADDED TEXT CLASSES HERE ---
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label htmlFor="article-image" className="block text-sm font-medium text-gray-700">
                 Featured Image (Optional)
               </label>
+              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
               <input
+                id="article-image"
                 type="file"
-                onChange={(e) => setImage(e.target.files[0])}
+                accept={IMAGE_ACCEPT}
+                onChange={(e) => pickImageFile(e, setImage, setFormError)}
                 className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
               />
             </div>
             <Button
-              text="Create Article"
+              text={isSubmitting ? 'Publishing…' : 'Create Article'}
               type="submit"
               variant="secondary"
               className="w-full"
+              disabled={isSubmitting}
             />
           </div>
+          </FormSubmitOverlay>
         </form>
       </div>
 
@@ -187,7 +191,7 @@ export function ManageArticles() {
                 <h3 className="text-lg font-semibold text-brand-teal-dark">
                   {article.title}
                 </h3>
-                <p className="text-sm text-gray-500">/{article.slug}</p>
+                <p className="text-sm text-gray-500">/blog/{article.slug || '—'}</p>
               </div>
               <Button
                 text="Delete"

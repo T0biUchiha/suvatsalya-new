@@ -1,13 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { AuthContext } from './auth-context';
 
-// Create the context
-const AuthContext = createContext(null);
-
-// Create the provider component
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem('adminToken'));
 
-  // Update localStorage when token changes
   useEffect(() => {
     if (token) {
       localStorage.setItem('adminToken', token);
@@ -16,12 +13,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  // Login function
   const login = (newToken) => {
     setToken(newToken);
   };
 
-  // Logout function
   const logout = () => {
     setToken(null);
   };
@@ -31,9 +26,8 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-// Create a custom hook to use the context easily
-export const useAuth = () => {
-  return useContext(AuthContext);
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
