@@ -26,6 +26,17 @@ const articleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  relatedArticles: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Article'
+    }],
+    default: [],
+    validate: {
+      validator: (articles) => articles.length <= 4,
+      message: 'An article can have up to four related articles.'
+    }
   }
 }, { timestamps: true });
 

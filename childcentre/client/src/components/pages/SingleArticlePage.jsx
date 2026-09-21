@@ -91,6 +91,28 @@ export function SingleArticlePage() {
           <div className="max-w-4xl mx-auto">
             <ArticleContent content={article.content} />
 
+            {article.relatedArticles?.length > 0 && (
+              <aside className="mt-14 border-t border-gray-200 pt-10" aria-label="Related blogs">
+                <h2 className="text-2xl font-bold text-gray-900">Related blogs</h2>
+                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                  {article.relatedArticles.map((relatedArticle) => (
+                    <Link
+                      key={relatedArticle._id}
+                      to={`/blog/${encodeURIComponent(relatedArticle.slug)}`}
+                      className="group rounded-xl border border-gray-200 bg-gray-50 p-5 transition hover:border-brand-teal hover:bg-brand-cream"
+                    >
+                      <p className="font-semibold text-gray-900 transition group-hover:text-brand-teal">
+                        {relatedArticle.title}
+                      </p>
+                      <span className="mt-3 inline-block text-sm font-semibold text-brand-teal">
+                        Read article &rarr;
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </aside>
+            )}
+
             {/* Back to Blog link */}
             <div className="border-t border-gray-200 pt-8 mt-12">
               <Link to="/blog" className="font-semibold text-brand-teal hover:text-brand-teal-dark">

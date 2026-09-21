@@ -20,6 +20,7 @@ export function ManageArticles() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const [relatedArticleIds, setRelatedArticleIds] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [formError, setFormError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,6 +47,7 @@ export function ManageArticles() {
     setTitle('');
     setContent('');
     setImage(null);
+    setRelatedArticleIds([]);
     setEditingId(null);
     setFormError('');
   };
@@ -73,6 +75,7 @@ export function ManageArticles() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
+    formData.append('relatedArticleIds', JSON.stringify(relatedArticleIds));
     if (image) {
       formData.append('image', image);
     }
@@ -105,6 +108,11 @@ export function ManageArticles() {
     setTitle(article.title);
     setContent(article.content);
     setImage(null);
+    setRelatedArticleIds(
+      (article.relatedArticles || []).map((relatedArticle) =>
+        typeof relatedArticle === 'string' ? relatedArticle : relatedArticle._id,
+      ),
+    );
     setFormError('');
   };
 
@@ -130,6 +138,21 @@ export function ManageArticles() {
   const filteredArticles = articles.filter((article) =>
     article.title?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+  const selectableArticles = articles.filter((article) => article._id !== editingId);
+
+  const toggleRelatedArticle = (articleId) => {
+    setRelatedArticleIds((currentIds) => {
+      if (currentIds.includes(articleId)) {
+        return currentIds.filter((id) => id !== articleId);
+      }
+      if (currentIds.length === 4) {
+        setFormError('You can select up to four related articles.');
+        return currentIds;
+      }
+      setFormError('');
+      return [...currentIds, articleId];
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
@@ -177,6 +200,31 @@ export function ManageArticles() {
                   onChange={(e) => pickImageFile(e, setImage, setFormError)}
                   className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Related blogs</label>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  Select up to four articles to show at the bottom of this blog.
+                </p>
+                {selectableArticles.length === 0 ? (
+                  <p className="mt-2 text-sm text-gray-500">
+                    Create another article first to link related blogs.
+                  </p>
+                ) : (
+                  <div className="mt-2 max-h-44 space-y-2 overflow-y-auto rounded-md border border-gray-200 p-3">
+                    {selectableArticles.map((article) => (
+                      <label key={article._id} className="flex cursor-pointer items-start gap-2 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={relatedArticleIds.includes(article._id)}
+                          onChange={() => toggleRelatedArticle(article._id)}
+                          className="mt-0.5 h-4 w-4 rounded border-gray-300 text-brand-teal focus:ring-brand-teal"
+                        />
+                        <span className="text-gray-700">{article.title}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
               <Button
                 text={getArticleSubmitLabel(isSubmitting, editingId)}
