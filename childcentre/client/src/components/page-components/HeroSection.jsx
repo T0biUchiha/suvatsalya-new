@@ -1,12 +1,12 @@
-import { ChevronDown, Shield, Heart, Users } from "lucide-react";
-import { Button } from "../layout/Button";
+import { ChevronDown, Shield, Heart, Users } from 'lucide-react';
+import { Button } from '../layout/Button';
 
 export default function HeroSection({ imageUrl }) {
   return (
     <section
       className="relative w-full flex flex-col justify-between text-center overflow-hidden"
       style={{
-        minHeight: "100vh",
+        minHeight: '100vh',
       }}
     >
       {/* Background image */}
@@ -27,23 +27,25 @@ export default function HeroSection({ imageUrl }) {
         {/* Tagline badge */}
         <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-5 py-2 mb-8">
           <Heart size={16} className="text-brand-orange" fill="currentColor" />
-          <span className="text-sm font-medium text-white tracking-wide">Nurturing every child&apos;s potential</span>
+          <span className="text-sm font-medium text-white tracking-wide">
+            Nurturing every child&apos;s potential
+          </span>
         </div>
 
-        <h1 
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg"
-        >
-          Suvatsalya Child Growth<br className="hidden sm:block" /> and Development Centre
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+          Suvatsalya Child Growth
+          <br className="hidden sm:block" /> and Development Centre
         </h1>
-        <p 
+        <p
           className="text-lg md:text-xl max-w-3xl mx-auto mb-10 font-normal text-white/85 leading-relaxed"
           style={{
             textShadow: '1px 1px 6px rgba(0, 0, 0, 0.4)',
           }}
         >
-          Evidence-based assessments and therapies for children with developmental, learning, and behavioural needs
+          Evidence-based assessments and therapies for children with developmental, learning, and
+          behavioural needs
         </p>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <Button
             to="/therapies"
@@ -67,15 +69,21 @@ export default function HeroSection({ imageUrl }) {
             <div className="grid grid-cols-3 gap-4 md:gap-8">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-white">
                 <Shield size={20} className="text-brand-yellow flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-center">Evidence-Based Care</span>
+                <span className="text-xs sm:text-sm font-medium text-center">
+                  Evidence-Based Care
+                </span>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-white">
                 <Users size={20} className="text-brand-yellow flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-center">Expert Multidisciplinary Team</span>
+                <span className="text-xs sm:text-sm font-medium text-center">
+                  Expert Multidisciplinary Team
+                </span>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-white">
                 <Heart size={20} className="text-brand-yellow flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium text-center">Personalized Therapy Plans</span>
+                <span className="text-xs sm:text-sm font-medium text-center">
+                  Personalized Therapy Plans
+                </span>
               </div>
             </div>
           </div>

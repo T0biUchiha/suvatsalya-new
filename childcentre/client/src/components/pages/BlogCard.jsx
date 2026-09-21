@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import blogImg from '../../assets/relogoimages/blog_image_1536x1024.png';
 import { ContentImage } from '../layout/ContentImage';
+import { buildSnippet } from '../../utils/snippet';
 
 export function BlogCard({ article }) {
-  const snippet = `${article.content.substring(0, 150)}...`;
+  const snippet = buildSnippet(article.content);
   const articlePath = article.slug ? `/blog/${encodeURIComponent(article.slug)}` : null;
 
   return (
@@ -12,18 +13,10 @@ export function BlogCard({ article }) {
       <div className="md:w-1/3">
         {articlePath ? (
           <Link to={articlePath}>
-            <ContentImage
-              src={article.imageUrl || blogImg}
-              alt={article.title}
-              variant="card"
-            />
+            <ContentImage src={article.imageUrl || blogImg} alt={article.title} variant="card" />
           </Link>
         ) : (
-          <ContentImage
-            src={article.imageUrl || blogImg}
-            alt={article.title}
-            variant="card"
-          />
+          <ContentImage src={article.imageUrl || blogImg} alt={article.title} variant="card" />
         )}
       </div>
 

@@ -40,11 +40,7 @@ export function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-brand-cream">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-xl">
-        <img
-          src={logo}
-          alt="Suvatsalya Logo"
-          className="mx-auto h-20 w-auto"
-        />
+        <img src={logo} alt="Suvatsalya Logo" className="mx-auto h-20 w-auto" />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-brand-blue">
           Admin Panel Login
         </h2>
@@ -95,12 +91,7 @@ export function LoginPage() {
             </div>
           </div>
 
-          <Button
-            text="Sign In"
-            type="submit"
-            variant="secondary"
-            className="w-full"
-          />
+          <Button text="Sign In" type="submit" variant="secondary" className="w-full" />
         </form>
       </div>
     </div>

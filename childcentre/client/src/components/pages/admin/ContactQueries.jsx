@@ -48,7 +48,7 @@ export function ContactQueries() {
           q.name?.toLowerCase().includes(term) ||
           q.email?.toLowerCase().includes(term) ||
           q.phone?.toLowerCase().includes(term) ||
-          q.message?.toLowerCase().includes(term)
+          q.message?.toLowerCase().includes(term),
       );
     }
 
@@ -67,9 +67,7 @@ export function ContactQueries() {
 
   return (
     <div className="w-full">
-      <h1 className="mb-6 text-3xl font-bold text-gray-900">
-        Contact Form Queries
-      </h1>
+      <h1 className="mb-6 text-3xl font-bold text-gray-900">Contact Form Queries</h1>
 
       {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 
@@ -112,9 +110,7 @@ export function ContactQueries() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-grow">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold text-brand-teal-dark">
-                      {query.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-brand-teal-dark">{query.name}</h3>
                     <span className="text-sm text-gray-500 whitespace-nowrap ml-4">
                       {new Date(query.createdAt).toLocaleDateString('en-IN', {
                         day: 'numeric',
@@ -134,9 +130,7 @@ export function ContactQueries() {
                         {query.email}
                       </a>
                     )}
-                    {query.phone && (
-                      <span className="text-sm text-gray-700">{query.phone}</span>
-                    )}
+                    {query.phone && <span className="text-sm text-gray-700">{query.phone}</span>}
                   </div>
                   <p className="mt-4 whitespace-pre-wrap text-base text-gray-800">
                     {query.message}

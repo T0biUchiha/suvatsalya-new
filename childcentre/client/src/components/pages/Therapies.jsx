@@ -7,12 +7,13 @@ export function Therapies() {
           <h1 className="text-4xl font-bold text-gray-900">Therapies We Provide</h1>
         </div>
       </section>
-      
+
       {/* Content Area */}
       <section className="w-full py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-lg text-gray-700">
-            This is the main "Therapies" page. Information about our different therapy programs will go here.
+            This is the main "Therapies" page. Information about our different therapy programs will
+            go here.
           </p>
         </div>
       </section>

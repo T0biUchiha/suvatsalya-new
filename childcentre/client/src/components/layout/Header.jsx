@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/logo/suvatsalya-logo.png";
+import { useState } from 'react';
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../../assets/logo/suvatsalya-logo.png';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,65 +23,65 @@ export function Header() {
   };
 
   const toggleMobileMenu = (label) => {
-    setMobileOpenMenus(prev => ({
+    setMobileOpenMenus((prev) => ({
       ...prev,
-      [label]: !prev[label]
+      [label]: !prev[label],
     }));
   };
 
   const menuItems = [
     {
-      label: "About",
-      href: "/about",
+      label: 'About',
+      href: '/about',
       hasDropdown: true,
       dropdownItems: [
-        { label: "About Us", href: "/about" },
-        { label: "Our Team", href: "/about#team" },
-        { label: "Board of Advisors", href: "/about#board" },
-      ]
+        { label: 'About Us', href: '/about' },
+        { label: 'Our Team', href: '/about#team' },
+        { label: 'Board of Advisors', href: '/about#board' },
+      ],
     },
     {
-      label: "What We Treat",
-      href: "/what-we-treat",
+      label: 'What We Treat',
+      href: '/what-we-treat',
       hasDropdown: true,
       dropdownItems: [
-        { label: "Autism Spectrum Disorder", href: "/what-we-treat/autism" },
-        { label: "ADHD", href: "/what-we-treat/adhd" },
+        { label: 'Autism Spectrum Disorder', href: '/what-we-treat/autism' },
+        { label: 'ADHD', href: '/what-we-treat/adhd' },
         {
-          label: "Learning Disability",
-          href: "/what-we-treat/learning-disability",
+          label: 'Learning Disability',
+          href: '/what-we-treat/learning-disability',
           hasDropdown: true,
           dropdownItems: [
-            { label: "Dyslexia", href: "/what-we-treat/learning-disability#dyslexia" },
-            { label: "Dysgraphia", href: "/what-we-treat/learning-disability#dysgraphia" },
-            { label: "Dyscalculia", href: "/what-we-treat/learning-disability#dyscalculia" },
-            { label: "Dyspraxia", href: "/what-we-treat/learning-disability#dyspraxia" },
-          ]
+            { label: 'Dyslexia', href: '/what-we-treat/learning-disability#dyslexia' },
+            { label: 'Dysgraphia', href: '/what-we-treat/learning-disability#dysgraphia' },
+            { label: 'Dyscalculia', href: '/what-we-treat/learning-disability#dyscalculia' },
+            { label: 'Dyspraxia', href: '/what-we-treat/learning-disability#dyspraxia' },
+          ],
         },
-        { label: "Cerebral Palsy", href: "/what-we-treat/cerebral-palsy" },
-        { label: "Down Syndrome", href: "/what-we-treat/down-syndrome" },
-        { label: "Global Development Delay", href: "/what-we-treat/gdd" },
-        { label: "High-Risk Newborns", href: "/what-we-treat/high-risk-newborn" },
-      ]
+        { label: 'Cerebral Palsy', href: '/what-we-treat/cerebral-palsy' },
+        { label: 'Down Syndrome', href: '/what-we-treat/down-syndrome' },
+        { label: 'Global Development Delay', href: '/what-we-treat/gdd' },
+        { label: 'High-Risk Newborns', href: '/what-we-treat/high-risk-newborn' },
+      ],
     },
     {
-      label: "Therapies We Provide",
-      href: "/therapies",
+      label: 'Therapies We Provide',
+      href: '/therapies',
       hasDropdown: true,
       dropdownItems: [
-        { label: "Speech and Language Therapy", href: "/therapies/speech-therapy" },
-        { label: "Occupational Therapy", href: "/therapies/occupational-therapy" },
-        { label: "Special Education", href: "/therapies/special-education" },
-        { label: "ABA Therapy", href: "/therapies/aba-therapy" },
-        { label: "Physiotherapy", href: "/therapies/physiotherapy" },
-        { label: "Psychological Tests", href: "/therapies/psychological-tests" },
-      ]
+        { label: 'Speech and Language Therapy', href: '/therapies/speech-therapy' },
+        { label: 'Occupational Therapy', href: '/therapies/occupational-therapy' },
+        { label: 'Special Education', href: '/therapies/special-education' },
+        { label: 'ABA Therapy', href: '/therapies/aba-therapy' },
+        { label: 'Physiotherapy', href: '/therapies/physiotherapy' },
+        { label: 'Psychological Tests', href: '/therapies/psychological-tests' },
+      ],
     },
-    { label: "Careers", href: "/internships", hasDropdown: false },
-    { label: "Parent Testimonial", href: "/testimonials", hasDropdown: false },
-    { label: "Government Benefits", href: "/benefits", hasDropdown: false },
-    { label: "Blog", href: "/blog", hasDropdown: false },
-    { label: "Contact", href: "/contact", hasDropdown: false },
+    { label: 'Careers', href: '/internships', hasDropdown: false },
+    { label: 'Parent Testimonial', href: '/testimonials', hasDropdown: false },
+    { label: 'Government Benefits', href: '/benefits', hasDropdown: false },
+    { label: 'Blog', href: '/blog', hasDropdown: false },
+    { label: 'Contact', href: '/contact', hasDropdown: false },
   ];
 
   const handleMouseEnter = (item) => {
@@ -100,9 +100,11 @@ export function Header() {
     if (!item.hasDropdown) return null;
 
     return (
-      <div 
+      <div
         className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg border border-gray-200 rounded-md py-2 z-50"
-        onMouseEnter={() => { if (leaveTimeout) clearTimeout(leaveTimeout); }}
+        onMouseEnter={() => {
+          if (leaveTimeout) clearTimeout(leaveTimeout);
+        }}
         onMouseLeave={handleMouseLeave}
       >
         {item.dropdownItems.map((dropdownItem, index) => {
@@ -199,11 +201,7 @@ export function Header() {
             }`}
             style={{ paddingLeft: `${(depth + 1) * 0.75}rem` }}
           >
-            <Link
-              to={item.href}
-              onClick={handleLinkClick}
-              className="flex-1"
-            >
+            <Link to={item.href} onClick={handleLinkClick} className="flex-1">
               {item.label}
             </Link>
             <button
@@ -217,11 +215,9 @@ export function Header() {
               />
             </button>
           </div>
-          
+
           {isOpen && (
-            <div className="bg-gray-50">
-              {renderMobileMenu(item.dropdownItems, depth + 1)}
-            </div>
+            <div className="bg-gray-50">{renderMobileMenu(item.dropdownItems, depth + 1)}</div>
           )}
         </div>
       );
@@ -234,11 +230,7 @@ export function Header() {
         <div className="flex items-center justify-between py-2">
           {/* Logo only - no text */}
           <Link to="/" className="flex items-center">
-            <img
-              src={logo}
-              alt="Suvatsalya Logo"
-              className="h-28 w-auto"
-            />
+            <img src={logo} alt="Suvatsalya Logo" className="h-28 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -259,9 +251,7 @@ export function Header() {
                   }`}
                 >
                   {item.label}
-                  {item.hasDropdown && (
-                    <ChevronDown size={16} className="ml-1" />
-                  )}
+                  {item.hasDropdown && <ChevronDown size={16} className="ml-1" />}
                 </Link>
 
                 {item.hasDropdown && activeDropdown === item.label && renderDesktopDropdown(item)}

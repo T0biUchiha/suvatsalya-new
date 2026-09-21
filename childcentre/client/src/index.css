@@ -1,5 +1,5 @@
 :root {
-  font-family: "Jost", sans-serif;
+  font-family: 'Jost', sans-serif;
   line-height: 1.7;
   font-weight: 400;
 
@@ -10,4 +10,57 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.article-rich-content h2 {
+  margin-top: 3rem;
+  color: #111827;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.article-rich-content h3 {
+  margin-top: 2rem;
+  color: #111827;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.article-rich-content p {
+  margin-top: 1.5rem;
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
+
+.article-rich-content ul,
+.article-rich-content ol {
+  margin-top: 1.25rem;
+  padding-left: 1.5rem;
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
+
+.article-rich-content ul {
+  list-style: disc;
+}
+.article-rich-content ol {
+  list-style: decimal;
+}
+
+.article-rich-content blockquote {
+  margin-top: 1.5rem;
+  border-left: 4px solid #2f8e74;
+  padding-left: 1rem;
+  color: #4b5563;
+  font-size: 1.125rem;
+  font-style: italic;
+}
+
+.article-rich-content a {
+  color: #14745d;
+  text-decoration: underline;
 }

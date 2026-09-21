@@ -16,3 +16,13 @@ export function sanitizeCmsText(text) {
     .replace(/&#39;/gi, "'")
     .trim();
 }
+
+export function sanitizeArticleHtml(html) {
+  if (html == null || typeof html !== 'string') return html;
+  return sanitizeHtml(html, {
+    allowedTags: ['p', 'br', 'h2', 'h3', 'strong', 'em', 'ul', 'ol', 'li', 'blockquote', 'a'],
+    allowedAttributes: { a: ['href', 'target', 'rel'] },
+    allowedSchemes: ['http', 'https', 'mailto'],
+  }).trim();
+}
+import sanitizeHtml from 'sanitize-html';

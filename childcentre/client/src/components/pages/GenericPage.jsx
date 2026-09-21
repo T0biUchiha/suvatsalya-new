@@ -5,7 +5,7 @@ import specialImg from '../../assets/images/Our Friends.png';
 
 export function GenericPage() {
   const { slug, subSlug } = useParams();
-  const title = subSlug ? subSlug.replace(/-/g, ' ') : (slug ? slug.replace(/-/g, ' ') : 'Page');
+  const title = subSlug ? subSlug.replace(/-/g, ' ') : slug ? slug.replace(/-/g, ' ') : 'Page';
 
   return (
     <div className="w-full bg-white min-h-screen">
@@ -26,16 +26,12 @@ export function GenericPage() {
             </div>
             {/* Image - second on mobile */}
             <div className="order-last md:order-first">
-              <img
-                src={specialImg}
-                alt={title}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
+              <img src={specialImg} alt={title} className="w-full h-auto rounded-lg shadow-lg" />
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Content Area */}
       <section className="w-full py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,15 +41,24 @@ export function GenericPage() {
                 There are Options. There are Methods and Corrective Measures.
               </h2>
               <p className="text-xl font-bold text-gray-800 leading-relaxed mb-4">
-                This is the content for the &ldquo;{title}&rdquo; page. You can edit this file to add real content later.
+                This is the content for the &ldquo;{title}&rdquo; page. You can edit this file to
+                add real content later.
               </p>
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+                  Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh
+                  elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed
+                  augue semper porta. Mauris massa.
                 </p>
-                <h3 className="text-3xl font-semibold text-brand-blue pt-4">Understanding {title}</h3>
+                <h3 className="text-3xl font-semibold text-brand-blue pt-4">
+                  Understanding {title}
+                </h3>
                 <p>
-                  Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis.
+                  Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora
+                  torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in
+                  libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean
+                  quam. In scelerisque sem at dolor. Maecenas mattis.
                 </p>
                 <ul className="list-disc list-inside space-y-2">
                   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>

@@ -23,3 +23,5 @@ User-agent: Bingbot
 Allow: /
 
 Sitemap: https://suvatsalya.in/sitemap.xml
+# Dynamic articles and testimonials (requires ownership verification of both domains in Search Console)
+Sitemap: https://admin.suvatsalya.in/api/seo/sitemap.xml

@@ -3,6 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { Button } from '../layout/Button';
 import { ContentImage } from '../layout/ContentImage';
+import { ArticleContent } from '../layout/ArticleContent';
+import { Seo } from '../layout/Seo';
+import { buildSnippet } from '../../utils/snippet';
 import hero4Img from '../../assets/home-page/hero4.jpg'; // Default placeholder image
 
 export function SingleArticlePage() {
@@ -36,22 +39,42 @@ export function SingleArticlePage() {
 
   return (
     <div className="w-full bg-white min-h-screen">
+      <Seo
+        title={article.title}
+        description={buildSnippet(article.content, 155)}
+        path={`/blog/${encodeURIComponent(article.slug)}`}
+        image={article.imageUrl}
+        type="article"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: article.title,
+          description: buildSnippet(article.content, 155),
+          image: article.imageUrl,
+          datePublished: article.createdAt,
+          dateModified: article.updatedAt || article.createdAt,
+          mainEntityOfPage: `https://suvatsalya.in/blog/${encodeURIComponent(article.slug)}`,
+          author: {
+            '@type': 'Organization',
+            name: 'Suvatsalya Child Growth and Development Centre',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Suvatsalya Child Growth and Development Centre',
+          },
+        }}
+      />
       {/* --- 1. Hero Section --- */}
       <section className="w-full bg-gray-50 py-12 pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left: Image */}
             <div>
-              <ContentImage
-                src={article.imageUrl || hero4Img}
-                alt={article.title}
-              />
+              <ContentImage src={article.imageUrl || hero4Img} alt={article.title} />
             </div>
             {/* Right: Title */}
             <div className="text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-                {article.title}
-              </h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900">{article.title}</h1>
               <div className="mt-8">
                 <Link to="/contact">
                   <Button text="Book an Appointment" variant="secondary" />
@@ -61,21 +84,16 @@ export function SingleArticlePage() {
           </div>
         </div>
       </section>
-      
+
       {/* --- 2. Content Area (Full Article) --- */}
       <section className="w-full py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="cms-content whitespace-pre-wrap">
-              {article.content}
-            </div>
+            <ArticleContent content={article.content} />
 
             {/* Back to Blog link */}
             <div className="border-t border-gray-200 pt-8 mt-12">
-              <Link
-                to="/blog"
-                className="font-semibold text-brand-teal hover:text-brand-teal-dark"
-              >
+              <Link to="/blog" className="font-semibold text-brand-teal hover:text-brand-teal-dark">
                 &laquo; Back to all articles
               </Link>
             </div>

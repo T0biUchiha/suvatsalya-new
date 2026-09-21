@@ -12,6 +12,7 @@ import storyRoutes from './routes/stories.js';
 import statsRoutes from './routes/stats.js';
 import benefitRoutes from './routes/benefits.js';
 import socialLinksRoutes from './routes/socialLinks.js';
+import seoRoutes from './routes/seo.js';
 
 // Load env vars
 dotenv.config();
@@ -45,6 +46,7 @@ app.use('/api/stories', storyRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/benefits', benefitRoutes);
 app.use('/api/social-links', socialLinksRoutes);
+app.use('/api/seo', seoRoutes);
 
 // --- Start Server ---
 const PORT = process.env.PORT || 5000;

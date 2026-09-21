@@ -1,21 +1,21 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ===== Custom Theme (Logo-based palette) ===== */
 @theme {
-  --color-brand-teal: #3EA383;
-  --color-brand-teal-dark: #2E8B6A;
-  --color-brand-blue: #262F6D;
-  --color-brand-blue-light: #3075BB;
-  --color-brand-orange: #E86728;
-  --color-brand-orange-light: #F09A5A;
-  --color-brand-yellow: #F4CA3B;
-  --color-brand-green: #7DB746;
+  --color-brand-teal: #3ea383;
+  --color-brand-teal-dark: #2e8b6a;
+  --color-brand-blue: #262f6d;
+  --color-brand-blue-light: #3075bb;
+  --color-brand-orange: #e86728;
+  --color-brand-orange-light: #f09a5a;
+  --color-brand-yellow: #f4ca3b;
+  --color-brand-green: #7db746;
   --color-brand-purple: #763783;
-  --color-brand-cream: #FFF9F5;
-  --color-brand-cream-dark: #FFF3EB;
+  --color-brand-cream: #fff9f5;
+  --color-brand-cream-dark: #fff3eb;
 
-  --font-heading: "Jost", sans-serif;
-  --font-body: "Jost", sans-serif;
+  --font-heading: 'Jost', sans-serif;
+  --font-body: 'Jost', sans-serif;
 
   --text-6xl: 3.5rem;
   --text-6xl--line-height: 1;
@@ -36,16 +36,25 @@
 }
 
 /* ===== Global Typography ===== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
 }
 
 /* Heading colors: black for main headings, dark grey for sub-headings */
-h1.text-brand-blue, h2.text-brand-blue {
+h1.text-brand-blue,
+h2.text-brand-blue {
   color: #111827;
 }
-h3.text-brand-blue, h4.text-brand-blue, h5.text-brand-blue, h6.text-brand-blue {
+h3.text-brand-blue,
+h4.text-brand-blue,
+h5.text-brand-blue,
+h6.text-brand-blue {
   color: #374151;
 }
 

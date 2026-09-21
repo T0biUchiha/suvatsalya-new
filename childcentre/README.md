@@ -1,297 +1,122 @@
-# Suvatsalya — Child Development Centre Website
+# Suvatsalya website
 
-Full-stack CMS site: React (Vite) frontend + Node/Express API + MongoDB + Cloudinary.
+The Suvatsalya website is a Vite/React frontend with an Express and MongoDB API.
 
-| Part | Folder | Default local URL |
-|------|--------|-------------------|
-| Frontend | `client/` | http://localhost:5173 |
-| Backend | `suvatsalya-backend/` | http://localhost:5002 (or `PORT` in `.env`) |
-| Admin panel | — | http://localhost:5173/admin/login |
+- Live website: <https://suvatsalya.in>
+- Local frontend: <http://127.0.0.1:5173>
+- Local API: <http://127.0.0.1:5002>
 
-Production (typical): **Netlify** (frontend) + **Render** (backend) + **MongoDB Atlas** + **Cloudinary**.
+## Project layout
 
----
-
-## 1. Local setup guide
-
-### Prerequisites
-
-- Node.js 18+ (20+ recommended)
-- npm
-- MongoDB Atlas cluster (or local MongoDB)
-- Cloudinary account (images + benefit PDFs)
-
-### Backend
-
-```bash
-cd suvatsalya-backend
-cp env.example .env
+```text
+childcentre/
+├── client/                 React + Vite public site and admin panel
+└── suvatsalya-backend/     Express API, MongoDB models and uploads
 ```
 
-Edit `.env` (see [Environment variables](#environment-variables)). If port **5001** is in use (e.g. Docker), set `PORT=5002`.
+## Run locally
 
-```bash
-npm install
-npm run dev
-```
+Prerequisites: Node.js 20.19+ and either a local MongoDB instance or a MongoDB connection string.
 
-You should see: `Server running on port …` and `MongoDB Connected`.
-
-### Frontend
-
-```bash
-cd client
-```
-
-Create `client/.env`:
-
-```env
-VITE_API_BASE_URL=http://localhost:5002
-```
-
-Use the same port as your backend `PORT`.
-
-```bash
-npm install
-npm run dev
-```
-
-Open http://localhost:5173
-
-### Create the admin user (first time only)
-
-The admin account is **not** created automatically. Run **once** after the backend is up:
-
-```bash
-curl -X POST http://localhost:5002/api/auth/setup
-```
-
-Default credentials after setup:
-
-| Field | Value |
-|-------|--------|
-| Username | `Admin` |
-| Password | `suvatsalya` |
-
-Then log in at `/admin/login`.
-
-> If setup returns `Admin user already exists`, the account was created earlier — use the password you set last, or use [Password reset](#admin-password-reset) below.
-
----
-
-## 2. Hosting / deployment guide
-
-### Architecture
-
-```
-Visitors → Netlify (static React build)
-              ↓ API calls
-           Render (Express API)
-              ↓
-    MongoDB Atlas + Cloudinary
-```
-
-### Backend — Render
-
-1. Connect the repo; set **root directory** to `childcentre/suvatsalya-backend` (or deploy that folder).
-2. **Build command:** `npm install`
-3. **Start command:** `npm start`
-4. Add environment variables (same as `.env`, production values):
-
-   | Variable | Example / notes |
-   |----------|-----------------|
-   | `MONGO_URI` | Atlas connection string |
-   | `JWT_SECRET` | Long random string (32+ chars) |
-   | `CLOUDINARY_CLOUD_NAME` | From Cloudinary dashboard |
-   | `CLOUDINARY_API_KEY` | |
-   | `CLOUDINARY_API_SECRET` | |
-   | `PORT` | Render sets this automatically; often `10000` — you can omit and use `process.env.PORT` |
-   | `CORS_ORIGIN` | Your live site URL(s), comma-separated, e.g. `https://suvatsalya.in,https://www.suvatsalya.in` |
-   | `ADMIN_RESET_SECRET` | Long random secret (see password section) |
-
-5. Note the service URL, e.g. `https://your-app.onrender.com`
-
-6. **One-time on production:** create admin user:
+1. Configure and start MongoDB. For a local instance, one option is:
 
    ```bash
-   curl -X POST https://your-app.onrender.com/api/auth/setup
+   mongod --dbpath /private/tmp/suvatsalya-mongodb --bind_ip 127.0.0.1 --port 27017
    ```
 
-7. Redeploy after code changes; ensure new routes (benefits, social links, etc.) are on this service.
+2. In a second terminal, configure and start the API:
 
-### Frontend — Netlify
+   ```bash
+   cd childcentre/suvatsalya-backend
+   cp env.example .env
+   npm ci
+   npm run dev
+   ```
 
-1. Connect repo; **base directory:** `childcentre/client`
-2. **Build command:** `npm run build`
-3. **Publish directory:** `dist`
-4. Environment variable:
+   For local MongoDB, set this in `suvatsalya-backend/.env`:
 
-   | Variable | Value |
-   |----------|--------|
-   | `VITE_API_BASE_URL` | Your Render backend URL (no trailing slash) |
+   ```env
+   MONGO_URI=mongodb://127.0.0.1:27017/suvatsalya_local
+   PORT=5002
+   CORS_ORIGIN=http://127.0.0.1:5173,http://localhost:5173
+   ```
 
-5. `public/_redirects` is already set for SPA routing (`/* → /index.html`).
+   Fill in the remaining `JWT_SECRET`, Cloudinary, and reset-secret values with development-only secrets. Cloudinary is required for image uploads.
 
-### Cloudinary
+3. In a third terminal, configure and start the frontend:
 
-- Enable **PDF delivery** in Cloudinary Console → **Settings → Security** if benefit PDFs fail to open.
-- Folders used: `suvatsalya/articles`, `suvatsalya/stories`, `suvatsalya/benefits/images`, `suvatsalya/benefits/pdfs`.
+   ```bash
+   cd childcentre/client
+   cp .env.example .env
+   npm ci
+   npm run dev
+   ```
 
-### MongoDB Atlas
+   Ensure `client/.env` contains:
 
-- Allow network access from Render (or `0.0.0.0/0` for simplicity).
-- Use the same `MONGO_URI` on Render as in local `.env` (different DB name in the URI if you want separate dev/prod DBs).
+   ```env
+   VITE_API_BASE_URL=http://127.0.0.1:5002
+   ```
 
-### Post-deploy checklist
+Open <http://127.0.0.1:5173>. The admin panel is available at `/admin/login`.
 
-- [ ] `CORS_ORIGIN` includes production frontend URL(s)
-- [ ] `VITE_API_BASE_URL` points to Render backend
-- [ ] Admin setup (`POST /api/auth/setup`) run once on production
-- [ ] `ADMIN_RESET_SECRET` set on Render (not in git)
-- [ ] Change default password after first login (via reset API — see below)
+## First local admin account
 
----
-
-## 3. Admin password — where it is and how to reset
-
-### Important: you cannot “look up” the current password
-
-Passwords are stored **hashed** in MongoDB (bcrypt). There is no file or dashboard that shows the live admin password. You only know it if:
-
-- You still use the default from first setup (`suvatsalya`), or  
-- You saved the password from the last **reset** response (below).
-
-### Default password (after first `POST /api/auth/setup`)
-
-| Username | Password |
-|----------|----------|
-| `Admin` | `suvatsalya` |
-
-Change this in production as soon as possible.
-
-### Password reset API (emergency / not in the UI)
-
-Configured with `ADMIN_RESET_SECRET` in backend `.env` / Render env.
-
-**Endpoint:** `POST /api/auth/reset-password`  
-**Not linked** from the website — use curl, Postman, or similar.
-
-**Body (JSON):**
-
-```json
-{
-  "resetSecret": "YOUR_ADMIN_RESET_SECRET_FROM_ENV",
-  "username": "Admin",
-  "newPassword": "YourNewSecurePassword123!"
-}
-```
-
-- `username` — optional, defaults to `Admin`
-- `newPassword` — optional; if omitted, the server **generates** a random 16-character password and returns it **once** in the response
-
-**Example — set your own password (local):**
+On a new local database, create the initial administrator once:
 
 ```bash
-curl -X POST http://localhost:5002/api/auth/reset-password \
-  -H "Content-Type: application/json" \
-  -d '{
-    "resetSecret": "paste-from-your-.env-ADMIN_RESET_SECRET",
-    "username": "Admin",
-    "newPassword": "MyNewAdminPass2024!"
-  }'
+curl -X POST http://127.0.0.1:5002/api/auth/setup
 ```
 
-**Example — auto-generate password:**
+This development-only setup creates the initial account described by the API response. Change its password before using a shared environment. Never use local credentials or a local database as production credentials/data.
+
+## Content authoring
+
+Blog articles and parent stories use a rich-text editor in the admin panel. Authors can paste content from ChatGPT, Word, or other sources, then format headings, emphasis, links, quotations, and lists with the toolbar. Content is sanitized on the API and rendered safely on the public pages.
+
+Article, story, and government-benefit links use human-readable slugs. Legacy MongoDB-ID links remain supported by the API while existing records receive slugs.
+
+## SEO and discoverability
+
+- Each public route has an appropriate title, description, canonical URL, and social preview metadata.
+- Articles, parent stories, and government-benefit pages generate their own metadata and structured data.
+- Static URLs are listed in `client/public/sitemap.xml`.
+- Dynamic content is published at `/api/seo/sitemap.xml` by the backend.
+- `client/public/robots.txt` references both sitemaps.
+
+After publishing content, verify the sitemap endpoints in the deployed environment and submit/refresh them in Google Search Console. Search-engine recrawling is controlled by the search engine and is not immediate.
+
+## Quality checks
+
+Run these from `childcentre/client` before a frontend release:
 
 ```bash
-curl -X POST http://localhost:5002/api/auth/reset-password \
-  -H "Content-Type: application/json" \
-  -d '{
-    "resetSecret": "paste-from-your-.env-ADMIN_RESET_SECRET"
-  }'
+npm run format:check
+npm run lint
+npm run build
 ```
 
-**Success response:**
+For a quick backend syntax check:
 
-```json
-{
-  "message": "Password updated successfully",
-  "username": "Admin",
-  "newPassword": "the-password-to-use-for-login"
-}
+```bash
+cd childcentre/suvatsalya-backend
+node --check server.js
 ```
-
-Copy `newPassword` immediately — it is **not** stored in plain text anywhere else.
-
-**Production:** replace `http://localhost:5002` with your Render URL.
-
-### Where to find `ADMIN_RESET_SECRET`
-
-| Environment | Location |
-|-------------|----------|
-| Local | `suvatsalya-backend/.env` → `ADMIN_RESET_SECRET=...` |
-| Production | Render dashboard → your service → **Environment** |
-
-Template only (do not commit real secrets): `suvatsalya-backend/env.example`
-
-### Verify login works
-
-1. Open `/admin/login`
-2. Username: `Admin`
-3. Password: value from setup default, your manual reset, or `newPassword` from the reset response
-
-### Common errors
-
-| Response | Cause |
-|----------|--------|
-| `Password reset is not configured` | `ADMIN_RESET_SECRET` missing on server |
-| `Invalid reset secret` | Wrong `resetSecret` in request body |
-| `Admin user not found` | Run `POST /api/auth/setup` first |
-| `Invalid username or password` at login | Wrong password; run reset again and save `newPassword` |
-
----
 
 ## Environment variables
 
-### Backend (`suvatsalya-backend/.env`)
+Do not commit `.env` files, private keys, JWT secrets, Cloudinary credentials, or reset secrets.
 
-Copy from `env.example`. Never commit `.env`.
+| Location | Variable | Purpose |
+| --- | --- | --- |
+| Backend | `MONGO_URI` | MongoDB database connection |
+| Backend | `JWT_SECRET` | Signs admin sessions |
+| Backend | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | Image uploads |
+| Backend | `PORT` | API port (use `5002` locally) |
+| Backend | `CORS_ORIGIN` | Comma-separated allowed frontend origins |
+| Backend | `ADMIN_RESET_SECRET` | Emergency admin password reset protection |
+| Frontend | `VITE_API_BASE_URL` | API root; use `http://127.0.0.1:5002` locally |
 
-### Frontend (`client/.env`)
+## Releasing site changes
 
-| Variable | Purpose |
-|----------|---------|
-| `VITE_API_BASE_URL` | Backend API root (local or Render) |
-
----
-
-## Useful commands
-
-```bash
-# Backend
-cd suvatsalya-backend && npm run dev
-
-# Frontend
-cd client && npm run dev
-
-# Lint frontend
-cd client && npm run lint
-
-# Production build (frontend)
-cd client && npm run build
-```
-
----
-
-## Admin features (routes)
-
-| Path | Purpose |
-|------|---------|
-| `/admin/login` | Login |
-| `/admin` | Dashboard |
-| `/admin/articles` | Blog articles |
-| `/admin/stories` | Parent testimonials |
-| `/admin/benefits` | Government benefits |
-| `/admin/social` | Footer social links |
-| `/admin/queries` | Contact form submissions |
-| `/admin/career` | Career page content |
+This repository does not prescribe a hosting provider. A release must publish the frontend build, run the API with the required private environment variables, and use the approved production configuration. Deploy backend changes with frontend changes when they affect API routes, dynamic content, SEO metadata, or sitemap output. See `DEPLOYMENT_GUIDE.txt` for the provider-neutral release checklist.

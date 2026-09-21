@@ -3,7 +3,9 @@ export function buildSnippet(text, maxLength = 150) {
   if (!text || typeof text !== 'string') {
     return '';
   }
-  const trimmed = text.trim();
+  const container = document.createElement('div');
+  container.innerHTML = text;
+  const trimmed = (container.textContent || container.innerText || '').replace(/\s+/g, ' ').trim();
   if (trimmed.length <= maxLength) {
     return trimmed;
   }

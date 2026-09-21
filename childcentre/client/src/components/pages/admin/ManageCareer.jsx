@@ -57,56 +57,51 @@ export function ManageCareer() {
 
   return (
     <div className="w-full max-w-2xl">
-      <h1 className="mb-6 text-3xl font-bold text-gray-900">
-        Manage Career Link
-      </h1>
-      
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-lg border bg-white p-6 shadow-sm"
-      >
+      <h1 className="mb-6 text-3xl font-bold text-gray-900">Manage Career Link</h1>
+
+      <form onSubmit={handleSubmit} className="rounded-lg border bg-white p-6 shadow-sm">
         <FormSubmitOverlay busy={isSubmitting}>
-        {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
-        {success && <p className="mb-4 text-sm text-green-600">{success}</p>}
-        
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="career-form-url" className="block text-sm font-medium text-gray-700">
-              Google Form URL
-            </label>
-            <input
-              id="career-form-url"
-              type="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
-              placeholder="https://forms.google.com/..."
+          {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
+          {success && <p className="mb-4 text-sm text-green-600">{success}</p>}
+
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="career-form-url" className="block text-sm font-medium text-gray-700">
+                Google Form URL
+              </label>
+              <input
+                id="career-form-url"
+                type="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
+                placeholder="https://forms.google.com/..."
+              />
+            </div>
+
+            {/* --- 4. NEW CHECKBOX --- */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="isAccepting"
+                className="h-4 w-4 rounded text-brand-teal"
+                checked={isAccepting}
+                onChange={(e) => setIsAccepting(e.target.checked)}
+              />
+              <label htmlFor="isAccepting" className="text-sm font-medium text-gray-700">
+                We are currently accepting applications
+              </label>
+            </div>
+            {/* --- END NEW CHECKBOX --- */}
+
+            <Button
+              text={isSubmitting ? 'Saving…' : 'Save Settings'}
+              type="submit"
+              variant="secondary"
+              className="w-full"
+              disabled={isSubmitting}
             />
           </div>
-          
-          {/* --- 4. NEW CHECKBOX --- */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="isAccepting"
-              className="h-4 w-4 rounded text-brand-teal"
-              checked={isAccepting}
-              onChange={(e) => setIsAccepting(e.target.checked)}
-            />
-            <label htmlFor="isAccepting" className="text-sm font-medium text-gray-700">
-              We are currently accepting applications
-            </label>
-          </div>
-          {/* --- END NEW CHECKBOX --- */}
-          
-          <Button
-            text={isSubmitting ? 'Saving…' : 'Save Settings'}
-            type="submit"
-            variant="secondary"
-            className="w-full"
-            disabled={isSubmitting}
-          />
-        </div>
         </FormSubmitOverlay>
       </form>
     </div>

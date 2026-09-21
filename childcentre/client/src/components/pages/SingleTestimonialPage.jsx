@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { ContentImage } from '../layout/ContentImage';
+import { ArticleContent } from '../layout/ArticleContent';
+import { Seo } from '../layout/Seo';
+import { buildSnippet } from '../../utils/snippet';
 
 export function SingleTestimonialPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -14,7 +17,7 @@ export function SingleTestimonialPage() {
       try {
         setLoading(true);
         setError('');
-        const response = await api.get(`/api/stories/${id}`);
+        const response = await api.get(`/api/stories/${encodeURIComponent(slug)}`);
         setStory(response.data);
       } catch (err) {
         console.error(err);
@@ -24,7 +27,7 @@ export function SingleTestimonialPage() {
       }
     };
     fetchStory();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -38,7 +41,10 @@ export function SingleTestimonialPage() {
     return (
       <div className="pt-40 text-center">
         <p className="text-gray-600 mb-4">{error || 'Testimonial not found.'}</p>
-        <Link to="/testimonials" className="font-semibold text-brand-teal hover:text-brand-teal-dark">
+        <Link
+          to="/testimonials"
+          className="font-semibold text-brand-teal hover:text-brand-teal-dark"
+        >
           &laquo; Back to all testimonials
         </Link>
       </div>
@@ -47,11 +53,16 @@ export function SingleTestimonialPage() {
 
   return (
     <div className="w-full bg-white min-h-screen">
+      <Seo
+        title={story.title}
+        description={buildSnippet(story.story, 155)}
+        path={`/testimonials/${encodeURIComponent(story.slug || story._id)}`}
+        image={story.imageUrl}
+        type="article"
+      />
       <section className="w-full bg-brand-cream py-12 pt-32 md:pt-40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold text-brand-blue">
-            {story.title}
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-semibold text-brand-blue">{story.title}</h1>
         </div>
       </section>
 
@@ -63,8 +74,8 @@ export function SingleTestimonialPage() {
             </div>
           )}
 
-          <div className="cms-content whitespace-pre-wrap mb-12">
-            {story.story}
+          <div className="mb-12">
+            <ArticleContent content={story.story} />
           </div>
 
           <div className="border-t border-gray-200 pt-8">

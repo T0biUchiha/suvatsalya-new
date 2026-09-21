@@ -4,7 +4,12 @@ import api from '../../../api';
 import { Button } from '../../layout/Button';
 import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
 import { IMAGE_ACCEPT, pickImageFile, validateImageFile } from '../../../utils/fileValidation';
-import { handlePastePlainText } from '../../../utils/pastePlainText';
+import { RichTextEditor } from '../../layout/RichTextEditor';
+
+function getArticleSubmitLabel(isSubmitting, editingId) {
+  if (isSubmitting) return 'Saving…';
+  return editingId ? 'Update Article' : 'Create Article';
+}
 
 export function ManageArticles() {
   const [articles, setArticles] = useState([]);
@@ -15,6 +20,7 @@ export function ManageArticles() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const [editingId, setEditingId] = useState(null);
   const [formError, setFormError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -36,12 +42,25 @@ export function ManageArticles() {
     fetchArticles();
   }, []);
 
-  // 2. Handle form submission to create a new article
+  const resetForm = () => {
+    setTitle('');
+    setContent('');
+    setImage(null);
+    setEditingId(null);
+    setFormError('');
+  };
+
+  // 2. Handle form submission to create or update an article
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
 
     setFormError('');
+
+    if (!content.replace(/<[^>]*>/g, '').trim()) {
+      setFormError('Please add article content.');
+      return;
+    }
 
     if (image) {
       const check = validateImageFile(image);
@@ -60,15 +79,17 @@ export function ManageArticles() {
 
     setIsSubmitting(true);
     try {
-      await api.post('/api/articles', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      if (editingId) {
+        await api.put(`/api/articles/${editingId}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      } else {
+        await api.post('/api/articles', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      }
 
-      setTitle('');
-      setContent('');
-      setImage(null);
+      resetForm();
       e.target.reset();
       fetchArticles();
     } catch (err) {
@@ -77,6 +98,18 @@ export function ManageArticles() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleEdit = (article) => {
+    setEditingId(article._id);
+    setTitle(article.title);
+    setContent(article.content);
+    setImage(null);
+    setFormError('');
+  };
+
+  const handleView = (slug) => {
+    globalThis.open(`/blog/${encodeURIComponent(slug)}`, '_blank', 'noopener,noreferrer');
   };
 
   // 3. Handle article deletion
@@ -94,76 +127,81 @@ export function ManageArticles() {
     }
   };
 
+  const filteredArticles = articles.filter((article) =>
+    article.title?.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
-    <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-      {/* Column 1: Create New Article Form */}
-      <div className="lg:col-span-1">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
+      {/* Column 1: Create/Edit Article Form */}
+      <div className="lg:col-span-2">
         <h2 className="mb-6 text-2xl font-bold text-gray-900">
-          Create New Article
+          {editingId ? 'Edit Article' : 'Create New Article'}
         </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-lg border bg-white p-6 shadow-sm"
-        >
+        <form onSubmit={handleSubmit} className="rounded-lg border bg-white p-6 shadow-sm">
           <FormSubmitOverlay busy={isSubmitting}>
-          {formError && (
-            <p className="mb-4 text-sm text-red-600">{formError}</p>
-          )}
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="article-title" className="block text-sm font-medium text-gray-700">
-                Title
-              </label>
-              <input
-                id="article-title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
+            {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="article-title" className="block text-sm font-medium text-gray-700">
+                  Title
+                </label>
+                <input
+                  id="article-title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Content</label>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  Paste content directly from ChatGPT, Word, or Google Docs. Use the toolbar to
+                  refine headings, lists, emphasis, quotes, and links.
+                </p>
+                <div className="mt-2">
+                  <RichTextEditor value={content} onChange={setContent} />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="article-image" className="block text-sm font-medium text-gray-700">
+                  Featured Image {editingId ? '(Leave empty to keep current)' : '(Optional)'}
+                </label>
+                <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
+                <input
+                  id="article-image"
+                  type="file"
+                  accept={IMAGE_ACCEPT}
+                  onChange={(e) => pickImageFile(e, setImage, setFormError)}
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
+                />
+              </div>
+              <Button
+                text={getArticleSubmitLabel(isSubmitting, editingId)}
+                type="submit"
+                variant="secondary"
+                className="w-full"
+                disabled={isSubmitting}
               />
+              {editingId && (
+                <Button
+                  text="Cancel Edit"
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={resetForm}
+                  disabled={isSubmitting}
+                />
+              )}
             </div>
-            <div>
-              <label htmlFor="article-content" className="block text-sm font-medium text-gray-700">
-                Content
-              </label>
-              <textarea
-                id="article-content"
-                rows="10"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                onPaste={handlePastePlainText}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="article-image" className="block text-sm font-medium text-gray-700">
-                Featured Image (Optional)
-              </label>
-              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
-              <input
-                id="article-image"
-                type="file"
-                accept={IMAGE_ACCEPT}
-                onChange={(e) => pickImageFile(e, setImage, setFormError)}
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
-              />
-            </div>
-            <Button
-              text={isSubmitting ? 'Publishing…' : 'Create Article'}
-              type="submit"
-              variant="secondary"
-              className="w-full"
-              disabled={isSubmitting}
-            />
-          </div>
           </FormSubmitOverlay>
         </form>
       </div>
 
       {/* Column 2: Existing Articles List */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-3">
         <h2 className="mb-4 text-2xl font-bold text-gray-900">
           Existing Articles ({articles.length})
         </h2>
@@ -179,29 +217,49 @@ export function ManageArticles() {
         </div>
         {loading && <p className="text-gray-900">Loading articles...</p>}
         {error && <p className="text-red-600">{error}</p>}
-        <div className="space-y-4">
-          {articles
-            .filter((a) => a.title?.toLowerCase().includes(searchTerm.toLowerCase()))
-            .map((article) => (
-            <div
-              key={article._id}
-              className="flex items-center justify-between rounded-lg border bg-white p-4 shadow-sm"
-            >
-              <div>
-                <h3 className="text-lg font-semibold text-brand-teal-dark">
-                  {article.title}
-                </h3>
-                <p className="text-sm text-gray-500">/blog/{article.slug || '—'}</p>
+        {!loading && filteredArticles.length === 0 ? (
+          <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+            <p className="text-gray-500">
+              {searchTerm
+                ? 'No articles match your search.'
+                : 'No articles added yet. Use the form to add one.'}
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredArticles.map((article) => (
+              <div
+                key={article._id}
+                className="flex items-center justify-between rounded-lg border bg-white p-4 shadow-sm"
+              >
+                <div>
+                  <h3 className="text-lg font-semibold text-brand-teal-dark">{article.title}</h3>
+                  <p className="text-sm text-gray-500">/blog/{article.slug || '—'}</p>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button
+                    text="View"
+                    variant="outline"
+                    className="px-4 py-2 text-sm"
+                    onClick={() => handleView(article.slug)}
+                  />
+                  <Button
+                    text="Edit"
+                    variant="outline"
+                    className="px-4 py-2 text-sm"
+                    onClick={() => handleEdit(article)}
+                  />
+                  <Button
+                    text="Delete"
+                    variant="outline"
+                    className="px-4 py-2 text-sm border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    onClick={() => handleDelete(article._id)}
+                  />
+                </div>
               </div>
-              <Button
-                text="Delete"
-                variant="outline"
-                className="px-4 py-2 text-sm"
-                onClick={() => handleDelete(article._id)}
-              />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

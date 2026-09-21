@@ -7,7 +7,10 @@ import { Mail, FileText, BookText, Inbox, Gift } from 'lucide-react';
 function StatCard({ title, value, icon, linkTo }) {
   const Icon = icon;
   return (
-    <Link to={linkTo} className="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+    <Link
+      to={linkTo}
+      className="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow"
+    >
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-500">{title}</p>
@@ -50,38 +53,36 @@ export function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">
-        Welcome, Admin!
-      </h1>
-      
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome, Admin!</h1>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <StatCard 
-          title="New Queries" 
-          value={stats.newContactCount} 
+        <StatCard
+          title="New Queries"
+          value={stats.newContactCount}
           icon={Inbox}
           linkTo="/admin/queries"
         />
-        <StatCard 
-          title="Total Queries" 
-          value={stats.contactCount} 
+        <StatCard
+          title="Total Queries"
+          value={stats.contactCount}
           icon={Mail}
           linkTo="/admin/queries"
         />
-        <StatCard 
-          title="Total Articles" 
-          value={stats.articleCount} 
+        <StatCard
+          title="Total Articles"
+          value={stats.articleCount}
           icon={FileText}
           linkTo="/admin/articles"
         />
-        <StatCard 
-          title="Total Stories" 
-          value={stats.storyCount} 
+        <StatCard
+          title="Total Stories"
+          value={stats.storyCount}
           icon={BookText}
           linkTo="/admin/stories"
         />
-        <StatCard 
-          title="Total Benefits" 
-          value={stats.benefitCount} 
+        <StatCard
+          title="Total Benefits"
+          value={stats.benefitCount}
           icon={Gift}
           linkTo="/admin/benefits"
         />
@@ -90,11 +91,21 @@ export function Dashboard() {
       <div className="mt-12 p-6 bg-white rounded-lg shadow-sm border">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Links</h2>
         <div className="flex flex-wrap gap-4">
-          <Link to="/admin/articles" className="text-brand-teal hover:underline">Manage Articles</Link>
-          <Link to="/admin/stories" className="text-brand-teal hover:underline">Manage Stories</Link>
-          <Link to="/admin/queries" className="text-brand-teal hover:underline">View Queries</Link>
-          <Link to="/admin/career" className="text-brand-teal hover:underline">Manage Career Link</Link>
-          <Link to="/admin/benefits" className="text-brand-teal hover:underline">Manage Benefits</Link>
+          <Link to="/admin/articles" className="text-brand-teal hover:underline">
+            Manage Articles
+          </Link>
+          <Link to="/admin/stories" className="text-brand-teal hover:underline">
+            Manage Stories
+          </Link>
+          <Link to="/admin/queries" className="text-brand-teal hover:underline">
+            View Queries
+          </Link>
+          <Link to="/admin/career" className="text-brand-teal hover:underline">
+            Manage Career Link
+          </Link>
+          <Link to="/admin/benefits" className="text-brand-teal hover:underline">
+            Manage Benefits
+          </Link>
         </div>
       </div>
     </div>

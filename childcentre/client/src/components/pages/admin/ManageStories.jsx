@@ -4,7 +4,8 @@ import api from '../../../api';
 import { Button } from '../../layout/Button';
 import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
 import { IMAGE_ACCEPT, pickImageFile, validateImageFile } from '../../../utils/fileValidation';
-import { handlePastePlainText } from '../../../utils/pastePlainText';
+import { RichTextEditor } from '../../layout/RichTextEditor';
+import { buildSnippet } from '../../../utils/snippet';
 
 function getStorySubmitLabel(isSubmitting, editingId) {
   if (isSubmitting) return 'Saving…';
@@ -16,7 +17,7 @@ export function ManageStories() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   const [title, setTitle] = useState('');
   const [story, setStory] = useState('');
   const [image, setImage] = useState(null);
@@ -24,7 +25,7 @@ export function ManageStories() {
   const [searchTerm, setSearchTerm] = useState('');
   const [formError, setFormError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const fetchStories = async () => {
     try {
       setLoading(true);
@@ -55,6 +56,11 @@ export function ManageStories() {
     if (isSubmitting) return;
 
     setFormError('');
+
+    if (!story.replace(/<[^>]*>/g, '').trim()) {
+      setFormError('Please add a testimonial.');
+      return;
+    }
 
     if (image) {
       const check = validateImageFile(image);
@@ -112,87 +118,90 @@ export function ManageStories() {
     }
   };
 
+  const handleView = (slug) => {
+    globalThis.open(`/testimonials/${encodeURIComponent(slug)}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const filteredStories = stories.filter((storyItem) =>
+    storyItem.title?.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
-    <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
       {/* Column 1: Create/Edit Form */}
-      <div className="lg:col-span-1">
+      <div className="lg:col-span-2">
         <h2 className="mb-6 text-2xl font-bold text-gray-900">
           {editingId ? 'Edit Story' : 'Add New Story'}
         </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-lg border bg-white p-6 shadow-sm"
-        >
+        <form onSubmit={handleSubmit} className="rounded-lg border bg-white p-6 shadow-sm">
           <FormSubmitOverlay busy={isSubmitting}>
-          {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="story-title" className="block text-sm font-medium text-gray-700">
-                Title (e.g., &quot;Parent of Aarav&quot;)
-              </label>
-              <input
-                id="story-title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="story-content" className="block text-sm font-medium text-gray-700">
-                Story / Testimonial
-              </label>
-              <textarea
-                id="story-content"
-                rows="10"
-                value={story}
-                onChange={(e) => setStory(e.target.value)}
-                onPaste={handlePastePlainText}
-                required
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
-              />
-            </div>
+            {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="story-title" className="block text-sm font-medium text-gray-700">
+                  Title (e.g., &quot;Parent of Aarav&quot;)
+                </label>
+                <input
+                  id="story-title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-500"
+                />
+              </div>
 
-            <div>
-              <label htmlFor="story-image" className="block text-sm font-medium text-gray-700">
-                Image {editingId ? '(Leave empty to keep current)' : '(Optional)'}
-              </label>
-              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
-              <input
-                id="story-image"
-                type="file"
-                accept={IMAGE_ACCEPT}
-                onChange={(e) => pickImageFile(e, setImage, setFormError)}
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
-              />
-            </div>
-            
-            <Button
-              text={getStorySubmitLabel(isSubmitting, editingId)}
-              type="submit"
-              variant="secondary"
-              className="w-full"
-              disabled={isSubmitting}
-            />
-            {editingId && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Story / Testimonial
+                </label>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  Paste content directly from ChatGPT, Word, or Google Docs, then use the toolbar
+                  for headings, lists, emphasis, quotes, and links.
+                </p>
+                <div className="mt-2">
+                  <RichTextEditor value={story} onChange={setStory} />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="story-image" className="block text-sm font-medium text-gray-700">
+                  Image {editingId ? '(Leave empty to keep current)' : '(Optional)'}
+                </label>
+                <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
+                <input
+                  id="story-image"
+                  type="file"
+                  accept={IMAGE_ACCEPT}
+                  onChange={(e) => pickImageFile(e, setImage, setFormError)}
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
+                />
+              </div>
+
               <Button
-                text="Cancel Edit"
-                type="button"
-                variant="outline"
+                text={getStorySubmitLabel(isSubmitting, editingId)}
+                type="submit"
+                variant="secondary"
                 className="w-full"
-                onClick={resetForm}
                 disabled={isSubmitting}
               />
-            )}
-          </div>
+              {editingId && (
+                <Button
+                  text="Cancel Edit"
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={resetForm}
+                  disabled={isSubmitting}
+                />
+              )}
+            </div>
           </FormSubmitOverlay>
         </form>
       </div>
 
       {/* Column 2: Existing Stories List */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-3">
         <h2 className="mb-4 text-2xl font-bold text-gray-900">
           Existing Stories ({stories.length})
         </h2>
@@ -208,48 +217,55 @@ export function ManageStories() {
         </div>
         {loading && <p className="text-gray-900">Loading...</p>}
         {error && <p className="mb-4 text-red-600">{error}</p>}
-        <div className="space-y-4">
-          {stories
-            .filter((s) => s.title?.toLowerCase().includes(searchTerm.toLowerCase()))
-            .map((s) => (
-            <div
-              key={s._id}
-              className="rounded-lg border bg-white p-4 shadow-sm"
-            >
-              <div className="flex items-start gap-4">
-                {s.imageUrl && (
-                  <img
-                    src={s.imageUrl}
-                    alt={s.title}
-                    className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+        {!loading && filteredStories.length === 0 ? (
+          <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+            <p className="text-gray-500">
+              {searchTerm
+                ? 'No stories match your search.'
+                : 'No parent testimonials added yet. Use the form to add one.'}
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredStories.map((s) => (
+              <div key={s._id} className="rounded-lg border bg-white p-4 shadow-sm">
+                <div className="flex items-start gap-4">
+                  {s.imageUrl && (
+                    <img
+                      src={s.imageUrl}
+                      alt={s.title}
+                      className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-semibold text-brand-teal-dark">{s.title}</h3>
+                    <p className="mt-1 truncate text-sm text-gray-600">{buildSnippet(s.story)}</p>
+                  </div>
+                </div>
+                <div className="mt-4 flex space-x-2">
+                  <Button
+                    text="View"
+                    variant="outline"
+                    className="px-4 py-2 text-sm"
+                    onClick={() => handleView(s.slug || s._id)}
                   />
-                )}
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-brand-teal-dark">
-                    {s.title}
-                  </h3>
-                  <p className="mt-1 truncate text-sm text-gray-600">
-                    {s.story}
-                  </p>
+                  <Button
+                    text="Edit"
+                    variant="outline"
+                    className="px-4 py-2 text-sm"
+                    onClick={() => handleEdit(s)}
+                  />
+                  <Button
+                    text="Delete"
+                    variant="outline"
+                    className="px-4 py-2 text-sm border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    onClick={() => handleDelete(s._id)}
+                  />
                 </div>
               </div>
-              <div className="mt-4 flex space-x-2">
-                <Button
-                  text="Edit"
-                  variant="outline"
-                  className="px-4 py-2 text-sm"
-                  onClick={() => handleEdit(s)}
-                />
-                <Button
-                  text="Delete"
-                  variant="outline"
-                  className="px-4 py-2 text-sm border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                  onClick={() => handleDelete(s._id)}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

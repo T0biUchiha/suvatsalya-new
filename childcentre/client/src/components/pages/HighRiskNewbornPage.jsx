@@ -3,13 +3,11 @@ import { Button } from '../layout/Button';
 import hrnImg from '../../assets/images/High Risk.jpeg';
 
 function ContentListItem({ children }) {
-  return (
-    <li className="text-lg text-gray-700 leading-relaxed">{children}</li>
-  );
+  return <li className="text-lg text-gray-700 leading-relaxed">{children}</li>;
 }
 
 export function HighRiskNewbornPage() {
-  const title = "High-Risk Newborns & Developmental Concerns";
+  const title = 'High-Risk Newborns & Developmental Concerns';
 
   return (
     <div className="w-full bg-white min-h-screen">
@@ -18,16 +16,10 @@ export function HighRiskNewbornPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="order-last md:order-first">
-              <img
-                src={hrnImg}
-                alt={title}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
+              <img src={hrnImg} alt={title} className="w-full h-auto rounded-lg shadow-lg" />
             </div>
             <div className="text-center md:text-left order-first md:order-last">
-              <h1 className="text-3xl md:text-4xl font-semibold text-brand-blue">
-                {title}
-              </h1>
+              <h1 className="text-3xl md:text-4xl font-semibold text-brand-blue">{title}</h1>
               <div className="mt-6">
                 <Link to="/contact">
                   <Button text="Book an Appointment" variant="secondary" />
@@ -43,20 +35,28 @@ export function HighRiskNewbornPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="space-y-5">
-
               {/* Definition */}
               <div>
                 <h2 className="text-3xl font-semibold text-brand-blue mb-3">
                   Definition of a High-Risk Newborn
                 </h2>
                 <p className="text-lg text-gray-700 leading-relaxed mb-3">
-                  As defined by the <strong>American Academy of Pediatrics (AAP)</strong>, a high-risk newborn is an infant who is born prematurely or with a health condition that increases their risk of developmental and health problems — including preterm babies, low birth weight infants, birth asphyxia, neonatal seizures, and NICU-admitted infants. Many of these conditions require specialized, multidisciplinary care.
+                  As defined by the <strong>American Academy of Pediatrics (AAP)</strong>, a
+                  high-risk newborn is an infant who is born prematurely or with a health condition
+                  that increases their risk of developmental and health problems — including preterm
+                  babies, low birth weight infants, birth asphyxia, neonatal seizures, and
+                  NICU-admitted infants. Many of these conditions require specialized,
+                  multidisciplinary care.
                 </p>
                 <p className="text-lg text-gray-700 leading-relaxed mb-3">
-                  A High-Risk Newborn has medical, biological, or environmental conditions that increase the likelihood of developmental delays or neurodevelopmental disorders. These infants require close monitoring, early screening, and timely intervention to support optimal brain development.
+                  A High-Risk Newborn has medical, biological, or environmental conditions that
+                  increase the likelihood of developmental delays or neurodevelopmental disorders.
+                  These infants require close monitoring, early screening, and timely intervention
+                  to support optimal brain development.
                 </p>
                 <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                  Early identification significantly improves long-term cognitive, motor, speech, and social outcomes.
+                  Early identification significantly improves long-term cognitive, motor, speech,
+                  and social outcomes.
                 </p>
               </div>
 
@@ -67,10 +67,16 @@ export function HighRiskNewbornPage() {
                 </h2>
 
                 {/* 1. Biological & Medical */}
-                <h3 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">1. Biological &amp; Medical Risk Factors</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mt-6 mb-3">
+                  1. Biological &amp; Medical Risk Factors
+                </h3>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">A. Prematurity (Preterm Birth)</h4>
-                <p className="text-lg text-gray-700 leading-relaxed mb-2">Definition: Birth before 37 weeks of gestation</p>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  A. Prematurity (Preterm Birth)
+                </h4>
+                <p className="text-lg text-gray-700 leading-relaxed mb-2">
+                  Definition: Birth before 37 weeks of gestation
+                </p>
                 <ul className="list-disc list-inside space-y-1 mb-3">
                   <ContentListItem>Moderate Preterm: 32–36 weeks</ContentListItem>
                   <ContentListItem>Very Preterm: &lt;32 weeks</ContentListItem>
@@ -84,8 +90,12 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Sensory processing difficulties</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">B. Low Birth Weight (LBW)</h4>
-                <p className="text-lg text-gray-700 leading-relaxed mb-2">Definition: Birth weight less than 2.5 kg</p>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  B. Low Birth Weight (LBW)
+                </h4>
+                <p className="text-lg text-gray-700 leading-relaxed mb-2">
+                  Definition: Birth weight less than 2.5 kg
+                </p>
                 <ul className="list-disc list-inside space-y-1 mb-2">
                   <ContentListItem>Very Low Birth Weight: &lt;1.5 kg</ContentListItem>
                 </ul>
@@ -102,8 +112,12 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Behavioral concerns</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">C. Birth Asphyxia / Hypoxic Ischemic Encephalopathy (HIE)</h4>
-                <p className="text-lg text-gray-700 leading-relaxed mb-2">Definition: Lack of adequate oxygen to the brain during or immediately after birth</p>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  C. Birth Asphyxia / Hypoxic Ischemic Encephalopathy (HIE)
+                </h4>
+                <p className="text-lg text-gray-700 leading-relaxed mb-2">
+                  Definition: Lack of adequate oxygen to the brain during or immediately after birth
+                </p>
                 <p className="text-lg font-semibold text-gray-700 mb-1">Common Causes:</p>
                 <ul className="list-disc list-inside space-y-1 mb-2">
                   <ContentListItem>Prolonged labor</ContentListItem>
@@ -118,7 +132,9 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Motor impairment</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">D. Neonatal Seizures</h4>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  D. Neonatal Seizures
+                </h4>
                 <p className="text-lg font-semibold text-gray-700 mb-1">Reason:</p>
                 <ul className="list-disc list-inside space-y-1 mb-2">
                   <ContentListItem>Brain injury</ContentListItem>
@@ -132,8 +148,12 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Epilepsy</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">E. Severe Neonatal Jaundice (Kernicterus)</h4>
-                <p className="text-lg text-gray-700 leading-relaxed mb-2">Reason: Extremely high bilirubin levels affecting brain cells</p>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  E. Severe Neonatal Jaundice (Kernicterus)
+                </h4>
+                <p className="text-lg text-gray-700 leading-relaxed mb-2">
+                  Reason: Extremely high bilirubin levels affecting brain cells
+                </p>
                 <p className="text-lg font-semibold text-gray-700 mb-1">Developmental Risks:</p>
                 <ul className="list-disc list-inside space-y-1 mb-4">
                   <ContentListItem>Hearing loss</ContentListItem>
@@ -141,7 +161,9 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Speech delay</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">F. Congenital Infections (TORCH)</h4>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  F. Congenital Infections (TORCH)
+                </h4>
                 <p className="text-lg font-semibold text-gray-700 mb-1">Includes:</p>
                 <ul className="list-disc list-inside space-y-1 mb-2">
                   <ContentListItem>Toxoplasmosis</ContentListItem>
@@ -157,7 +179,9 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Autism-like features</ContentListItem>
                 </ul>
 
-                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">G. Genetic &amp; Chromosomal Conditions</h4>
+                <h4 className="text-xl font-semibold text-gray-800 mt-5 mb-2">
+                  G. Genetic &amp; Chromosomal Conditions
+                </h4>
                 <p className="text-lg font-semibold text-gray-700 mb-1">Examples include:</p>
                 <ul className="list-disc list-inside space-y-1 mb-2">
                   <ContentListItem>Down Syndrome</ContentListItem>
@@ -172,7 +196,9 @@ export function HighRiskNewbornPage() {
                 </ul>
 
                 {/* 2. Maternal Risk Factors */}
-                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">2. Maternal Risk Factors During Pregnancy</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">
+                  2. Maternal Risk Factors During Pregnancy
+                </h3>
                 <ul className="list-disc list-inside space-y-1 mb-3">
                   <ContentListItem>Uncontrolled Diabetes</ContentListItem>
                   <ContentListItem>Hypertension</ContentListItem>
@@ -189,7 +215,9 @@ export function HighRiskNewbornPage() {
                 </ul>
 
                 {/* 3. Delivery-Related */}
-                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">3. Delivery-Related Risk Factors</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">
+                  3. Delivery-Related Risk Factors
+                </h3>
                 <ul className="list-disc list-inside space-y-1 mb-3">
                   <ContentListItem>Prolonged or obstructed labor</ContentListItem>
                   <ContentListItem>Emergency Cesarean section</ContentListItem>
@@ -197,7 +225,9 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Meconium aspiration</ContentListItem>
                   <ContentListItem>NICU admission &gt;5 days</ContentListItem>
                 </ul>
-                <p className="text-lg font-semibold text-gray-700 mb-1">Possible Developmental Concerns:</p>
+                <p className="text-lg font-semibold text-gray-700 mb-1">
+                  Possible Developmental Concerns:
+                </p>
                 <ul className="list-disc list-inside space-y-1 mb-4">
                   <ContentListItem>Motor delay</ContentListItem>
                   <ContentListItem>Feeding difficulties</ContentListItem>
@@ -205,7 +235,9 @@ export function HighRiskNewbornPage() {
                 </ul>
 
                 {/* 4. Environmental */}
-                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">4. Environmental &amp; Psychosocial Risk Factors</h3>
+                <h3 className="text-2xl font-semibold text-gray-800 mt-8 mb-3">
+                  4. Environmental &amp; Psychosocial Risk Factors
+                </h3>
                 <ul className="list-disc list-inside space-y-1 mb-3">
                   <ContentListItem>Severe malnutrition</ContentListItem>
                   <ContentListItem>Lack of stimulation</ContentListItem>
@@ -256,7 +288,8 @@ export function HighRiskNewbornPage() {
                   <ContentListItem>Parent counselling</ContentListItem>
                 </ul>
                 <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                  Early therapy can significantly improve outcomes during the first 3 years of life, when brain plasticity is highest.
+                  Early therapy can significantly improve outcomes during the first 3 years of life,
+                  when brain plasticity is highest.
                 </p>
               </div>
 
@@ -266,21 +299,30 @@ export function HighRiskNewbornPage() {
                   High-Risk Newborn Follow-Up at Suvatsalya
                 </h2>
                 <p className="text-lg text-gray-700 leading-relaxed mb-3">
-                  At Suvatsalya, our <strong>Developmental Paediatrician</strong> leads a structured follow-up programme for high-risk newborns, aligned with guidelines from the American Academy of Pediatrics. Our multidisciplinary team provides:
+                  At Suvatsalya, our <strong>Developmental Paediatrician</strong> leads a structured
+                  follow-up programme for high-risk newborns, aligned with guidelines from the
+                  American Academy of Pediatrics. Our multidisciplinary team provides:
                 </p>
                 <ul className="list-disc list-inside space-y-2 mb-4">
-                  <ContentListItem>Comprehensive developmental history and physical examination</ContentListItem>
+                  <ContentListItem>
+                    Comprehensive developmental history and physical examination
+                  </ContentListItem>
                   <ContentListItem>Neuromotor and cognitive milestone assessment</ContentListItem>
                   <ContentListItem>Hearing and vision screening</ContentListItem>
                   <ContentListItem>Speech and language evaluation</ContentListItem>
-                  <ContentListItem>Early Intervention programs tailored to each child</ContentListItem>
-                  <ContentListItem>Parent counselling and home stimulation guidance</ContentListItem>
+                  <ContentListItem>
+                    Early Intervention programs tailored to each child
+                  </ContentListItem>
+                  <ContentListItem>
+                    Parent counselling and home stimulation guidance
+                  </ContentListItem>
                 </ul>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  With timely identification and structured therapy, children born with high-risk conditions can achieve meaningful developmental progress and a better quality of life.
+                  With timely identification and structured therapy, children born with high-risk
+                  conditions can achieve meaningful developmental progress and a better quality of
+                  life.
                 </p>
               </div>
-
             </div>
           </div>
         </div>

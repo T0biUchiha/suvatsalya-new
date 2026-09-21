@@ -5,18 +5,14 @@ import { buildSnippet } from '../../utils/snippet';
 
 export function BenefitCard({ benefit }) {
   const snippet = buildSnippet(benefit.description);
-  const detailPath = `/benefits/${benefit._id}`;
+  const detailPath = `/benefits/${encodeURIComponent(benefit.slug || benefit._id)}`;
 
   return (
     <div className="flex flex-col md:flex-row gap-6 border-b border-gray-200 pb-8">
       {benefit.imageUrl && (
         <div className="md:w-1/3">
           <Link to={detailPath}>
-            <ContentImage
-              src={benefit.imageUrl}
-              alt={benefit.title}
-              variant="card"
-            />
+            <ContentImage src={benefit.imageUrl} alt={benefit.title} variant="card" />
           </Link>
         </div>
       )}
@@ -28,10 +24,7 @@ export function BenefitCard({ benefit }) {
           </Link>
         </h2>
         <p className="cms-content mb-3 line-clamp-4">{snippet}</p>
-        <Link
-          to={detailPath}
-          className="font-semibold text-brand-teal hover:text-brand-teal-dark"
-        >
+        <Link to={detailPath} className="font-semibold text-brand-teal hover:text-brand-teal-dark">
           Read More &raquo;
         </Link>
       </div>
@@ -45,5 +38,6 @@ BenefitCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     imageUrl: PropTypes.string,
+    slug: PropTypes.string,
   }).isRequired,
 };

@@ -14,10 +14,7 @@ export function handlePastePlainText(e) {
   const end = field.selectionEnd ?? 0;
   const next = field.value.slice(0, start) + plain + field.value.slice(end);
 
-  const descriptor = Object.getOwnPropertyDescriptor(
-    window.HTMLTextAreaElement.prototype,
-    'value',
-  );
+  const descriptor = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value');
   descriptor.set.call(field, next);
   field.dispatchEvent(new Event('input', { bubbles: true }));
 

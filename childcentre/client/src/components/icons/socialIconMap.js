@@ -1,10 +1,4 @@
-import {
-  InstagramIcon,
-  LinkedinIcon,
-  YoutubeIcon,
-  XIcon,
-  FacebookIcon,
-} from './SocialIcons';
+import { InstagramIcon, LinkedinIcon, YoutubeIcon, XIcon, FacebookIcon } from './SocialIcons';
 
 export const SOCIAL_ICON_MAP = {
   instagram: InstagramIcon,

@@ -3,9 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { ExternalLink, FileText, ChevronRight } from 'lucide-react';
 import { ContentImage } from '../layout/ContentImage';
+import { Seo } from '../layout/Seo';
+import { buildSnippet } from '../../utils/snippet';
 
 export function SingleBenefitPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [benefit, setBenefit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -15,7 +17,7 @@ export function SingleBenefitPage() {
       try {
         setLoading(true);
         setError('');
-        const response = await api.get(`/api/benefits/${id}`);
+        const response = await api.get(`/api/benefits/${encodeURIComponent(slug)}`);
         setBenefit(response.data);
       } catch (err) {
         console.error(err);
@@ -25,7 +27,7 @@ export function SingleBenefitPage() {
       }
     };
     fetchBenefit();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -48,11 +50,22 @@ export function SingleBenefitPage() {
 
   return (
     <div className="w-full bg-white min-h-screen">
+      <Seo
+        title={benefit.title}
+        description={buildSnippet(benefit.description, 155)}
+        path={`/benefits/${encodeURIComponent(benefit.slug || benefit._id)}`}
+        image={benefit.imageUrl}
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: benefit.title,
+          description: buildSnippet(benefit.description, 155),
+          url: `https://suvatsalya.in/benefits/${encodeURIComponent(benefit.slug || benefit._id)}`,
+        }}
+      />
       <section className="w-full bg-brand-cream py-12 pt-32 md:pt-40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-semibold text-brand-blue">
-            {benefit.title}
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-semibold text-brand-blue">{benefit.title}</h1>
         </div>
       </section>
 
@@ -60,17 +73,11 @@ export function SingleBenefitPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {benefit.imageUrl && (
             <div className="mb-8 flex justify-center">
-              <ContentImage
-                src={benefit.imageUrl}
-                alt={benefit.title}
-                variant="benefit"
-              />
+              <ContentImage src={benefit.imageUrl} alt={benefit.title} variant="benefit" />
             </div>
           )}
 
-          <div className="cms-content whitespace-pre-line mb-8">
-            {benefit.description}
-          </div>
+          <div className="cms-content whitespace-pre-line mb-8">{benefit.description}</div>
 
           <div className="flex flex-wrap gap-4 mb-12">
             {benefit.pdfUrl && (

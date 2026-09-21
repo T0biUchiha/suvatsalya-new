@@ -64,11 +64,7 @@ export function Blog() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="order-last md:order-first">
-              <img
-                src={blogImg}
-                alt={title}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
+              <img src={blogImg} alt={title} className="w-full h-auto rounded-lg shadow-lg" />
             </div>
             <div className="text-center md:text-left order-first md:order-last">
               <h1 className="text-4xl md:text-5xl font-semibold text-gray-900">{title}</h1>

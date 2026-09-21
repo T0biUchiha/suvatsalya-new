@@ -102,7 +102,7 @@ export function ManageBenefits() {
       resetForm();
       // Reset file inputs
       const fileInputs = e.target.querySelectorAll('input[type="file"]');
-      fileInputs.forEach(input => input.value = '');
+      fileInputs.forEach((input) => (input.value = ''));
       fetchBenefits();
     } catch (err) {
       setFormError(editingId ? 'Failed to update benefit.' : 'Failed to create benefit.');
@@ -145,7 +145,11 @@ export function ManageBenefits() {
             {editingId ? 'Edit Benefit' : 'Add New Benefit'}
           </h2>
           {editingId && (
-            <button onClick={resetForm} className="text-gray-500 hover:text-gray-700" title="Cancel editing">
+            <button
+              onClick={resetForm}
+              className="text-gray-500 hover:text-gray-700"
+              title="Cancel editing"
+            >
               <X size={20} />
             </button>
           )}
@@ -153,130 +157,167 @@ export function ManageBenefits() {
 
         <form onSubmit={handleSubmit} className="rounded-lg border bg-white p-6 shadow-sm">
           <FormSubmitOverlay busy={formLoading}>
-          {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
-          <div className="space-y-4">
-            {/* Title */}
-            <div>
-              <label htmlFor="benefit-title" className="block text-sm font-medium text-gray-700">
-                Title <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="benefit-title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                placeholder="e.g., UDID Card for Persons with Disabilities"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
+            {formError && <p className="mb-4 text-sm text-red-600">{formError}</p>}
+            <div className="space-y-4">
+              {/* Title */}
+              <div>
+                <label htmlFor="benefit-title" className="block text-sm font-medium text-gray-700">
+                  Title <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="benefit-title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  placeholder="e.g., UDID Card for Persons with Disabilities"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label
+                  htmlFor="benefit-description"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Description <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="benefit-description"
+                  rows="6"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  onPaste={handlePastePlainText}
+                  required
+                  placeholder="Describe the government benefit, eligibility, and how to apply..."
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
+                />
+              </div>
+
+              {/* Image (Optional) */}
+              <div>
+                <label htmlFor="benefit-image" className="block text-sm font-medium text-gray-700">
+                  Image <span className="text-xs text-gray-400 ml-1">(optional)</span>
+                </label>
+                {editingId && !removeImage && (
+                  <div className="mt-1 flex items-center gap-2">
+                    {benefits.find((b) => b._id === editingId)?.imageUrl ? (
+                      <>
+                        <span className="text-xs text-green-600 flex items-center gap-1">
+                          <Image size={14} /> Current image attached
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setRemoveImage(true)}
+                          className="text-xs text-red-500 hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </>
+                    ) : (
+                      <span className="text-xs text-gray-400">No image currently</span>
+                    )}
+                  </div>
+                )}
+                {removeImage && (
+                  <p className="mt-1 text-xs text-red-500">
+                    Image will be removed on save.{' '}
+                    <button
+                      type="button"
+                      onClick={() => setRemoveImage(false)}
+                      className="underline"
+                    >
+                      Undo
+                    </button>
+                  </p>
+                )}
+                <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
+                <input
+                  id="benefit-image"
+                  type="file"
+                  accept={IMAGE_ACCEPT}
+                  onChange={(e) => {
+                    pickImageFile(e, setImage, setFormError);
+                    if (e.target.files?.[0]) setRemoveImage(false);
+                  }}
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
+                />
+              </div>
+
+              {/* PDF (Optional) */}
+              <div>
+                <label htmlFor="benefit-pdf" className="block text-sm font-medium text-gray-700">
+                  PDF Document <span className="text-xs text-gray-400 ml-1">(optional)</span>
+                </label>
+                {editingId && !removePdf && (
+                  <div className="mt-1 flex items-center gap-2">
+                    {benefits.find((b) => b._id === editingId)?.pdfUrl ? (
+                      <>
+                        <span className="text-xs text-green-600 flex items-center gap-1">
+                          <FileText size={14} /> PDF attached
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setRemovePdf(true)}
+                          className="text-xs text-red-500 hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </>
+                    ) : (
+                      <span className="text-xs text-gray-400">No PDF currently</span>
+                    )}
+                  </div>
+                )}
+                {removePdf && (
+                  <p className="mt-1 text-xs text-red-500">
+                    PDF will be removed on save.{' '}
+                    <button type="button" onClick={() => setRemovePdf(false)} className="underline">
+                      Undo
+                    </button>
+                  </p>
+                )}
+                <p className="mt-0.5 text-xs text-gray-500">PDF only</p>
+                <input
+                  id="benefit-pdf"
+                  type="file"
+                  accept={PDF_ACCEPT}
+                  onChange={(e) => {
+                    pickPdfFile(e, setPdf, setFormError);
+                    if (e.target.files?.[0]) setRemovePdf(false);
+                  }}
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
+                />
+              </div>
+
+              {/* Website Link (Optional) */}
+              <div>
+                <label
+                  htmlFor="benefit-website"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Government Website Link{' '}
+                  <span className="text-xs text-gray-400 ml-1">(optional)</span>
+                </label>
+                <input
+                  id="benefit-website"
+                  type="url"
+                  value={websiteLink}
+                  onChange={(e) => setWebsiteLink(e.target.value)}
+                  placeholder="https://www.india.gov.in/..."
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
+                />
+              </div>
+
+              <Button
+                text={getBenefitSubmitLabel(formLoading, editingId)}
+                type="submit"
+                variant="secondary"
+                className="w-full"
+                disabled={formLoading}
               />
             </div>
-
-            {/* Description */}
-            <div>
-              <label htmlFor="benefit-description" className="block text-sm font-medium text-gray-700">
-                Description <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                id="benefit-description"
-                rows="6"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                onPaste={handlePastePlainText}
-                required
-                placeholder="Describe the government benefit, eligibility, and how to apply..."
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
-              />
-            </div>
-
-            {/* Image (Optional) */}
-            <div>
-              <label htmlFor="benefit-image" className="block text-sm font-medium text-gray-700">
-                Image <span className="text-xs text-gray-400 ml-1">(optional)</span>
-              </label>
-              {editingId && !removeImage && (
-                <div className="mt-1 flex items-center gap-2">
-                  {benefits.find(b => b._id === editingId)?.imageUrl ? (
-                    <>
-                      <span className="text-xs text-green-600 flex items-center gap-1"><Image size={14} /> Current image attached</span>
-                      <button type="button" onClick={() => setRemoveImage(true)} className="text-xs text-red-500 hover:underline">Remove</button>
-                    </>
-                  ) : (
-                    <span className="text-xs text-gray-400">No image currently</span>
-                  )}
-                </div>
-              )}
-              {removeImage && (
-                <p className="mt-1 text-xs text-red-500">Image will be removed on save. <button type="button" onClick={() => setRemoveImage(false)} className="underline">Undo</button></p>
-              )}
-              <p className="mt-0.5 text-xs text-gray-500">JPG, PNG, or WEBP only</p>
-              <input
-                id="benefit-image"
-                type="file"
-                accept={IMAGE_ACCEPT}
-                onChange={(e) => {
-                  pickImageFile(e, setImage, setFormError);
-                  if (e.target.files?.[0]) setRemoveImage(false);
-                }}
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
-              />
-            </div>
-
-            {/* PDF (Optional) */}
-            <div>
-              <label htmlFor="benefit-pdf" className="block text-sm font-medium text-gray-700">
-                PDF Document <span className="text-xs text-gray-400 ml-1">(optional)</span>
-              </label>
-              {editingId && !removePdf && (
-                <div className="mt-1 flex items-center gap-2">
-                  {benefits.find(b => b._id === editingId)?.pdfUrl ? (
-                    <>
-                      <span className="text-xs text-green-600 flex items-center gap-1"><FileText size={14} /> PDF attached</span>
-                      <button type="button" onClick={() => setRemovePdf(true)} className="text-xs text-red-500 hover:underline">Remove</button>
-                    </>
-                  ) : (
-                    <span className="text-xs text-gray-400">No PDF currently</span>
-                  )}
-                </div>
-              )}
-              {removePdf && (
-                <p className="mt-1 text-xs text-red-500">PDF will be removed on save. <button type="button" onClick={() => setRemovePdf(false)} className="underline">Undo</button></p>
-              )}
-              <p className="mt-0.5 text-xs text-gray-500">PDF only</p>
-              <input
-                id="benefit-pdf"
-                type="file"
-                accept={PDF_ACCEPT}
-                onChange={(e) => {
-                  pickPdfFile(e, setPdf, setFormError);
-                  if (e.target.files?.[0]) setRemovePdf(false);
-                }}
-                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
-              />
-            </div>
-
-            {/* Website Link (Optional) */}
-            <div>
-              <label htmlFor="benefit-website" className="block text-sm font-medium text-gray-700">
-                Government Website Link <span className="text-xs text-gray-400 ml-1">(optional)</span>
-              </label>
-              <input
-                id="benefit-website"
-                type="url"
-                value={websiteLink}
-                onChange={(e) => setWebsiteLink(e.target.value)}
-                placeholder="https://www.india.gov.in/..."
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
-              />
-            </div>
-
-            <Button
-              text={getBenefitSubmitLabel(formLoading, editingId)}
-              type="submit"
-              variant="secondary"
-              className="w-full"
-              disabled={formLoading}
-            />
-          </div>
           </FormSubmitOverlay>
         </form>
       </div>
@@ -309,60 +350,58 @@ export function ManageBenefits() {
           {benefits
             .filter((b) => b.title?.toLowerCase().includes(searchTerm.toLowerCase()))
             .map((benefit) => (
-            <div
-              key={benefit._id}
-              className="rounded-lg border bg-white p-5 shadow-sm"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-grow">
-                  <h3 className="text-lg font-semibold text-brand-blue">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                    {benefit.description}
-                  </p>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                    {benefit.imageUrl && (
-                      <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-1 rounded">
-                        <Image size={12} /> Image
-                      </span>
-                    )}
-                    {benefit.pdfUrl && (
-                      <a
-                        href={benefit.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded hover:bg-blue-100"
-                      >
-                        <FileText size={12} /> PDF
-                      </a>
-                    )}
-                    {benefit.websiteLink && (
-                      <a href={benefit.websiteLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded hover:bg-purple-100">
-                        <ExternalLink size={12} /> Website
-                      </a>
-                    )}
+              <div key={benefit._id} className="rounded-lg border bg-white p-5 shadow-sm">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-brand-blue">{benefit.title}</h3>
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{benefit.description}</p>
+                    <div className="flex flex-wrap gap-3 mt-3">
+                      {benefit.imageUrl && (
+                        <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-1 rounded">
+                          <Image size={12} /> Image
+                        </span>
+                      )}
+                      {benefit.pdfUrl && (
+                        <a
+                          href={benefit.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded hover:bg-blue-100"
+                        >
+                          <FileText size={12} /> PDF
+                        </a>
+                      )}
+                      {benefit.websiteLink && (
+                        <a
+                          href={benefit.websiteLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded hover:bg-purple-100"
+                        >
+                          <ExternalLink size={12} /> Website
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                      onClick={() => handleEdit(benefit)}
+                      className="p-2 text-gray-500 hover:text-brand-teal hover:bg-brand-cream rounded-md transition-colors"
+                      title="Edit"
+                    >
+                      <Pencil size={18} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(benefit._id)}
+                      className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                      title="Delete"
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <button
-                    onClick={() => handleEdit(benefit)}
-                    className="p-2 text-gray-500 hover:text-brand-teal hover:bg-brand-cream rounded-md transition-colors"
-                    title="Edit"
-                  >
-                    <Pencil size={18} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(benefit._id)}
-                    className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
-                    title="Delete"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

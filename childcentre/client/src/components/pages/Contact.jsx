@@ -35,14 +35,14 @@ export function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
           {/* Left Side: Info Text */}
           <div className="text-gray-700">
-            <h2 className="text-3xl font-semibold text-brand-blue mb-4">
-              Get in Touch
-            </h2>
+            <h2 className="text-3xl font-semibold text-brand-blue mb-4">Get in Touch</h2>
             <p className="text-lg md:text-xl leading-relaxed mb-4">
-              We are here to help. Whether you have questions about our services, need to book an assessment, or just want to talk about your concerns, our team is ready to listen.
+              We are here to help. Whether you have questions about our services, need to book an
+              assessment, or just want to talk about your concerns, our team is ready to listen.
             </p>
             <p className="text-lg md:text-xl leading-relaxed">
-              Please fill out the form, and one of our coordinators will get back to you as soon as possible.
+              Please fill out the form, and one of our coordinators will get back to you as soon as
+              possible.
             </p>
           </div>
 
@@ -56,7 +56,6 @@ export function Contact() {
       {/* Map and Info Section */}
       <section className="w-full py-12 bg-brand-cream">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-start">
-          
           {/* Left: Map */}
           <div className="h-72 md:h-full w-full rounded-lg overflow-hidden shadow-lg">
             <iframe
@@ -73,23 +72,14 @@ export function Contact() {
           {/* Right: Contact Info */}
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold text-brand-blue">Noida Office</h2>
-            <ContactInfoCard
-              icon={Phone}
-              title="8400015666"
-              line1="All days 8:00 AM - 8:00 PM"
-            />
-            <ContactInfoCard
-              icon={Mail}
-              title="info@suvatsalya.in"
-              line1="Email us for queries"
-            />
+            <ContactInfoCard icon={Phone} title="8400015666" line1="All days 8:00 AM - 8:00 PM" />
+            <ContactInfoCard icon={Mail} title="info@suvatsalya.in" line1="Email us for queries" />
             <ContactInfoCard
               icon={MapPin}
               title="A-111, Sector-70"
               line1="Gautam Buddha Nagar, Noida, Pincode -201301"
             />
           </div>
-
         </div>
       </section>
     </div>

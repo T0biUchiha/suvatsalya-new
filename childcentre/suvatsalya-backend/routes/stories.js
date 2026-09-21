@@ -1,16 +1,22 @@
-import express from 'express';
-import Story from '../models/Story.js';
-import { protect } from '../middleware/authMiddleware.js';
-import { uploadStoryImage } from '../middleware/uploadMiddleware.js';
-import { sanitizeCmsText } from '../utils/sanitizeText.js';
-import { getPublicIdFromMulterFile, destroyByIdOrUrl } from '../utils/cloudinaryAsset.js';
+import express from "express";
+import Story from "../models/Story.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { uploadStoryImage } from "../middleware/uploadMiddleware.js";
+import { sanitizeArticleHtml } from "../utils/sanitizeText.js";
+import { ensureStorySlug, generateUniqueStorySlug } from "../utils/slugify.js";
+import mongoose from "mongoose";
+import {
+  getPublicIdFromMulterFile,
+  destroyByIdOrUrl,
+} from "../utils/cloudinaryAsset.js";
 
 const router = express.Router();
 
 // PUBLIC: GET ALL STORIES
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const stories = await Story.find().sort({ createdAt: -1 });
+    await Promise.all(stories.map((story) => ensureStorySlug(story)));
     res.status(200).json(stories);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
@@ -18,12 +24,16 @@ router.get('/', async (req, res) => {
 });
 
 // PUBLIC: GET A SINGLE STORY (detail page)
-router.get('/:id', async (req, res) => {
+router.get("/:slug", async (req, res) => {
   try {
-    const story = await Story.findById(req.params.id);
-    if (!story) {
-      return res.status(404).json({ message: 'Story not found' });
+    let story = await Story.findOne({ slug: req.params.slug });
+    if (!story && mongoose.isValidObjectId(req.params.slug)) {
+      story = await Story.findById(req.params.slug);
     }
+    if (!story) {
+      return res.status(404).json({ message: "Story not found" });
+    }
+    story = await ensureStorySlug(story);
     res.status(200).json(story);
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
@@ -31,7 +41,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // ADMIN: CREATE A NEW STORY (with image upload)
-router.post('/', protect, (req, res) => {
+router.post("/", protect, (req, res) => {
   uploadStoryImage(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ message: `Upload error: ${err}` });
@@ -39,16 +49,17 @@ router.post('/', protect, (req, res) => {
 
     const { title, story } = req.body;
     if (!title || !story) {
-      return res.status(400).json({ message: 'Title and story are required.' });
+      return res.status(400).json({ message: "Title and story are required." });
     }
 
     try {
       const newStory = new Story({
         title,
-        story: sanitizeCmsText(story),
-        imageUrl: req.file ? req.file.path : '',
-        imageName: req.file ? req.file.originalname : '',
-        cloudinaryImageId: req.file ? getPublicIdFromMulterFile(req.file) : '',
+        story: sanitizeArticleHtml(story),
+        slug: await generateUniqueStorySlug(title),
+        imageUrl: req.file ? req.file.path : "",
+        imageName: req.file ? req.file.originalname : "",
+        cloudinaryImageId: req.file ? getPublicIdFromMulterFile(req.file) : "",
       });
       const savedStory = await newStory.save();
       res.status(201).json(savedStory);
@@ -59,7 +70,7 @@ router.post('/', protect, (req, res) => {
 });
 
 // ADMIN: UPDATE A STORY (with optional image upload)
-router.put('/:id', protect, (req, res) => {
+router.put("/:id", protect, (req, res) => {
   uploadStoryImage(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ message: `Upload error: ${err}` });
@@ -70,13 +81,17 @@ router.put('/:id', protect, (req, res) => {
     try {
       const existing = await Story.findById(req.params.id);
       if (!existing) {
-        return res.status(404).json({ message: 'Story not found' });
+        return res.status(404).json({ message: "Story not found" });
       }
 
-      const updateData = { title, story: sanitizeCmsText(story) };
+      const updateData = { title, story: sanitizeArticleHtml(story) };
 
       if (req.file) {
-        await destroyByIdOrUrl(existing.cloudinaryImageId, existing.imageUrl, 'image');
+        await destroyByIdOrUrl(
+          existing.cloudinaryImageId,
+          existing.imageUrl,
+          "image",
+        );
         updateData.imageUrl = req.file.path;
         updateData.imageName = req.file.originalname;
         updateData.cloudinaryImageId = getPublicIdFromMulterFile(req.file);
@@ -95,16 +110,16 @@ router.put('/:id', protect, (req, res) => {
 });
 
 // ADMIN: DELETE A STORY
-router.delete('/:id', protect, async (req, res) => {
+router.delete("/:id", protect, async (req, res) => {
   try {
     const story = await Story.findById(req.params.id);
     if (!story) {
-      return res.status(404).json({ message: 'Story not found' });
+      return res.status(404).json({ message: "Story not found" });
     }
 
-    await destroyByIdOrUrl(story.cloudinaryImageId, story.imageUrl, 'image');
+    await destroyByIdOrUrl(story.cloudinaryImageId, story.imageUrl, "image");
     await story.deleteOne();
-    res.status(200).json({ message: 'Story deleted successfully' });
+    res.status(200).json({ message: "Story deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: `Server error: ${error.message}` });
   }
