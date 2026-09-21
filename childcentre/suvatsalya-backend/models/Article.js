@@ -27,15 +27,23 @@ const articleSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  relatedArticles: {
+  relatedLinks: {
     type: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Article'
+      title: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      url: {
+        type: String,
+        required: true,
+        trim: true
+      }
     }],
     default: [],
     validate: {
-      validator: (articles) => articles.length <= 4,
-      message: 'An article can have up to four related articles.'
+      validator: (links) => links.length <= 4,
+      message: 'An article can have up to four related links.'
     }
   }
 }, { timestamps: true });

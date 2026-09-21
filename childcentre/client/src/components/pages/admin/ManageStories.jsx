@@ -5,6 +5,7 @@ import { Button } from '../../layout/Button';
 import { FormSubmitOverlay } from '../../layout/FormSubmitOverlay';
 import { IMAGE_ACCEPT, pickImageFile, validateImageFile } from '../../../utils/fileValidation';
 import { RichTextEditor } from '../../layout/RichTextEditor';
+import { RelatedLinksFields } from '../../layout/RelatedLinksFields';
 import { buildSnippet } from '../../../utils/snippet';
 
 function getStorySubmitLabel(isSubmitting, editingId) {
@@ -21,6 +22,7 @@ export function ManageStories() {
   const [title, setTitle] = useState('');
   const [story, setStory] = useState('');
   const [image, setImage] = useState(null);
+  const [relatedLinks, setRelatedLinks] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formError, setFormError] = useState('');
@@ -47,6 +49,7 @@ export function ManageStories() {
     setTitle('');
     setStory('');
     setImage(null);
+    setRelatedLinks([]);
     setEditingId(null);
     setFormError('');
   };
@@ -62,6 +65,11 @@ export function ManageStories() {
       return;
     }
 
+    if (relatedLinks.some((link) => !link.title.trim() || !link.url.trim())) {
+      setFormError('Each related link needs both link text and a URL.');
+      return;
+    }
+
     if (image) {
       const check = validateImageFile(image);
       if (!check.valid) {
@@ -73,6 +81,7 @@ export function ManageStories() {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('story', story);
+    formData.append('relatedLinks', JSON.stringify(relatedLinks));
     if (image) {
       formData.append('image', image);
     }
@@ -92,7 +101,7 @@ export function ManageStories() {
       e.target.reset();
       fetchStories();
     } catch (err) {
-      setFormError('Failed to save story.');
+      setFormError(err.response?.data?.message || 'Failed to save story.');
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -104,6 +113,8 @@ export function ManageStories() {
     setTitle(s.title);
     setStory(s.story);
     setImage(null);
+    setRelatedLinks(s.relatedLinks || []);
+    setFormError('');
   };
 
   const handleDelete = async (id) => {
@@ -177,6 +188,8 @@ export function ManageStories() {
                   className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-brand-cream file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-teal hover:file:bg-brand-cream-dark"
                 />
               </div>
+
+              <RelatedLinksFields links={relatedLinks} onChange={setRelatedLinks} />
 
               <Button
                 text={getStorySubmitLabel(isSubmitting, editingId)}

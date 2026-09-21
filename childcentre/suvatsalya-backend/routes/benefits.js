@@ -4,6 +4,10 @@ import { protect } from "../middleware/authMiddleware.js";
 import { cloudinary } from "../config/cloudinary.js";
 import multer from "multer";
 import { sanitizeCmsText } from "../utils/sanitizeText.js";
+import {
+  parseRelatedLinks,
+  sendRelatedLinksSaveError,
+} from "../utils/relatedLinks.js";
 import { resolvePdfFileName } from "../utils/pdfDownload.js";
 import { destroyByIdOrUrl } from "../utils/cloudinaryAsset.js";
 import {
@@ -97,12 +101,13 @@ router.get("/:slug", async (req, res) => {
 // ---
 router.post("/", protect, upload, async (req, res) => {
   try {
-    const { title, description, websiteLink } = req.body;
+    const { title, description, websiteLink, relatedLinks } = req.body;
 
     const benefitData = {
       title,
       description: sanitizeCmsText(description),
       slug: await generateUniqueBenefitSlug(title),
+      relatedLinks: parseRelatedLinks(relatedLinks),
     };
 
     if (websiteLink) {
@@ -131,7 +136,7 @@ router.post("/", protect, upload, async (req, res) => {
     const savedBenefit = await newBenefit.save();
     res.status(201).json(savedBenefit);
   } catch (error) {
-    res.status(500).json({ message: `Server error: ${error.message}` });
+    sendRelatedLinksSaveError(res, error);
   }
 });
 
@@ -146,13 +151,14 @@ router.put("/:id", protect, upload, async (req, res) => {
       return res.status(404).json({ message: "Benefit not found" });
     }
 
-    const { title, description, websiteLink, removeImage, removePdf } =
+    const { title, description, websiteLink, relatedLinks, removeImage, removePdf } =
       req.body;
 
     if (title) benefit.title = title;
     if (description !== undefined)
       benefit.description = sanitizeCmsText(description);
     benefit.websiteLink = websiteLink || "";
+    benefit.relatedLinks = parseRelatedLinks(relatedLinks);
 
     if (req.files?.image?.[0]) {
       if (benefit.cloudinaryImageId) {
@@ -198,7 +204,7 @@ router.put("/:id", protect, upload, async (req, res) => {
     const updatedBenefit = await benefit.save();
     res.status(200).json(updatedBenefit);
   } catch (error) {
-    res.status(500).json({ message: `Server error: ${error.message}` });
+    sendRelatedLinksSaveError(res, error);
   }
 });
 

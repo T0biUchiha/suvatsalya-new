@@ -27,6 +27,19 @@ const storySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    relatedLinks: {
+      type: [
+        {
+          title: { type: String, required: true, trim: true },
+          url: { type: String, required: true, trim: true },
+        },
+      ],
+      default: [],
+      validate: {
+        validator: (links) => links.length <= 4,
+        message: "A story can have up to four related links.",
+      },
+    },
   },
   { timestamps: true },
 );

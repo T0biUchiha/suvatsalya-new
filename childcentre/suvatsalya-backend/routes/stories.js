@@ -3,6 +3,10 @@ import Story from "../models/Story.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { uploadStoryImage } from "../middleware/uploadMiddleware.js";
 import { sanitizeArticleHtml } from "../utils/sanitizeText.js";
+import {
+  parseRelatedLinks,
+  sendRelatedLinksSaveError,
+} from "../utils/relatedLinks.js";
 import { ensureStorySlug, generateUniqueStorySlug } from "../utils/slugify.js";
 import mongoose from "mongoose";
 import {
@@ -47,7 +51,7 @@ router.post("/", protect, (req, res) => {
       return res.status(400).json({ message: `Upload error: ${err}` });
     }
 
-    const { title, story } = req.body;
+    const { title, story, relatedLinks } = req.body;
     if (!title || !story) {
       return res.status(400).json({ message: "Title and story are required." });
     }
@@ -60,11 +64,12 @@ router.post("/", protect, (req, res) => {
         imageUrl: req.file ? req.file.path : "",
         imageName: req.file ? req.file.originalname : "",
         cloudinaryImageId: req.file ? getPublicIdFromMulterFile(req.file) : "",
+        relatedLinks: parseRelatedLinks(relatedLinks),
       });
       const savedStory = await newStory.save();
       res.status(201).json(savedStory);
     } catch (error) {
-      res.status(500).json({ message: `Server error: ${error.message}` });
+      sendRelatedLinksSaveError(res, error);
     }
   });
 });
@@ -76,7 +81,7 @@ router.put("/:id", protect, (req, res) => {
       return res.status(400).json({ message: `Upload error: ${err}` });
     }
 
-    const { title, story } = req.body;
+    const { title, story, relatedLinks } = req.body;
 
     try {
       const existing = await Story.findById(req.params.id);
@@ -84,7 +89,11 @@ router.put("/:id", protect, (req, res) => {
         return res.status(404).json({ message: "Story not found" });
       }
 
-      const updateData = { title, story: sanitizeArticleHtml(story) };
+      const updateData = {
+        title,
+        story: sanitizeArticleHtml(story),
+        relatedLinks: parseRelatedLinks(relatedLinks),
+      };
 
       if (req.file) {
         await destroyByIdOrUrl(
@@ -104,7 +113,7 @@ router.put("/:id", protect, (req, res) => {
       );
       res.status(200).json(updatedStory);
     } catch (error) {
-      res.status(500).json({ message: `Server error: ${error.message}` });
+      sendRelatedLinksSaveError(res, error);
     }
   });
 });

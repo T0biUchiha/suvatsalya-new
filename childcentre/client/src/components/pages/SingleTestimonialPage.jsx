@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { ContentImage } from '../layout/ContentImage';
 import { ArticleContent } from '../layout/ArticleContent';
+import { RelatedReading } from '../layout/RelatedReading';
 import { Seo } from '../layout/Seo';
 import { buildSnippet } from '../../utils/snippet';
 
@@ -77,6 +78,8 @@ export function SingleTestimonialPage() {
           <div className="mb-12">
             <ArticleContent content={story.story} />
           </div>
+
+          <RelatedReading links={story.relatedLinks} />
 
           <div className="border-t border-gray-200 pt-8">
             <Link

@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../../api';
 import { ExternalLink, FileText, ChevronRight } from 'lucide-react';
 import { ContentImage } from '../layout/ContentImage';
+import { RelatedReading } from '../layout/RelatedReading';
 import { Seo } from '../layout/Seo';
 import { buildSnippet } from '../../utils/snippet';
 
@@ -104,6 +105,8 @@ export function SingleBenefitPage() {
               </a>
             )}
           </div>
+
+          <RelatedReading links={benefit.relatedLinks} />
 
           <div className="border-t border-gray-200 pt-8">
             <Link

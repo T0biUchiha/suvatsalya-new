@@ -11,6 +11,7 @@ import {
   validateBenefitFiles,
 } from '../../../utils/fileValidation';
 import { handlePastePlainText } from '../../../utils/pastePlainText';
+import { RelatedLinksFields } from '../../layout/RelatedLinksFields';
 
 function getBenefitSubmitLabel(formLoading, editingId) {
   if (formLoading) return 'Saving…';
@@ -27,6 +28,7 @@ export function ManageBenefits() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [websiteLink, setWebsiteLink] = useState('');
+  const [relatedLinks, setRelatedLinks] = useState([]);
   const [image, setImage] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [formError, setFormError] = useState('');
@@ -58,6 +60,7 @@ export function ManageBenefits() {
     setTitle('');
     setDescription('');
     setWebsiteLink('');
+    setRelatedLinks([]);
     setImage(null);
     setPdf(null);
     setEditingId(null);
@@ -80,10 +83,17 @@ export function ManageBenefits() {
       return;
     }
 
+    if (relatedLinks.some((link) => !link.title.trim() || !link.url.trim())) {
+      setFormError('Each related link needs both link text and a URL.');
+      setFormLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('websiteLink', websiteLink);
+    formData.append('relatedLinks', JSON.stringify(relatedLinks));
     if (image) formData.append('image', image);
     if (pdf) formData.append('pdf', pdf);
     if (removeImage) formData.append('removeImage', 'true');
@@ -105,7 +115,10 @@ export function ManageBenefits() {
       fileInputs.forEach((input) => (input.value = ''));
       fetchBenefits();
     } catch (err) {
-      setFormError(editingId ? 'Failed to update benefit.' : 'Failed to create benefit.');
+      setFormError(
+        err.response?.data?.message ||
+          (editingId ? 'Failed to update benefit.' : 'Failed to create benefit.'),
+      );
       console.error(err);
     } finally {
       setFormLoading(false);
@@ -117,6 +130,7 @@ export function ManageBenefits() {
     setTitle(benefit.title);
     setDescription(benefit.description);
     setWebsiteLink(benefit.websiteLink || '');
+    setRelatedLinks(benefit.relatedLinks || []);
     setImage(null);
     setPdf(null);
     setRemoveImage(false);
@@ -309,6 +323,8 @@ export function ManageBenefits() {
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-brand-teal focus:ring-brand-teal text-gray-900 placeholder-gray-400"
                 />
               </div>
+
+              <RelatedLinksFields links={relatedLinks} onChange={setRelatedLinks} />
 
               <Button
                 text={getBenefitSubmitLabel(formLoading, editingId)}

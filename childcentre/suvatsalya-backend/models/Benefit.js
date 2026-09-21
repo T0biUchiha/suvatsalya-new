@@ -42,6 +42,19 @@ const benefitSchema = new mongoose.Schema(
       required: false,
       trim: true,
     },
+    relatedLinks: {
+      type: [
+        {
+          title: { type: String, required: true, trim: true },
+          url: { type: String, required: true, trim: true },
+        },
+      ],
+      default: [],
+      validate: {
+        validator: (links) => links.length <= 4,
+        message: "A benefit can have up to four related links.",
+      },
+    },
   },
   { timestamps: true },
 );
